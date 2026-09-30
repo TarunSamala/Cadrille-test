@@ -1,11 +1,17 @@
-# Image-to-CAD Jewellery Reconstruction
+# Image2CAD
 
-## Development roadmap, research plan, results and validation strategy
+## Image-to-CAD Jewellery Reconstruction
+
+### Development roadmap, research plan, results and validation strategy
 
 **Document status:** Working technical plan  
 **Current validated checkpoint:** Ring01 Phase 3.3.2  
 **Current scope:** Rings, pendants, necklaces, ornaments, multi-stone jewellery and sculptural jewellery  
 **Primary output:** Editable, component-aware CAD with traceable evidence and validation reports
+
+**Focused follow-up:** [High-Fidelity Five-View Jewellery Reconstruction](FIVE_VIEW_HIGH_FIDELITY_RECONSTRUCTION_REPORT.md) — depth, edge, texture, feasibility, compute plan and next validation milestones.
+
+**PDF edition:** [Image2CAD project roadmap](PROJECT_ROADMAP_AND_RESEARCH_PLAN.pdf)
 
 ![Current phase workflow](images/image2cad-phase-flowchart-v1.png)
 
@@ -46,6 +52,8 @@ No score from the first level will be presented as proof of the third.
 | Phase 3.3 | Fit valid exact solids against every view | Editable STEP, component solids, rendered comparisons and strict report | Ring01 numerical and topology targets pass |
 | Phase 3.3.1 | Make prongs individually addressable and smoothly curved | Four stable cubic claw IDs in one valid metal B-rep | Valid; image fit preserved |
 | Phase 3.3.2 | Correct inspection-view ambiguity | Reference-fitted previews in which all four prongs are visible | Valid; geometry unchanged |
+| Phase 3.4 | Fuse camera, depth and normal evidence | Calibrated cameras, aligned depth, normals, confidence and uncertainty volume | Planned benchmark; human truth and controlled capture required |
+| Phase 3.5 | Reconstruct material, texture and fine surface detail | PBR maps, relief/displacement and source-view confidence atlas | Planned research phase |
 | Phase 4 | Build a universal component and constraint engine | Editable stones, seats, cavities, supports and dependency graph | Next major implementation phase |
 | Phase 5 | Reconstruct free-form and sculptural detail | Relief/displacement evidence converted into constrained surface detail | Planned research phase |
 | Phase 6 | Validate manufacturing constraints | Metric, topology, clearance, wall-thickness and casting report | Blocked until scale and manufacturing rules are supplied |
@@ -163,51 +171,161 @@ Phase 3.3.1 also passes these topology checks:
 
 The per-view silhouette IoUs are front `0.854535`, side `0.813976`, top `0.871267`, angled `0.770454` and back `0.788398`. The current weak point is fine semantic agreement: component mean IoU is only about `0.37–0.45`, and human masks are unavailable. Phase 3 therefore has a valid checkpoint but has not reached the `0.90` research target or manufacturing accuracy.
 
-## 4. Problems encountered and what they taught us
+## 4. Depth, texture, edge and fine-detail reconstruction
 
-### 4.1 Reflections were mistaken for geometry
+The reconstruction cannot treat every visible line or colour change as physical shape. Polished metal, gemstones, enamel, shadows and engraving create different image signals. This extension separates base geometry, surface detail and appearance so the optimisation cannot turn a highlight into a groove or permanently bake a reflection into the metal colour.
+
+### 4.1 Required output layers
+
+The output should contain three independently validated layers:
+
+1. **Base geometry:** watertight metal bodies, settings, galleries, links, stones, seats and cavities.
+2. **Microgeometry:** engraving, embossed relief, deity faces, floral motifs, milgrain, ridges and displacement that materially changes the surface.
+3. **Appearance:** base colour, material identity, metalness, roughness, normal maps and view-dependent reflective behaviour.
+
+Every visible feature must retain source-view provenance and confidence. Detail supported by several views can become geometry. Detail visible in one reflective view remains a hypothesis until reviewed or supported by a known jewellery pattern.
+
+### 4.2 Camera, depth and normal ensemble
+
+There is no single trusted depth model. The planned benchmark uses independent branches and keeps their disagreements:
+
+| Branch | Proposed algorithms | Project role |
+| --- | --- | --- |
+| Classical multi-view geometry | COLMAP and OpenMVS | Recover inspectable camera poses, sparse structure, dense depth and a classical baseline |
+| Feed-forward multi-view geometry | Depth Anything 3 and VGGT | Predict spatially consistent depth, cameras, point maps and tracks from few views |
+| Dense correspondence | MASt3R / DUSt3R | Recover cross-view matches when reflective or low-texture regions defeat ordinary features |
+| Monocular depth | Depth Pro and Depth Anything V2 Small | Supply sharp boundary and near/far priors without being treated as ground truth |
+| Surface normals | DSINE | Preserve curved metal, facets and shallow relief that depth alone may smooth away |
+
+Successful camera solutions will be aligned into one coordinate frame and scored by source-view reprojection. Depth and normal predictions will be fused only where they agree with segmentation, camera geometry and another view. Reflection/shadow probability, occlusion boundaries and model disagreement reduce confidence.
+
+The fused representation should store:
+
+- camera intrinsics, extrinsics and uncertainty per view;
+- depth and normal maps with confidence;
+- object/component masks and edge classes;
+- a signed-distance, occupancy or TSDF volume;
+- observed, inferred and unobserved surface labels;
+- source-view support for every reconstructed region.
+
+### 4.3 Edge classification
+
+Before an edge changes geometry, it must be classified:
+
+| Edge type | Geometry treatment |
+| --- | --- |
+| Outer silhouette | Strong camera-specific geometric constraint |
+| Component occlusion | Depth-order and component-placement constraint |
+| Crease, ridge or relief boundary | Candidate curve, normal or displacement constraint |
+| Material/enamel boundary | Texture or material mask unless depth evidence agrees |
+| Specular highlight | Lighting/BRDF evidence; never geometry by itself |
+| Cast/contact shadow | Weak spatial cue; excluded from object silhouette |
+| Gemstone facet line | Parametric cut evidence combined with multi-view reflection-aware reasoning |
+
+OpenCV Canny/contours remain the deterministic baseline. TEED can propose learned fine edges, while HQ-SAM/HQ-SAM 2 can refine intricate boundaries. The final edge class and component identity require cross-view support or review.
+
+### 4.4 Texture and reflective-material reconstruction
+
+The texture path should generate separate physically based maps rather than one flattened photograph:
+
+- base colour or albedo;
+- metalness/material class;
+- roughness;
+- normal map;
+- displacement/height where geometry is supported;
+- optional ambient-occlusion preview;
+- source-view visibility and confidence atlas.
+
+Source images must be exposure- and white-balance-normalised. Texture baking should weight each camera by focus, view angle, occlusion, resolution, highlight probability and agreement with neighbouring views. Incompatible observations are not averaged blindly.
+
+For reflective jewellery, NeRO and nvdiffrec are research candidates for separating geometry, BRDF, material and lighting. PyTorch3D or nvdiffrast can drive differentiable render-and-compare fitting. These systems supply evidence and appearance parameters; they do not replace exact jewellery CAD.
+
+Metal and gemstones need explicit rules:
+
+- polished-metal highlights belong to lighting/BRDF, not permanent albedo;
+- enamel, paint and patina belong to material masks and base colour;
+- engraving that affects silhouette, shadows or manufacture becomes geometry/displacement;
+- gemstones use a named parametric cut and material, not baked sparkle;
+- a facet or motif visible in only one view remains low confidence.
+
+### 4.5 Five-view feasibility and capture upgrade
+
+Five views can constrain principal silhouettes, component layout, broad visible depth, negative spaces and medium detail. They cannot prove hidden surfaces, absolute millimetres, internal wall thickness, gemstone pavilions or physically correct reflective materials.
+
+Five-view input remains supported, but the preferred capture for high-detail validation is:
+
+- the same physical object in every frame;
+- fixed focal length, focus, exposure and white balance;
+- one measured dimension or scale marker;
+- neutral background and substantial overlap;
+- front, back, sides, top, underside and oblique coverage;
+- 12–36 turntable frames when available;
+- macro images for faces, idols, engraving and stone settings;
+- a cross-polarised diffuse pass to reduce glare;
+- a reflective-light pass for material estimation.
+
+The pipeline should request more views automatically when the five-view confidence map shows unobserved regions or cross-view disagreement.
+
+### 4.6 Depth and texture validation gates
+
+| Layer | Required validation |
+| --- | --- |
+| Camera | Reprojection error, focal plausibility, pose consistency and correct view ordering |
+| Depth | Cross-view agreement and AbsRel/RMSE against scan or CAD where available |
+| Normals | Mean/median angular error and edge-aware normal error |
+| Geometry | Per-view silhouette/boundary scores plus Chamfer, Hausdorff or signed scan-to-CAD deviation |
+| Components | Correct count, stable IDs, pose/dimension errors and no merged stones/prongs |
+| Texture | Photometric metrics, seam error, view consistency and baked-highlight test |
+| Material | Neutral relighting test proving reflections are not fixed into albedo |
+| Uncertainty | Observed, inferred and unknown surfaces reported separately |
+
+The benchmark must include five-view and dense-view versions of the same measured object. This isolates the loss caused by sparse evidence from the loss caused by the selected model.
+
+## 5. Problems encountered and what they taught us
+
+### 5.1 Reflections were mistaken for geometry
 
 Polished metal produces elongated highlights, while gemstones create reflection and refraction patterns that change with viewpoint. Machine masks classified some highlights as physical openings. The accepted correction filled only reviewed elongated highlight regions and preserved actual gallery openings.
 
 **Lesson:** image intensity cannot directly define solid/empty geometry. Reflection evidence must be stored separately, and ambiguous regions require review or physically based multi-view reasoning.
 
-### 4.2 One camera model did not fit independently framed references
+### 5.2 One camera model did not fit independently framed references
 
 A shared camera-distance experiment reduced the proxy objective from the accepted `0.561208` to `0.554328`, and front IoU fell to `0.532439`.
 
 **Lesson:** product renders may be independently cropped or rendered. Each view needs its own camera hypothesis unless a calibrated capture proves shared intrinsics.
 
-### 4.3 A better proxy score produced worse exact CAD
+### 5.3 A better proxy score produced worse exact CAD
 
 Unconstrained fitting to automatically extracted prong instances increased its local objective but reduced exact mean silhouette IoU to `0.785103`, detail IoU to `0.733825` and boundary F1 to `0.759235`. It also exported five detached metal solids.
 
 **Lesson:** machine instance masks are diagnostic proposals. Topology constraints and exact exported-CAD validation must outrank an optimizer’s internal score.
 
-### 4.4 Segmented curved tubes failed at Boolean seams
+### 5.4 Segmented curved tubes failed at Boolean seams
 
 Piecewise cone segments approximated curved claws visually but created an invalid Boolean seam.
 
 **Lesson:** smooth multi-section lofts are preferable for claws and organic supports because they preserve both curvature and B-rep validity.
 
-### 4.5 A preview made an existing prong look missing
+### 5.5 A preview made an existing prong look missing
 
 The first isometric camera aligned with a 45-degree prong axis, projecting one claw through the gemstone centre. The STEP already contained four named claws.
 
 **Lesson:** geometry validation and presentation-camera validation are separate. Inspection views must be chosen so important parts do not occlude one another.
 
-### 4.6 High 2D scores can hide unresolved 3D structure
+### 5.6 High 2D scores can hide unresolved 3D structure
 
 Visual-hull reprojection exceeds `0.94` on the dataset, yet no camera calibration, physical scale, individual component truth or hidden-surface truth exists.
 
 **Lesson:** every report must identify what its metric measures. Silhouette agreement, semantic accuracy, 3D surface error, topology validity and manufacturing readiness are different claims.
 
-### 4.7 The dataset is small and incompletely labelled
+### 5.7 The dataset is small and incompletely labelled
 
 The current 120 images represent only 24 independent objects. They have no paired CAD, camera parameters, dimensions, individual stones, seats or material labels.
 
 **Lesson:** use this dataset for preprocessing, self-supervised multi-view experiments and qualitative stress tests. It cannot train or evaluate exact image-to-CAD reconstruction by itself.
 
-## 5. Next implementation programme
+## 6. Next implementation programme
 
 ### Milestone A: establish defensible ground truth
 
@@ -289,11 +407,11 @@ The initial rules should be treated as project configuration and reviewed by a j
 
 **Exit gate:** a reviewed checklist passes on the authoritative STEP, and physical measurements or scans validate critical dimensions.
 
-## 6. Algorithms and open-source projects
+## 7. Algorithms and open-source projects
 
 The project should use an ensemble: deterministic vision for measurable evidence, learned models for ambiguous perception, multi-view geometry for consistency, and exact CAD kernels for editable solids. No single model is expected to solve all four tasks.
 
-### 6.1 In use now
+### 7.1 In use now
 
 | Project or algorithm | Current use | Why it fits |
 | --- | --- | --- |
@@ -308,7 +426,7 @@ The project should use an ensemble: deterministic vision for measurable evidence
 
 PyTorch3D is present in the research environment and remains useful for differentiable rendering, camera transforms and mesh losses, but the current reported Phase 3.3 results should be attributed to the repository’s exact-solid render-and-compare path, not to PyTorch3D.
 
-### 6.2 Highest-priority additions
+### 7.2 Highest-priority additions
 
 | Project | Proposed role | Benefits and limits | Integration priority |
 | --- | --- | --- | --- |
@@ -321,7 +439,7 @@ PyTorch3D is present in the research environment and remains useful for differen
 | [Blender](https://projects.blender.org/blender/blender) | Synthetic jewellery data, organic detail, Boolean experiments and physically based rendering | Excellent research workbench; accepted solids must still pass CAD/topology validation | High |
 | [Manifold](https://github.com/elalish/manifold) | Robust mesh Booleans and manifold repair | Useful for derived print meshes and stress-testing complex cutters; it does not replace exact STEP construction | Medium-high |
 
-### 6.3 Multi-view and reflective-object research candidates
+### 7.3 Multi-view and reflective-object research candidates
 
 | Project | Where it may help | Practical constraint |
 | --- | --- | --- |
@@ -339,7 +457,7 @@ PyTorch3D is present in the research environment and remains useful for differen
 
 Neural or Gaussian representations should be used as **evidence and geometric priors**, especially for visible free-form detail. Their mesh output must pass through component recovery, exact-solid reconstruction and the same validation gates as every other candidate.
 
-### 6.4 Coarse generative 3D candidates
+### 7.4 Coarse generative 3D candidates
 
 Models such as [TRELLIS](https://github.com/microsoft/TRELLIS), [Hunyuan3D-2](https://github.com/Tencent/Hunyuan3D-2) and [InstantMesh](https://github.com/TencentARC/InstantMesh) may provide a coarse semantic starting shape or novel-view prior. They should not be used as authoritative jewellery CAD because generated meshes can invent hidden details, merge components and violate seat, prong and wall-thickness constraints.
 
@@ -351,7 +469,7 @@ Their correct role is optional initialization:
 4. discard any unsupported generated detail;
 5. rebuild and validate the final CAD independently.
 
-### 6.5 Jewellery-specific references
+### 7.5 Jewellery-specific references
 
 There is no mature open-source model found that converts arbitrary jewellery photographs directly into manufacturing-accurate, editable CAD. The closest public work is useful as reference material rather than as a complete replacement:
 
@@ -364,7 +482,7 @@ There is no mature open-source model found that converts arbitrary jewellery pho
 
 The lack of a complete open solution supports the project’s hybrid approach: combine general vision and 3D research with jewellery-specific constraints and editable CAD generation.
 
-### 6.6 Useful datasets and benchmarks
+### 7.6 Useful datasets and benchmarks
 
 | Dataset | Possible use | Limitation |
 | --- | --- | --- |
@@ -378,7 +496,7 @@ The lack of a complete open solution supports the project’s hybrid approach: c
 
 The most valuable new dataset will be project-owned synthetic-plus-real jewellery data. Blender can render exact CAD with randomized metal, gemstone optics, HDR lighting, camera poses and backgrounds while exporting perfect masks, depth, normals, component IDs and metric geometry. Real captured pieces and scans are then required to measure the synthetic-to-real gap.
 
-## 7. Efficient experiment order for the available laptop
+## 8. Efficient experiment order for the available laptop
 
 The current machine has a 4 GB GPU. It can support the existing OpenCV, SAM 2.1 Tiny, small U-Net, CadQuery and low-resolution visual-hull workflow. The next experiments should be ordered by evidence gained per compute cost:
 
@@ -392,9 +510,9 @@ The current machine has a 4 GB GPU. It can support the existing OpenCV, SAM 2.1 
 
 This avoids spending days on a heavy model before the ground truth needed to judge it exists.
 
-## 8. Validation and acceptance gates
+## 9. Validation and acceptance gates
 
-### 8.1 Visual and structural gate
+### 9.1 Visual and structural gate
 
 The current Phase 3 research target is:
 
@@ -410,7 +528,7 @@ The current Phase 3 research target is:
 
 These scores become defensible only after target masks are human-reviewed.
 
-### 8.2 Component-editability gate
+### 9.2 Component-editability gate
 
 - every stone and support has a stable ID;
 - no cross-view identity conflict remains;
@@ -419,7 +537,7 @@ These scores become defensible only after target masks are human-reviewed.
 - metal and stone remain separate valid solids;
 - no floating, duplicate or intersecting components remain.
 
-### 8.3 Manufacturing gate
+### 9.3 Manufacturing gate
 
 - physical scale is calibrated from a known measurement or scan;
 - critical dimensions are compared against external measurement;
@@ -429,7 +547,7 @@ These scores become defensible only after target masks are human-reviewed.
 - derived STL/3MF is watertight and dimensionally consistent with STEP;
 - a domain specialist approves manufacturing assumptions.
 
-## 9. How reports will drive development
+## 10. How reports will drive development
 
 Every run should create a versioned folder and never overwrite an accepted checkpoint. At minimum it should contain:
 
@@ -472,17 +590,18 @@ Each validation report should record:
 
 An experiment moves forward only when it improves the intended metric without regressing required topology or another principal view. Rejected approaches remain documented with their measurements so they are not accidentally repeated.
 
-## 10. Immediate next report sequence
+## 11. Immediate next report sequence
 
 1. **Ground-truth report:** reviewed Ring01 masks, component IDs, known dimensions and uncertainty.
 2. **Segmentation benchmark report:** SAM 2.1 Tiny versus HQ-SAM versus Grounded SAM 2 on whole jewellery, stones, prongs, negative spaces and fine details.
 3. **Camera/depth benchmark report:** COLMAP, VGGT and lightweight depth/normal priors on the same calibrated capture.
-4. **Phase 3.4 report:** exact-solid re-fit against human ground truth with full per-view/component comparisons.
-5. **Parametric edit report:** individual stone resize/removal/replacement and automatically regenerated cavity/seat.
-6. **Complex-detail report:** one face/idol/relief sample reconstructed with the hybrid B-rep plus free-form surface path.
-7. **Manufacturing report:** metric and topology validation, followed by independent CAD inspection and, when available, scan-to-CAD deviation.
+4. **Texture/BRDF report:** albedo, material, roughness, normal and displacement reconstruction with reflection-separation tests.
+5. **Phase 3.4 report:** exact-solid re-fit against human ground truth with full per-view/component comparisons.
+6. **Parametric edit report:** individual stone resize/removal/replacement and automatically regenerated cavity/seat.
+7. **Complex-detail report:** one face/idol/relief sample reconstructed with the hybrid B-rep plus free-form surface path.
+8. **Manufacturing report:** metric and topology validation, followed by independent CAD inspection and, when available, scan-to-CAD deviation.
 
-## 11. Definition of success
+## 12. Definition of success
 
 The project succeeds when a new jewellery design can pass through the same evidence, review, reconstruction and validation system without adding design-specific hard-coded assumptions.
 
