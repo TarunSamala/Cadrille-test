@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Image2CAD Dataset Studio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='studio.css') }}">
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">I2C</div>
+          <div>
+            <strong>Dataset Studio</strong>
+            <span>Image2CAD research console</span>
+          </div>
+        </div>
+
+        <section class="side-section">
+          <label for="split-filter">Dataset split</label>
+          <select id="split-filter">
+            <option value="all">All objects</option>
+            <option value="train">Training</option>
+            <option value="val">Validation</option>
+            <option value="test">Held-out test</option>
+          </select>
+        </section>
+
+        <section class="side-section grow">
+          <div class="side-heading">
+            <span>Objects</span>
+            <span id="object-count" class="counter">—</span>
+          </div>
+          <div id="object-list" class="object-list" aria-live="polite"></div>
+        </section>
+
+        <div class="read-only-note">
+          <span class="status-dot"></span>
+          Read-only evidence browser
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">STL-1 / VERSIONED DATASET</p>
+            <h1>Jewellery reconstruction evidence</h1>
+            <p class="subtitle">Inspect source views, normalization, silhouettes, edges and experimental 3D outputs without rerunning the GPU pipeline.</p>
+          </div>
+          <a id="report-download" class="button secondary disabled" href="#" download>Download evidence JSON</a>
+        </header>
+
+        <div id="error-banner" class="error-banner hidden" role="alert"></div>
+
+        <section id="dataset-metrics" class="metric-grid loading-block" aria-label="Dataset summary"></section>
+
+        <section class="truth-banner">
+          <div class="truth-icon">!</div>
+          <div>
+            <strong>Research evidence, not manufacturing validation</strong>
+            <p>Phase 2 scores compare against pseudo-silhouettes. Phase 3 meshes are non-metric visual hulls with assumed cameras; they are not editable CAD and do not resolve hidden cavities or component topology.</p>
+          </div>
+        </section>
+
+        <section id="object-workspace" class="workspace hidden">
+          <div class="section-heading object-heading">
+            <div>
+              <p class="eyebrow" id="object-path">DATASET OBJECT</p>
+              <h2 id="object-title">—</h2>
+            </div>
+            <div id="object-badges" class="badges"></div>
+          </div>
+
+          <nav class="tab-bar" aria-label="Object evidence sections">
+            <button class="tab active" data-panel="views">Five-view evidence</button>
+            <button class="tab" data-panel="audits">Phase audits</button>
+            <button class="tab" data-panel="phase3">Experimental 3D</button>
+            <button class="tab" data-panel="metadata">Metadata</button>
+          </nav>
+
+          <div id="panel-views" class="tab-panel active">
+            <div class="toolbar">
+              <div>
+                <strong>Image layer</strong>
+                <span>Switch all five cameras together</span>
+              </div>
+              <div id="layer-switcher" class="segmented-control" role="group" aria-label="Image layer">
+                <button data-layer="source" class="active">Reference</button>
+                <button data-layer="normalized">Normalized</button>
+                <button data-layer="mask">Silhouette</button>
+                <button data-layer="edges">Edges</button>
+                <button data-layer="view_audit">Phase audit</button>
+              </div>
+            </div>
+            <div id="view-grid" class="view-grid"></div>
+          </div>
+
+          <div id="panel-audits" class="tab-panel">
+            <article class="evidence-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">PHASE 1 → PHASE 2.2</p>
+                  <h3>Per-object phase comparison</h3>
+                </div>
+                <span class="pill pass">Retained artifact</span>
+              </div>
+              <img id="phase-sheet" class="wide-evidence" alt="Per-object phase comparison">
+            </article>
+            <article id="held-out-card" class="evidence-card hidden">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">HELD-OUT EVALUATION</p>
+                  <h3>Prediction review sheet</h3>
+                </div>
+                <span class="pill test">Test split</span>
+              </div>
+              <img id="held-out-review" class="wide-evidence" alt="Held-out prediction review">
+            </article>
+          </div>
+
+          <div id="panel-phase3" class="tab-panel">
+            <div class="two-column">
+              <article class="evidence-card">
+                <div class="card-heading">
+                  <div>
+                    <p class="eyebrow">PHASE 3 / VISUAL HULL</p>
+                    <h3>Generated mesh preview</h3>
+                  </div>
+                  <span class="pill warning">Non-metric</span>
+                </div>
+                <img id="phase3-preview" class="wide-evidence" alt="Experimental Phase 3 comparison">
+              </article>
+              <article class="evidence-card metric-card">
+                <div class="card-heading">
+                  <div>
+                    <p class="eyebrow">VALIDATION</p>
+                    <h3>Reprojection and mesh checks</h3>
+                  </div>
+                </div>
+                <div id="phase3-metrics"></div>
+                <div class="download-stack">
+                  <a id="download-stl" class="button primary" href="#">Download STL</a>
+                  <a id="download-3mf" class="button secondary" href="#">Download 3MF</a>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <div id="panel-metadata" class="tab-panel">
+            <div class="two-column metadata-layout">
+              <article class="evidence-card">
+                <p class="eyebrow">FIVE-VIEW RECORD</p>
+                <h3>View measurements</h3>
+                <div class="table-wrap">
+                  <table>
+                    <thead><tr><th>View</th><th>Source px</th><th>Occupancy</th><th>IoU</th><th>Boundary F1</th></tr></thead>
+                    <tbody id="metadata-rows"></tbody>
+                  </table>
+                </div>
+              </article>
+              <article class="evidence-card">
+                <p class="eyebrow">AVAILABLE SUPERVISION</p>
+                <h3>Ground-truth status</h3>
+                <div id="supervision-list" class="key-value-list"></div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="dataset-evidence">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">DATASET-WIDE EVIDENCE</p>
+              <h2>Current pipeline outputs</h2>
+            </div>
+          </div>
+          <div class="overview-grid">
+            <article class="evidence-card"><h3>Five-view overview</h3><img src="/api/artifacts/multiview_overview" alt="Dataset multi-view overview" loading="lazy"></article>
+            <article class="evidence-card"><h3>Processing comparison</h3><img src="/api/artifacts/processing_comparison" alt="Dataset processing comparison" loading="lazy"></article>
+            <article class="evidence-card"><h3>Held-out predictions</h3><img src="/api/artifacts/held_out_comparison" alt="Held-out prediction comparison" loading="lazy"></article>
+          </div>
+        </section>
+
+        <footer>Image2CAD Dataset Studio · Local research interface · No cloud uploads</footer>
+      </main>
+    </div>
+    <script src="{{ url_for('static', filename='studio.js') }}" defer></script>
+  </body>
+</html>
