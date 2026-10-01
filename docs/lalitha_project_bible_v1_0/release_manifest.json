@@ -1,0 +1,129 @@
+{
+  "release": "Lalitha Project Bible \u2014 Baseline Architecture V1.0",
+  "date": "2026-09-29",
+  "status": "accepted_with_conditions",
+  "manufacturing_accuracy_validated": false,
+  "current_checkpoint": "Ring01 Phase 3.3.2",
+  "files": [
+    {
+      "name": "00_RELEASE_STATUS.md",
+      "bytes": 4191,
+      "sha256": "4b5932dd6db41aa933c6203014bb8cf8ab2acb86bcc394d024bbd65fefcc2652"
+    },
+    {
+      "name": "01_PROJECT_KNOWLEDGE_LEDGER.csv",
+      "bytes": 18168,
+      "sha256": "a41f56049381b774062d23bbda39e281ed1dce16ac8c27911638587dc6f7be23"
+    },
+    {
+      "name": "01_PROJECT_KNOWLEDGE_LEDGER.md",
+      "bytes": 19775,
+      "sha256": "6da3175f4df746a3c7c15f015d9062466f0888771f0480f10651b7a37ad8a586"
+    },
+    {
+      "name": "02_HISTORICAL_DECISION_TIMELINE.md",
+      "bytes": 3233,
+      "sha256": "eefcfa9dafb795f057d6a137ecb960b643acbfb43f9a716592153562955a65ad"
+    },
+    {
+      "name": "03_METHOD_TECHNOLOGY_INVENTORY.md",
+      "bytes": 7305,
+      "sha256": "5e9c97a830f514ea2fbd8ff898483ed409aaafc7f9de6862bccaa6b4d736eb0d"
+    },
+    {
+      "name": "04_DUPLICATE_REDUNDANCY_MATRIX.md",
+      "bytes": 2753,
+      "sha256": "816a0304ab708ac798691f9cc0d2d8b44dbfedb02a591a9768d704d0403eae9c"
+    },
+    {
+      "name": "05_CONTRADICTION_REGISTER.md",
+      "bytes": 4075,
+      "sha256": "76fcc73c43e484c931b1511a827f5facbb228da9439b557723ed72136c318774"
+    },
+    {
+      "name": "06_DEPRECATED_ARCHITECTURE_REGISTER.md",
+      "bytes": 2342,
+      "sha256": "94c1f7f75a4e4d7bd02b3f1d44d2b8a00e7a77359f43e5ab821ca579cbd657be"
+    },
+    {
+      "name": "07_SCIENTIFIC_PROBLEM_FORMULATION.md",
+      "bytes": 7192,
+      "sha256": "0325f2fe75c14a4cd4da045c7f0957201555c821d7f1031b4c36a8c8dfcccbaf"
+    },
+    {
+      "name": "08_FINAL_ARCHITECTURE_V1_0.md",
+      "bytes": 9073,
+      "sha256": "95ea0e090477c458dedee9dc822d76ad2f1455d9f4489c64712b1b02c2a2b6b4"
+    },
+    {
+      "name": "09_ARCHITECTURE_DECISION_RECORDS.md",
+      "bytes": 4720,
+      "sha256": "392e91bded9df5c95a26a5e0d2ea4a664355353b3329f8b6cb668fbdcb114789"
+    },
+    {
+      "name": "10_MODULE_DEPENDENCY_GRAPH.md",
+      "bytes": 1707,
+      "sha256": "e1ec67ff730fb2f404508d09517b008abf984fcb4b0dc76717d6f2327584e060"
+    },
+    {
+      "name": "11_RESEARCH_PAPER_MAP.md",
+      "bytes": 7544,
+      "sha256": "05ceb4e895994a5d7330ef10acd7025450292e60b49881717629f72fe00b331d"
+    },
+    {
+      "name": "12_GITHUB_OPEN_SOURCE_MAP.md",
+      "bytes": 5878,
+      "sha256": "9b84647c8e662d4c8a377f1a113bfa954a2f75402169172e59d82ebae456bd8c"
+    },
+    {
+      "name": "13_DATASET_MAP.md",
+      "bytes": 4018,
+      "sha256": "ede554602cdace73fa2ef54b4be95841555fb3de6c37a430fa5910de761a223c"
+    },
+    {
+      "name": "14_TRAINING_STRATEGY.md",
+      "bytes": 4423,
+      "sha256": "9ff977651ad86d7131580609826c8073fcbc7d23c8f05bf0dd7b70f454713ac4"
+    },
+    {
+      "name": "15_BENCHMARK_VALIDATION_PLAN.md",
+      "bytes": 4650,
+      "sha256": "6b2003a5d344f0ef786318e0f935626c840fcd3d51ea2583dd1816d064509b51"
+    },
+    {
+      "name": "16_EXPERIMENT_BACKLOG.md",
+      "bytes": 5195,
+      "sha256": "9a2637453babba1ce7da9a3dffce4126926e81607ffe1219bca4dd1304580625"
+    },
+    {
+      "name": "17_RISK_REGISTER.md",
+      "bytes": 3756,
+      "sha256": "54756a9dcecc2babc22f9501488b5e183d308520e0509285f3d614e234905c60"
+    },
+    {
+      "name": "18_RESEARCH_GAP_ANALYSIS.md",
+      "bytes": 3538,
+      "sha256": "0defb18feecb9908a8e51694d9669ece078d64d371f0e946a9e7429ae80ede5f"
+    },
+    {
+      "name": "19_DEVELOPMENT_ROADMAP.md",
+      "bytes": 4006,
+      "sha256": "4f9818ac15d27e7018042b6c76fbb6a75d39fca452684b7f6f388f9fb99b8749"
+    },
+    {
+      "name": "20_COMPLETE_PROJECT_BIBLE.md",
+      "bytes": 38671,
+      "sha256": "04e11bf6be7cd8d29644788a98e995f8f874ebe0c7010c50d1c4df4d74b9cdba"
+    },
+    {
+      "name": "README.md",
+      "bytes": 2113,
+      "sha256": "54463ae0805da82eef8ae1f10d642a6f5db06a239363dba62b9ddf51213e61f1"
+    },
+    {
+      "name": "SOURCE_INDEX.md",
+      "bytes": 3497,
+      "sha256": "8359a93e6e1063f764d99d20232bd4376f8e2b0ac23c6082fe6e9e53fd915cad"
+    }
+  ]
+}
