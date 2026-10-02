@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="color-scheme" content="dark">
-    <title>Image2CAD Dataset Studio</title>
+    <title>Lalitha Studio</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='studio.css') }}">
   </head>
   <body>
     <div class="app-shell">
       <aside class="sidebar">
         <div class="brand">
-          <div class="brand-mark" aria-hidden="true">I2C</div>
+          <div class="brand-mark" aria-hidden="true">L</div>
           <div>
-            <strong>Dataset Studio</strong>
-            <span>Image2CAD research console</span>
+            <strong>Lalitha Studio</strong>
+            <span>Evidence and review console</span>
           </div>
         </div>
 
@@ -45,11 +45,11 @@
       <main class="main-content">
         <header class="topbar">
           <div>
-            <p class="eyebrow">STL-1 / VERSIONED DATASET</p>
-            <h1>Jewellery reconstruction evidence</h1>
-            <p class="subtitle">Inspect source views, normalization, silhouettes, edges and experimental 3D outputs without rerunning the GPU pipeline.</p>
+            <p class="eyebrow">LALITHA / STL-1 / TIER A</p>
+            <h1>Evidence and benchmark console</h1>
+            <p class="subtitle">Inspect immutable source views, derived evidence and research-only geometry without silently promoting inference to CAD truth.</p>
           </div>
-          <a id="report-download" class="button secondary disabled" href="#" download>Download evidence JSON</a>
+          <a id="report-download" class="button secondary disabled" href="#" download>Download evidence record</a>
         </header>
 
         <div id="error-banner" class="error-banner hidden" role="alert"></div>
@@ -59,10 +59,11 @@
         <section class="truth-banner">
           <div class="truth-icon">!</div>
           <div>
-            <strong>Research evidence, not manufacturing validation</strong>
-            <p>Phase 2 scores compare against pseudo-silhouettes. Phase 3 meshes are non-metric visual hulls with assumed cameras; they are not editable CAD and do not resolve hidden cavities or component topology.</p>
+            <strong>Evidence first. Exact CAD is authoritative.</strong>
+            <p>Phase 2 scores measure agreement with machine pseudo-labels, not human-ground-truth accuracy. Phase 3 meshes are inferred, non-metric visual hulls—not editable B-rep, metric reconstruction or manufacturing validation.</p>
           </div>
         </section>
+        <section id="governance-summary" class="metric-grid governance-grid" aria-label="Project Bible status"></section>
 
         <section id="object-workspace" class="workspace hidden">
           <div class="section-heading object-heading">
@@ -77,6 +78,7 @@
             <button class="tab active" data-panel="views">Five-view evidence</button>
             <button class="tab" data-panel="audits">Phase audits</button>
             <button class="tab" data-panel="phase3">Experimental 3D</button>
+            <button class="tab" data-panel="bible">Bible gates</button>
             <button class="tab" data-panel="metadata">Metadata</button>
           </nav>
 
@@ -126,9 +128,9 @@
                 <div class="card-heading">
                   <div>
                     <p class="eyebrow">PHASE 3 / VISUAL HULL</p>
-                    <h3>Generated mesh preview</h3>
+                    <h3>Derived research-mesh preview</h3>
                   </div>
-                  <span class="pill warning">Non-metric</span>
+                  <span class="pill warning">Inferred · non-metric</span>
                 </div>
                 <img id="phase3-preview" class="wide-evidence" alt="Experimental Phase 3 comparison">
               </article>
@@ -141,11 +143,30 @@
                 </div>
                 <div id="phase3-metrics"></div>
                 <div class="download-stack">
-                  <a id="download-stl" class="button primary" href="#">Download STL</a>
-                  <a id="download-3mf" class="button secondary" href="#">Download 3MF</a>
+                  <a id="download-stl" class="button primary" href="#">Research STL</a>
+                  <a id="download-3mf" class="button secondary" href="#">Research 3MF</a>
                 </div>
               </article>
             </div>
+          </div>
+
+          <div id="panel-bible" class="tab-panel">
+            <div class="two-column metadata-layout">
+              <article class="evidence-card">
+                <p class="eyebrow">BASELINE ARCHITECTURE V1.0</p>
+                <h3>Hard-gate status</h3>
+                <div id="bible-gates" class="key-value-list"></div>
+              </article>
+              <article class="evidence-card">
+                <p class="eyebrow">PROVENANCE STATE</p>
+                <h3>Evidence records</h3>
+                <div id="evidence-records" class="key-value-list"></div>
+              </article>
+            </div>
+            <article class="evidence-card authority-card">
+              <p class="eyebrow">ARTIFACT AUTHORITY</p>
+              <h3 id="artifact-authority">—</h3>
+            </article>
           </div>
 
           <div id="panel-metadata" class="tab-panel">
@@ -183,7 +204,7 @@
           </div>
         </section>
 
-        <footer>Image2CAD Dataset Studio · Local research interface · No cloud uploads</footer>
+        <footer>Lalitha Studio · Evidence-first local research interface · No cloud uploads</footer>
       </main>
     </div>
     <script src="{{ url_for('static', filename='studio.js') }}" defer></script>

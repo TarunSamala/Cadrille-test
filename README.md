@@ -39,7 +39,7 @@ Phase 3.3.1 currently reaches mean silhouette IoU `0.8197`, detail IoU `0.7874` 
 Each phase writes to its own directory. New refinement work should create or resume a versioned phase instead of overwriting an earlier checkpoint.
 See [Repository structure](docs/REPOSITORY_STRUCTURE.md) for the dataset-run layout and file-placement conventions.
 See [Jewellery Phase Auditor](docs/UPLOAD_AUDITOR.md) for the one-image and five-view upload program.
-See [Dataset Studio](docs/DATASET_STUDIO.md) for the local STL-1 browser, phase comparisons, metrics and 3D artifact downloads.
+See [Lalitha Studio](docs/DATASET_STUDIO.md) for the Bible-aligned local evidence browser, phase comparisons, hard-gate status and research artifact downloads.
 See [Phase workflow](docs/images/image2cad-phase-flowchart-v1.png) for the complete visual pipeline.
 
 Phase 2.3 adds category-independent internal-edge, ridge, valley, relief, negative-space and reflection evidence. Every local detail proposal receives an addressable observation ID and an editable review decision. Cross-view IDs remain hypotheses until reviewed or confirmed by calibrated geometry; the stage does not automatically label bright regions as gemstones.
@@ -154,12 +154,12 @@ docker run --rm --gpus all --user "$(id -u):$(id -g)" \
 
 The reconstruction first aligns shared X, Y, and Z silhouette extents across independently normalized views, then carves a 128-voxel visual hull. The outputs are watertight research meshes and are explicitly named `non_metric`. They are not editable parametric CAD or manufacturing geometry: hidden concavities, semantic components, camera calibration, and physical scale remain unavailable. Phase 3.3 is therefore not claimed.
 
-## Browse STL-1 in Dataset Studio
+## Browse STL-1 in Lalitha Studio
 
-The lightweight Flask interface reads the existing versioned artifacts without starting a training or reconstruction job:
+The Bible-aligned Flask interface reads the existing versioned evidence without starting a training or reconstruction job:
 
 ```bash
 /usr/bin/python3 -m studio.app
 ```
 
-Then open `http://127.0.0.1:8501`. The UI includes all 24 five-view objects, Phase 1/2 layers and metrics, experimental Phase 3 previews, non-metric STL/3MF downloads and per-object evidence reports.
+Then open `http://127.0.0.1:8501`. The UI includes all 24 five-view objects, Phase 1/2 evidence, experimental Phase 3 previews, Bible hard gates, non-metric STL/3MF downloads and per-object provenance reports. It classifies this dataset as Tier A and keeps the final decision at `research_only`.

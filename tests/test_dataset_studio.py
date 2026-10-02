@@ -25,6 +25,11 @@ class DatasetStudioServiceTest(unittest.TestCase):
         self.assertEqual(summary["dataset"]["image_count"], 120)
         self.assertEqual(summary["dataset"]["views"], list(VIEW_ORDER))
         self.assertTrue(summary["dataset"]["valid"])
+        self.assertEqual(summary["governance"]["capture_tier"], "A")
+        self.assertEqual(summary["governance"]["decision"], "research_only")
+        self.assertEqual(
+            summary["governance"]["authoritative_output"], "STEP / exact B-rep"
+        )
 
     def test_object_filters_preserve_object_level_splits(self) -> None:
         self.assertEqual(len(self.repository.list_objects("train")), 18)
@@ -36,6 +41,9 @@ class DatasetStudioServiceTest(unittest.TestCase):
         for item in self.repository.list_objects():
             detail = self.repository.object_detail(item["object_id"])
             self.assertEqual(detail["view_order"], list(VIEW_ORDER))
+            self.assertEqual(detail["bible"]["capture"]["tier"], "A")
+            self.assertEqual(detail["bible"]["decision"], "research_only")
+            self.assertFalse(any(detail["bible"]["gates"].values()))
             self.assertTrue(detail["artifacts"]["phase_sheet"])
             self.assertTrue(detail["artifacts"]["phase3_preview"])
             self.assertTrue(detail["artifacts"]["phase3_stl"])
@@ -53,8 +61,12 @@ class DatasetStudioServiceTest(unittest.TestCase):
 
     def test_export_report_keeps_accuracy_claims_honest(self) -> None:
         report = self.repository.export_object_report("ring_001")
+        self.assertTrue(report["claims"]["phase2_pseudo_label_self_consistency_measured"])
+        self.assertFalse(report["claims"]["phase2_human_ground_truth_accuracy_validated"])
         self.assertTrue(report["claims"]["phase3_experimental_non_metric"])
         self.assertFalse(report["claims"]["manufacturing_accuracy_validated"])
+        self.assertEqual(report["benchmark_record"]["completeness"], "partial")
+        self.assertEqual(report["benchmark_record"]["decision"], "research_only")
         json.dumps(report)
 
     def test_unknown_object_and_asset_are_rejected(self) -> None:

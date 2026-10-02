@@ -1,6 +1,6 @@
-# Image2CAD Dataset Studio
+# Lalitha Studio — STL-1 Evidence Console
 
-Dataset Studio is a lightweight, read-only Flask backend and browser interface for `dataset/STL-1`. It exposes retained evidence instead of recomputing the GPU pipeline during a web request.
+Lalitha Studio is a lightweight, read-only Flask backend and browser interface for `dataset/STL-1`. It exposes retained evidence instead of recomputing the GPU pipeline during a web request.
 
 ## What it shows
 
@@ -14,6 +14,27 @@ Dataset Studio is a lightweight, read-only Flask backend and browser interface f
 - A portable per-object JSON evidence report.
 
 The interface labels Phase 3 correctly: these are watertight research meshes at nominal display scale. The dataset has no calibrated cameras, physical dimensions, component ground truth or CAD targets, so the outputs are not manufacturing-validated CAD.
+
+## Project Bible alignment
+
+This interface follows `BASELINE ARCHITECTURE V1.0`:
+
+- The current five-view dataset is classified as **Tier A — exploratory**.
+- Source images remain immutable observed evidence.
+- Normalization, pseudo-masks, edges and visual hulls are derived/inferred evidence.
+- Phase 2 IoU is labelled pseudo-label self-consistency, not human-ground-truth accuracy.
+- Phase 3 STL/3MF files are research-only derived meshes, not authoritative CAD.
+- STEP/exact B-rep remains the required authoritative functional-geometry output.
+- Metric, camera, reviewed-component, exact-B-rep and manufacturing gates are shown as blocked when their required evidence is absent.
+- Every exported Studio report uses the final decision `research_only` and records which benchmark provenance fields are still missing.
+
+The Studio belongs to the Bible's local/deterministic deployment boundary. It reads evidence, reports provenance and exposes review state. It does not let a browser request run a GPU model, mutate accepted evidence or silently write inferred geometry into STEP.
+
+The frozen development order remains:
+
+```text
+source-control reproducibility → human and metric ground truth → camera/depth/normal benchmark → reviewed component and constraint graph → exact CAD generalization
+```
 
 ## Run locally
 

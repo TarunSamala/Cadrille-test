@@ -36,9 +36,15 @@ function renderSummary(summary) {
   const phase3Test = summary.phase3.mean_reprojection_iou_by_split?.test;
   $("#dataset-metrics").innerHTML = `
     <article class="metric"><span>Dataset objects</span><strong>${summary.dataset.object_count}</strong><small>${summary.dataset.image_count} source images · five views each</small></article>
-    <article class="metric"><span>Held-out Phase 2 IoU</span><strong>${score(test.iou)}</strong><small>Pseudo-silhouette evaluation</small></article>
+    <article class="metric"><span>Phase 2 self-consistency IoU</span><strong>${score(test.iou)}</strong><small>Machine pseudo-label target · not human GT</small></article>
     <article class="metric"><span>Held-out Phase 3 IoU</span><strong>${score(phase3Test)}</strong><small>Non-metric reprojection score</small></article>
     <article class="metric"><span>Manufacturing validated</span><strong>${summary.phase3.manufacturing_accuracy_validated ? "Yes" : "No"}</strong><small>Scale and cameras are uncalibrated</small></article>`;
+  const governance = summary.governance;
+  $("#governance-summary").innerHTML = `
+    <article class="metric"><span>Capture contract</span><strong>Tier ${escapeHtml(governance.capture_tier)}</strong><small>Five-view exploratory research</small></article>
+    <article class="metric"><span>Evidence class</span><strong class="compact-value">${escapeHtml(governance.evidence_class)}</strong><small>Implemented and measured in-project</small></article>
+    <article class="metric"><span>Decision</span><strong class="compact-value">Research only</strong><small>No metric or production claim</small></article>
+    <article class="metric"><span>Authoritative output</span><strong class="compact-value">STEP / B-rep</strong><small>Not available for STL-1 objects</small></article>`;
 }
 
 function renderObjectList() {
@@ -61,7 +67,7 @@ function renderViews(detail) {
     const data = detail.views[view];
     return `<article class="view-card">
       <img src="${assetUrl(detail.object_id, state.layer, view)}" alt="${escapeHtml(data.label)} ${escapeHtml(state.layer)}" loading="lazy">
-      <div class="view-card-footer"><strong>${escapeHtml(data.label)}</strong><span>IoU ${score(data.metrics?.iou)}</span></div>
+      <div class="view-card-footer"><strong>${escapeHtml(data.label)}</strong><span>Pseudo IoU ${score(data.metrics?.iou)}</span></div>
     </article>`;
   }).join("");
 }
@@ -95,6 +101,23 @@ function renderMetadata(detail) {
   }).join("");
 }
 
+function humanize(value) {
+  return String(value).replaceAll("_", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
+function renderBible(detail) {
+  const bible = detail.bible;
+  $("#bible-gates").innerHTML = Object.entries(bible.gates).map(([name, passed]) => `
+    <div class="key-value"><span>${escapeHtml(humanize(name))}</span><strong class="${passed ? "good" : "bad"}">${passed ? "Pass" : "Blocked"}</strong></div>`).join("");
+  $("#evidence-records").innerHTML = bible.evidence_records.map((record) => `
+    <div class="key-value evidence-row">
+      <span>${escapeHtml(record.stage)}</span>
+      <strong>${escapeHtml(record.state)}</strong>
+      <small>${escapeHtml(record.evidence_class)}</small>
+    </div>`).join("");
+  $("#artifact-authority").textContent = bible.artifact_authority;
+}
+
 function renderPhase3(detail) {
   const phase3 = detail.phase3;
   const preview = $("#phase3-preview");
@@ -116,6 +139,8 @@ function renderPhase3(detail) {
       <div class="key-value"><span>Faces</span><strong>${mesh.faces?.toLocaleString() ?? "—"}</strong></div>
       <div class="key-value"><span>Camera calibrated</span><strong class="bad">${phase3.camera_calibrated ? "Yes" : "No"}</strong></div>
       <div class="key-value"><span>Physical scale</span><strong class="bad">${phase3.scale?.calibrated ? "Calibrated" : "Display scale only"}</strong></div>
+      <div class="key-value"><span>Artifact authority</span><strong class="bad">Derived only</strong></div>
+      <div class="key-value"><span>Decision</span><strong class="bad">Research only</strong></div>
     </div>`;
   $("#download-stl").href = assetUrl(detail.object_id, "phase3_stl");
   $("#download-3mf").href = assetUrl(detail.object_id, "phase3_3mf");
@@ -126,7 +151,7 @@ function renderObject(detail) {
   $("#object-workspace").classList.remove("hidden");
   $("#object-title").textContent = detail.source_name;
   $("#object-path").textContent = `STL-1 / ${detail.object_id}`;
-  $("#object-badges").innerHTML = `<span class="pill ${detail.split === "test" ? "test" : "pass"}">${escapeHtml(detail.split)} split</span><span class="pill warning">Uncalibrated</span>`;
+  $("#object-badges").innerHTML = `<span class="pill ${detail.split === "test" ? "test" : "pass"}">${escapeHtml(detail.split)} split</span><span class="pill warning">Tier A</span><span class="pill warning">Research only</span>`;
   $("#report-download").href = `/api/objects/${encodeURIComponent(detail.object_id)}/report`;
   $("#report-download").classList.remove("disabled");
   $("#phase-sheet").src = assetUrl(detail.object_id, "phase_sheet");
@@ -138,6 +163,7 @@ function renderObject(detail) {
   renderViews(detail);
   renderMetadata(detail);
   renderPhase3(detail);
+  renderBible(detail);
   renderObjectList();
 }
 

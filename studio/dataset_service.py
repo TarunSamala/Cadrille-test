@@ -143,8 +143,20 @@ class DatasetRepository:
                 "prepared_size": int(self.dataset_report.get("image_size", 0)),
                 "valid": bool(self.dataset_report.get("dataset_valid", False)),
             },
+            "governance": {
+                "project": "Lalitha / Image2CAD",
+                "bible_release": "BASELINE ARCHITECTURE V1.0",
+                "architecture": "evidence-driven jewellery reverse-engineering and CAD",
+                "primary_scope": "rings",
+                "capture_tier": "A",
+                "evidence_class": "PROVEN-IN-PROJECT",
+                "claim_level": "coarse non-metric research",
+                "authoritative_output": "STEP / exact B-rep",
+                "dataset_has_authoritative_step": False,
+                "decision": "research_only",
+            },
             "phase2": {
-                "status": "validated pseudo-silhouette experiment",
+                "status": "pseudo-label self-consistency benchmark; not human-ground-truth accuracy",
                 "test": deepcopy(self.phase_summary.get("test", {})),
                 "metrics_by_split": deepcopy(self.audit_report.get("metrics_by_split", {})),
                 "selected_threshold": self.phase_summary.get("selected_threshold"),
@@ -161,6 +173,8 @@ class DatasetRepository:
                 "manufacturing_accuracy_validated": bool(
                     self.phase3_report.get("manufacturing_accuracy_validated", False)
                 ),
+                "artifact_authority": "derived research mesh; no authoritative STEP",
+                "decision": "research_only",
             },
             "limitations": deepcopy(self.dataset_report.get("limitations", [])),
         }
@@ -211,6 +225,45 @@ class DatasetRepository:
             "view_order": list(VIEW_ORDER),
             "phase3": phase3,
             "supervision": deepcopy(record.get("supervision", {})),
+            "bible": {
+                "capture": {
+                    "tier": "A",
+                    "view_contract": "five explicitly named research views",
+                    "allowed_claims": [
+                        "segmentation proposals",
+                        "visual proposals",
+                        "coarse non-metric reconstruction",
+                    ],
+                    "forbidden_claim": "manufacturing-accurate geometry",
+                },
+                "evidence_records": [
+                    {
+                        "stage": "immutable source views",
+                        "evidence_class": "PROVEN-IN-PROJECT",
+                        "state": "observed",
+                    },
+                    {
+                        "stage": "normalization, masks and edges",
+                        "evidence_class": "PROVEN-IN-PROJECT",
+                        "state": "inferred",
+                    },
+                    {
+                        "stage": "visual-hull mesh",
+                        "evidence_class": "PROVEN-IN-PROJECT",
+                        "state": "inferred",
+                    },
+                ],
+                "gates": {
+                    "human_reviewed_image_truth": False,
+                    "metric_scale": False,
+                    "calibrated_cameras": False,
+                    "reviewed_component_graph": False,
+                    "authoritative_exact_brep": False,
+                    "manufacturing_validation": False,
+                },
+                "artifact_authority": "No authoritative STEP exists for this dataset object; STL and 3MF are derived research artifacts.",
+                "decision": "research_only",
+            },
             "artifacts": self.artifact_availability(object_id),
         }
 
@@ -301,11 +354,25 @@ class DatasetRepository:
         """Return a portable evidence report without leaking local absolute paths."""
 
         detail = self.object_detail(object_id)
-        detail["schema_version"] = "image2cad_dataset_studio_v1"
+        detail["schema_version"] = "lalitha_studio_evidence_v1"
         detail["claims"] = {
-            "phase2_pseudo_silhouette_validated": True,
+            "phase2_pseudo_label_self_consistency_measured": True,
+            "phase2_human_ground_truth_accuracy_validated": False,
             "phase3_experimental_non_metric": True,
+            "metric_reconstruction_validated": False,
             "manufacturing_accuracy_validated": False,
+        }
+        detail["benchmark_record"] = {
+            "capture_tier": "A",
+            "input_hashes_recorded": True,
+            "code_commit_recorded_in_source_report": False,
+            "model_checkpoint_hash_recorded": False,
+            "license_manifest_recorded": False,
+            "peak_memory_recorded": False,
+            "runtime_recorded": False,
+            "random_seed_recorded": False,
+            "completeness": "partial",
+            "decision": "research_only",
         }
         return detail
 
