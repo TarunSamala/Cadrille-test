@@ -1,6 +1,6 @@
 # Phase 0 - Reproducibility Freeze
 
-Status: **IN PROGRESS**
+Status: **CPU/SOFTWARE BASELINE VALIDATED**
 
 This freeze follows
 `docs/lalitha_project_bible_v1_0/19_DEVELOPMENT_ROADMAP.md` and benchmark
@@ -12,9 +12,10 @@ the accuracy status of any reconstruction result.
 | Check | Result | Evidence |
 |---|---|---|
 | Canonical branch | PASS | `main` |
-| Local versus remote | PASS | local `main` and `origin/main` resolve to `79b390acb6bade147f0e68757f647f9d881b2909` before this freeze |
+| Pre-freeze local versus remote | PASS | local `main` and `origin/main` both resolved to `79b390acb6bade147f0e68757f647f9d881b2909` before Phase 0 |
 | Prior development branch | PASS | `main..cad-test` contains no commits |
-| Baseline tag | PENDING | create only after the complete suite passes from a clean checkout |
+| Validated source commit | PASS | `1102257276e3460cce61c8dc1594b8e86f739282` |
+| Baseline tag | PASS | `baseline-v1.0` identifies the final Phase 0 evidence commit |
 
 ## Environment
 
@@ -41,7 +42,7 @@ the accuracy status of any reconstruction result.
 | Restart/job persistence | NOT APPLICABLE YET | current Studio is read-only and audit execution is synchronous; this becomes a required gate before persistent background jobs are introduced |
 | Artifact readability | PASS | previews, masks, STL, STEP and 3MF checks are covered by the regression suite |
 | Full suite including freeze self-checks | PASS | 104 tests passed in the pinned validation image |
-| Clean-checkout test | PENDING | run after the candidate baseline commit exists |
+| Clean-checkout test | PASS | fresh local clone of `30728777382e3248e0d6152ee1fa5ac34dfbcc28`; 104 tests passed in the pinned image |
 
 ## Accuracy and release limits
 
@@ -50,5 +51,5 @@ the accuracy status of any reconstruction result.
 - Machine-mask agreement is not ground-truth accuracy.
 - Existing Phase 3 output remains experimental and non-metric.
 - Manufacturing accuracy is not validated.
-- The Phase 0 baseline cannot be promoted until the full suite and clean
-  checkout checks pass.
+- The CPU/software baseline is reproducible. GPU execution remains a separate
+  pending gate and is not implied by this status.
