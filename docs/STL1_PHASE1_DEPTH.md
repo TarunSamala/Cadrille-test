@@ -18,8 +18,8 @@ Each review sheet contains:
 - Objects: 24
 - Views: 120
 - Split: 18 train, 3 validation, 3 test objects
-- Runtime: 33.821765 seconds on CUDA
-- Mean runtime: 0.281848 seconds per view
+- Runtime: 31.434345 seconds on CUDA
+- Mean runtime: 0.261953 seconds per view
 - Peak allocated GPU memory: 219342336 bytes
 - Mean normalized flip error: 0.046892
 - Median normalized flip error: 0.043206
