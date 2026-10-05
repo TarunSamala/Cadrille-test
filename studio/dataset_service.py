@@ -60,6 +60,9 @@ class DatasetRepository:
         self.phase1_depth = self._read_json(
             self.phase_root / "phase1_depth_anything_v2" / "report.json"
         )
+        self.phase1_complete = self._read_json(
+            self.phase_root / "phase1_complete_features_v1" / "report.json"
+        )
         self.phase0_environment = self._read_json(
             self.repo_root / "docs" / "reproducibility" / "environment_manifest.json"
         )
@@ -91,6 +94,9 @@ class DatasetRepository:
         self._phase1_by_object = self._index_phase1_features()
         self._phase1_depth_by_object = {
             item["object_id"]: item for item in self.phase1_depth.get("objects", [])
+        }
+        self._phase1_complete_by_object = {
+            item["object_id"]: item for item in self.phase1_complete.get("objects", [])
         }
         self._phase2_metrics = self._index_phase2_metrics()
         self._phase3_objects = {
@@ -138,6 +144,14 @@ class DatasetRepository:
         if missing_depth:
             raise DatasetError(
                 f"Phase 1 depth report is missing objects: {sorted(missing_depth)}"
+            )
+        missing_complete = set(self._records_by_id) - set(
+            self._phase1_complete_by_object
+        )
+        if missing_complete:
+            raise DatasetError(
+                "Complete Phase 1 report is missing objects: "
+                f"{sorted(missing_complete)}"
             )
 
     def _index_phase2_metrics(self) -> dict[str, dict[str, dict[str, float]]]:
@@ -240,6 +254,27 @@ class DatasetRepository:
                     "metrics": deepcopy(self.phase1_depth.get("metrics", {})),
                     "phase1_gate": deepcopy(
                         self.phase1_depth.get("phase1_gate", {})
+                    ),
+                },
+                "complete_features": {
+                    "status": self.phase1_complete.get("status"),
+                    "decision": self.phase1_complete.get("decision"),
+                    "coverage": deepcopy(
+                        self.phase1_complete.get("coverage", {})
+                    ),
+                    "runtime": deepcopy(self.phase1_complete.get("runtime", {})),
+                    "checks": deepcopy(self.phase1_complete.get("checks", {})),
+                    "feature_contract": deepcopy(
+                        self.phase1_complete.get("feature_contract", {})
+                    ),
+                    "reconstruction_contract": deepcopy(
+                        self.phase1_complete.get("reconstruction_contract", {})
+                    ),
+                    "depth_validation": deepcopy(
+                        self.phase1_complete.get("depth_validation", {})
+                    ),
+                    "metric_depth": deepcopy(
+                        self.phase1_complete.get("metric_depth", {})
                     ),
                 },
             },
@@ -367,11 +402,13 @@ class DatasetRepository:
         record = self._record(object_id)
         phase1 = self._phase1_by_object.get(object_id, {})
         phase1_depth = self._phase1_depth_by_object.get(object_id, {})
+        phase1_complete = self._phase1_complete_by_object.get(object_id, {})
         phase2 = self._phase2_metrics.get(object_id, {})
         phase3 = deepcopy(self._phase3_objects.get(object_id))
         views: dict[str, Any] = {}
         for view in VIEW_ORDER:
             metadata = record["views"][view]
+            complete_view = phase1_complete.get("views", {}).get(view, {})
             views[view] = {
                 "label": VIEW_LABELS[view],
                 "source_size_wh": deepcopy(metadata.get("source_size_wh")),
@@ -381,6 +418,32 @@ class DatasetRepository:
                 "source_sha256": metadata.get("source_sha256"),
                 "features": deepcopy(phase1.get(view, {})),
                 "depth": deepcopy(phase1_depth.get("views", {}).get(view, {})),
+                "complete_features": {
+                    "feature_count": complete_view.get("feature_count"),
+                    "repeat_count": complete_view.get("repeat_count"),
+                    "repeat_deterministic": complete_view.get(
+                        "repeat_deterministic"
+                    ),
+                    "source_pixel_roundtrip_exact": complete_view.get(
+                        "source_pixel_roundtrip_exact"
+                    ),
+                    "horizontal_flip_error_over_depth_span": complete_view.get(
+                        "horizontal_flip_error_over_depth_span"
+                    ),
+                    "vertical_flip_error_over_depth_span": complete_view.get(
+                        "vertical_flip_error_over_depth_span"
+                    ),
+                    "raw_distribution": deepcopy(
+                        complete_view.get("raw_distribution", {})
+                    ),
+                    "regularized_distribution": deepcopy(
+                        complete_view.get("regularized_distribution", {})
+                    ),
+                    "metric": bool(complete_view.get("metric", False)),
+                    "cross_view_aligned": bool(
+                        complete_view.get("cross_view_aligned", False)
+                    ),
+                },
                 "metrics": deepcopy(phase2.get(view)),
             }
         return {
@@ -391,6 +454,13 @@ class DatasetRepository:
             "views": views,
             "view_order": list(VIEW_ORDER),
             "phase3": phase3,
+            "complete_phase1": {
+                "status": phase1_complete.get("status"),
+                "audit_sheet": phase1_complete.get("audit_sheet"),
+                "lsv_rsv_depth_distribution_difference": phase1_complete.get(
+                    "lsv_rsv_depth_distribution_difference"
+                ),
+            },
             "supervision": deepcopy(record.get("supervision", {})),
             "bible": {
                 "capture": {
@@ -425,6 +495,11 @@ class DatasetRepository:
                         "state": "inferred_non_metric",
                     },
                     {
+                        "stage": "22-matrix reversible pixel evidence and three-run depth validation",
+                        "evidence_class": "PROVEN-IN-PROJECT",
+                        "state": "measured_non_metric",
+                    },
+                    {
                         "stage": "visual-hull mesh",
                         "evidence_class": "PROVEN-IN-PROJECT",
                         "state": "inferred",
@@ -456,6 +531,9 @@ class DatasetRepository:
                     "edges",
                     "depth",
                     "depth_uncertainty",
+                    "depth_ensemble",
+                    "depth_transform_uncertainty",
+                    "depth_overlay",
                     "view_audit",
                 )
             }
@@ -466,6 +544,9 @@ class DatasetRepository:
             "phase_sheet": self._asset_exists(object_id, "phase_sheet"),
             "phase1_depth_review": self._asset_exists(
                 object_id, "phase1_depth_review"
+            ),
+            "phase1_complete_audit": self._asset_exists(
+                object_id, "phase1_complete_audit"
             ),
             "phase3_preview": self._asset_exists(object_id, "phase3_preview"),
             "phase3_stl": self._asset_exists(object_id, "phase3_stl"),
@@ -501,6 +582,25 @@ class DatasetRepository:
             if not path:
                 raise AssetNotFoundError(f"{kind} is unavailable for {object_id}:{view}")
             return self._safe_path(path)
+        if kind in {
+            "depth_ensemble",
+            "depth_transform_uncertainty",
+            "depth_overlay",
+        }:
+            if view not in VIEW_ORDER:
+                raise AssetNotFoundError(f"A valid view is required for {kind}")
+            complete = self._phase1_complete_by_object.get(object_id, {})
+            fields = {
+                "depth_ensemble": "regularized_depth_u16",
+                "depth_transform_uncertainty": "uncertainty_u16",
+                "depth_overlay": "photo_depth_overlay",
+            }
+            path = complete.get("views", {}).get(view, {}).get(fields[kind])
+            if not path:
+                raise AssetNotFoundError(
+                    f"{kind} is unavailable for {object_id}:{view}"
+                )
+            return self._safe_path(path)
         if kind == "view_audit":
             if view not in VIEW_ORDER:
                 raise AssetNotFoundError("A valid view is required for view_audit")
@@ -524,6 +624,15 @@ class DatasetRepository:
             if not path:
                 raise AssetNotFoundError(
                     f"Phase 1 depth review is unavailable for {object_id}"
+                )
+            return self._safe_path(path)
+        if kind == "phase1_complete_audit":
+            path = self._phase1_complete_by_object.get(object_id, {}).get(
+                "audit_sheet"
+            )
+            if not path:
+                raise AssetNotFoundError(
+                    f"Complete Phase 1 audit is unavailable for {object_id}"
                 )
             return self._safe_path(path)
 
@@ -575,6 +684,11 @@ class DatasetRepository:
             / self.phase1_depth["overview"],
             "dataset_depth_report": self.phase_root
             / "phase1_depth_anything_v2"
+            / "report.json",
+            "dataset_complete_phase1_overview": self.repo_root
+            / self.phase1_complete["overview"],
+            "dataset_complete_phase1_report": self.phase_root
+            / "phase1_complete_features_v1"
             / "report.json",
             "ring01_depth_validation_report": self.repo_root
             / "data"

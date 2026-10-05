@@ -41,6 +41,18 @@ class DatasetStudioServiceTest(unittest.TestCase):
         self.assertTrue(all(dataset_depth["checks"].values()))
         self.assertEqual(dataset_depth["phase1_gate"]["status"], "blocked")
         self.assertFalse(dataset_depth["phase1_gate"]["metric_depth"])
+        complete = summary["phase1"]["complete_features"]
+        self.assertEqual(complete["coverage"]["object_count"], 24)
+        self.assertEqual(complete["coverage"]["view_count"], 120)
+        self.assertEqual(complete["runtime"]["repeat_count"], 3)
+        self.assertTrue(all(complete["checks"].values()))
+        self.assertEqual(
+            complete["feature_contract"]["stored_array_count_per_view"], 22
+        )
+        self.assertTrue(
+            complete["reconstruction_contract"]["source_pixel_roundtrip_exact"]
+        )
+        self.assertEqual(complete["metric_depth"]["status"], "blocked")
         ground_truth = summary["phase1_ground_truth"]
         self.assertEqual(ground_truth["exit_gate"]["status"], "blocked")
         self.assertEqual(ground_truth["exit_gate"]["pending_label_review_count"], 35)
@@ -84,6 +96,7 @@ class DatasetStudioServiceTest(unittest.TestCase):
             self.assertFalse(any(detail["bible"]["gates"].values()))
             self.assertTrue(detail["artifacts"]["phase_sheet"])
             self.assertTrue(detail["artifacts"]["phase1_depth_review"])
+            self.assertTrue(detail["artifacts"]["phase1_complete_audit"])
             self.assertTrue(detail["artifacts"]["phase3_preview"])
             self.assertTrue(detail["artifacts"]["phase3_stl"])
             self.assertTrue(detail["artifacts"]["phase3_3mf"])
@@ -103,6 +116,13 @@ class DatasetStudioServiceTest(unittest.TestCase):
                 self.assertFalse(
                     detail["views"][view]["depth"]["cross_view_aligned"]
                 )
+                complete = detail["views"][view]["complete_features"]
+                self.assertEqual(complete["feature_count"], 22)
+                self.assertEqual(complete["repeat_count"], 3)
+                self.assertTrue(complete["repeat_deterministic"])
+                self.assertTrue(complete["source_pixel_roundtrip_exact"])
+                self.assertFalse(complete["metric"])
+                self.assertFalse(complete["cross_view_aligned"])
 
     def test_test_objects_expose_held_out_review_sheets(self) -> None:
         for item in self.repository.list_objects("test"):
@@ -183,11 +203,16 @@ class DatasetStudioApiTest(unittest.TestCase):
             'id="phase1-depth-status"',
             'id="phase1-deep-summary"',
             'id="dataset-depth-summary"',
+            'id="dataset-complete-summary"',
             'data-layer="normalized"',
             'data-layer="mask"',
             'data-layer="edges"',
             'data-layer="depth"',
             'data-layer="depth_uncertainty"',
+            'data-layer="depth_ensemble"',
+            'data-layer="depth_transform_uncertainty"',
+            'data-layer="depth_overlay"',
+            'id="phase1-complete-audit"',
             'id="feature-rows"',
             'id="depth-rows"',
         ):
@@ -200,6 +225,8 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertIn('$("#phase1-summary")', javascript)
         self.assertIn('$("#phase1-deep-summary")', javascript)
         self.assertIn('$("#dataset-depth-summary")', javascript)
+        self.assertIn('$("#dataset-complete-summary")', javascript)
+        self.assertIn('$("#phase1-complete-audit")', javascript)
         script.close()
         page.close()
 
@@ -229,16 +256,46 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertEqual(dataset_depth.status_code, 200)
         self.assertEqual(dataset_depth.mimetype, "image/png")
         dataset_depth.close()
+        ensemble = self.client.get(
+            "/api/objects/ring_001/assets/depth_ensemble?view=front"
+        )
+        self.assertEqual(ensemble.status_code, 200)
+        self.assertEqual(ensemble.mimetype, "image/png")
+        ensemble.close()
+        transform_uncertainty = self.client.get(
+            "/api/objects/ring_001/assets/depth_transform_uncertainty?view=front"
+        )
+        self.assertEqual(transform_uncertainty.status_code, 200)
+        self.assertEqual(transform_uncertainty.mimetype, "image/png")
+        transform_uncertainty.close()
+        depth_overlay = self.client.get(
+            "/api/objects/ring_001/assets/depth_overlay?view=front"
+        )
+        self.assertEqual(depth_overlay.status_code, 200)
+        self.assertEqual(depth_overlay.mimetype, "image/png")
+        depth_overlay.close()
         review = self.client.get(
             "/api/objects/ring_001/assets/phase1_depth_review"
         )
         self.assertEqual(review.status_code, 200)
         self.assertEqual(review.mimetype, "image/jpeg")
         review.close()
+        complete_audit = self.client.get(
+            "/api/objects/ring_001/assets/phase1_complete_audit"
+        )
+        self.assertEqual(complete_audit.status_code, 200)
+        self.assertEqual(complete_audit.mimetype, "image/png")
+        complete_audit.close()
         overview = self.client.get("/api/artifacts/dataset_depth_overview")
         self.assertEqual(overview.status_code, 200)
         self.assertEqual(overview.mimetype, "image/jpeg")
         overview.close()
+        complete_overview = self.client.get(
+            "/api/artifacts/dataset_complete_phase1_overview"
+        )
+        self.assertEqual(complete_overview.status_code, 200)
+        self.assertEqual(complete_overview.mimetype, "image/png")
+        complete_overview.close()
 
     def test_invalid_routes_fail_closed(self) -> None:
         self.assertEqual(self.client.get("/api/objects/ring_999").status_code, 404)

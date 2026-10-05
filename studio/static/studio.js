@@ -92,6 +92,19 @@ function renderSummary(summary) {
     <article class="metric"><span>GPU runtime</span><strong>${score(depthRuntime.total_seconds, 2)}s</strong><small>${score(depthRuntime.mean_seconds_per_view, 3)} seconds per view</small></article>
     <article class="metric"><span>Mean flip error</span><strong>${score(depthOverall.mean, 4)}</strong><small>Diagnostic only · lower is more self-consistent</small></article>
     <article class="metric"><span>Phase 1 gate</span><strong class="compact-value">${escapeHtml(humanize(datasetDepth.phase1_gate?.status || "blocked"))}</strong><small>Metric depth: no · human GT: no</small></article>`;
+
+  const complete = summary.phase1.complete_features || {};
+  const completeCoverage = complete.coverage || {};
+  const completeRuntime = complete.runtime || {};
+  const completeChecks = complete.checks || {};
+  const completeContract = complete.feature_contract || {};
+  const reconstruction = complete.reconstruction_contract || {};
+  const bias = complete.depth_validation?.top_bottom_absolute_bias_by_view?.front || {};
+  $("#dataset-complete-summary").innerHTML = `
+    <article class="metric"><span>Complete feature matrices</span><strong>${completeContract.stored_array_count_per_view ?? "—"}</strong><small>Per view · ${completeCoverage.view_count ?? "—"} views processed</small></article>
+    <article class="metric"><span>Repeated depth runs</span><strong>${completeRuntime.repeat_count ?? "—"}</strong><small>All identical: ${completeChecks.all_three_repeats_identical ? "yes" : "no"}</small></article>
+    <article class="metric"><span>Source reconstruction</span><strong class="compact-value">${reconstruction.source_pixel_roundtrip_exact ? "Pixel exact" : "Failed"}</strong><small>Normalized pixels retained: ${reconstruction.normalized_pixels_retained_exactly ? "yes" : "no"}</small></article>
+    <article class="metric"><span>Front vertical depth delta</span><strong>${score(bias.raw?.mean, 4)}</strong><small>Flip ensemble: ${score(bias.regularized?.mean, 4)} · diagnostic, not correction</small></article>`;
 }
 
 function renderObjectList() {
@@ -112,9 +125,10 @@ function assetUrl(objectId, kind, view = null) {
 function renderViews(detail) {
   $("#view-grid").innerHTML = detail.view_order.map((view) => {
     const data = detail.views[view];
+    const complete = data.complete_features || {};
     return `<article class="view-card">
       <img src="${assetUrl(detail.object_id, state.layer, view)}" alt="${escapeHtml(data.label)} ${escapeHtml(state.layer)}" loading="lazy">
-      <div class="view-card-footer"><strong>${escapeHtml(data.label)}</strong><span>Flip ${score(data.depth?.mean_flip_error_over_depth_span, 4)} · Pseudo IoU ${score(data.metrics?.iou)}</span></div>
+      <div class="view-card-footer"><strong>${escapeHtml(data.label)}</strong><span>Flip H ${score(complete.horizontal_flip_error_over_depth_span, 4)} · V ${score(complete.vertical_flip_error_over_depth_span, 4)} · Pseudo IoU ${score(data.metrics?.iou)}</span></div>
     </article>`;
   }).join("");
 }
@@ -228,6 +242,7 @@ function renderObject(detail) {
   $("#report-download").classList.remove("disabled");
   $("#phase-sheet").src = assetUrl(detail.object_id, "phase_sheet");
   $("#phase1-depth-review").src = assetUrl(detail.object_id, "phase1_depth_review");
+  $("#phase1-complete-audit").src = assetUrl(detail.object_id, "phase1_complete_audit");
 
   const heldOut = detail.artifacts.held_out_review;
   $("#held-out-card").classList.toggle("hidden", !heldOut);
