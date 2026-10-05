@@ -57,6 +57,9 @@ class DatasetRepository:
             self.phase_root / "phase3" / "visual_hull" / "phase3_batch_report.json"
         )
         self.phase1_features = self._read_json(self.phase_root / "phase1_features.json")
+        self.phase1_depth = self._read_json(
+            self.phase_root / "phase1_depth_anything_v2" / "report.json"
+        )
         self.phase0_environment = self._read_json(
             self.repo_root / "docs" / "reproducibility" / "environment_manifest.json"
         )
@@ -72,6 +75,9 @@ class DatasetRepository:
         self.records = self._read_manifest(self.prepared_root / "manifest.jsonl")
         self._records_by_id = {record["object_id"]: record for record in self.records}
         self._phase1_by_object = self._index_phase1_features()
+        self._phase1_depth_by_object = {
+            item["object_id"]: item for item in self.phase1_depth.get("objects", [])
+        }
         self._phase2_metrics = self._index_phase2_metrics()
         self._phase3_objects = {
             item["object_id"]: item for item in self.phase3_report.get("objects", [])
@@ -114,6 +120,11 @@ class DatasetRepository:
             missing = set(VIEW_ORDER) - set(record["views"])
             if missing:
                 raise DatasetError(f"{record['object_id']} is missing views: {sorted(missing)}")
+        missing_depth = set(self._records_by_id) - set(self._phase1_depth_by_object)
+        if missing_depth:
+            raise DatasetError(
+                f"Phase 1 depth report is missing objects: {sorted(missing_depth)}"
+            )
 
     def _index_phase2_metrics(self) -> dict[str, dict[str, dict[str, float]]]:
         indexed: dict[str, dict[str, dict[str, float]]] = {}
@@ -205,6 +216,18 @@ class DatasetRepository:
                     self.phase1_features.get("measurements_are_metric", False)
                 ),
                 "checks": deepcopy(self.phase1_features.get("checks", {})),
+                "depth_anything_v2": {
+                    "status": self.phase1_depth.get("status"),
+                    "decision": self.phase1_depth.get("decision"),
+                    "model": deepcopy(self.phase1_depth.get("model", {})),
+                    "coverage": deepcopy(self.phase1_depth.get("coverage", {})),
+                    "checks": deepcopy(self.phase1_depth.get("checks", {})),
+                    "runtime": deepcopy(self.phase1_depth.get("runtime", {})),
+                    "metrics": deepcopy(self.phase1_depth.get("metrics", {})),
+                    "phase1_gate": deepcopy(
+                        self.phase1_depth.get("phase1_gate", {})
+                    ),
+                },
             },
             "phase1_ground_truth": self._phase1_ground_truth_summary(),
             "phase2": {
@@ -286,6 +309,7 @@ class DatasetRepository:
     def object_detail(self, object_id: str) -> dict[str, Any]:
         record = self._record(object_id)
         phase1 = self._phase1_by_object.get(object_id, {})
+        phase1_depth = self._phase1_depth_by_object.get(object_id, {})
         phase2 = self._phase2_metrics.get(object_id, {})
         phase3 = deepcopy(self._phase3_objects.get(object_id))
         views: dict[str, Any] = {}
@@ -299,6 +323,7 @@ class DatasetRepository:
                 "camera_calibrated": bool(metadata.get("camera_calibrated", False)),
                 "source_sha256": metadata.get("source_sha256"),
                 "features": deepcopy(phase1.get(view, {})),
+                "depth": deepcopy(phase1_depth.get("views", {}).get(view, {})),
                 "metrics": deepcopy(phase2.get(view)),
             }
         return {
@@ -338,6 +363,11 @@ class DatasetRepository:
                         "state": "measured_non_metric",
                     },
                     {
+                        "stage": "Depth Anything V2 relative-depth and uncertainty proposals",
+                        "evidence_class": "PROVEN-IN-PROJECT",
+                        "state": "inferred_non_metric",
+                    },
+                    {
                         "stage": "visual-hull mesh",
                         "evidence_class": "PROVEN-IN-PROJECT",
                         "state": "inferred",
@@ -362,13 +392,24 @@ class DatasetRepository:
         view_assets = {
             view: {
                 kind: self._asset_exists(object_id, kind, view)
-                for kind in ("source", "normalized", "mask", "edges", "view_audit")
+                for kind in (
+                    "source",
+                    "normalized",
+                    "mask",
+                    "edges",
+                    "depth",
+                    "depth_uncertainty",
+                    "view_audit",
+                )
             }
             for view in VIEW_ORDER
         }
         return {
             "views": view_assets,
             "phase_sheet": self._asset_exists(object_id, "phase_sheet"),
+            "phase1_depth_review": self._asset_exists(
+                object_id, "phase1_depth_review"
+            ),
             "phase3_preview": self._asset_exists(object_id, "phase3_preview"),
             "phase3_stl": self._asset_exists(object_id, "phase3_stl"),
             "phase3_3mf": self._asset_exists(object_id, "phase3_3mf"),
@@ -394,6 +435,15 @@ class DatasetRepository:
             if view not in VIEW_ORDER:
                 raise AssetNotFoundError(f"A valid view is required for {kind}")
             return self._safe_path(record["views"][view][view_kinds[kind]])
+        if kind in {"depth", "depth_uncertainty"}:
+            if view not in VIEW_ORDER:
+                raise AssetNotFoundError(f"A valid view is required for {kind}")
+            depth = self._phase1_depth_by_object.get(object_id, {})
+            field = "depth_u16" if kind == "depth" else "uncertainty_u16"
+            path = depth.get("views", {}).get(view, {}).get(field)
+            if not path:
+                raise AssetNotFoundError(f"{kind} is unavailable for {object_id}:{view}")
+            return self._safe_path(path)
         if kind == "view_audit":
             if view not in VIEW_ORDER:
                 raise AssetNotFoundError("A valid view is required for view_audit")
@@ -412,6 +462,13 @@ class DatasetRepository:
             return self._safe_path(
                 self.phase_root / "test_predictions" / f"{object_id}_review.png"
             )
+        if kind == "phase1_depth_review":
+            path = self._phase1_depth_by_object.get(object_id, {}).get("review_sheet")
+            if not path:
+                raise AssetNotFoundError(
+                    f"Phase 1 depth review is unavailable for {object_id}"
+                )
+            return self._safe_path(path)
 
         phase3 = self._phase3_objects.get(object_id)
         if not phase3:
@@ -457,6 +514,11 @@ class DatasetRepository:
             / self.phase1_ground_truth["depth_anything_v2"]["review_summary"],
             "phase1_depth_metadata": self.repo_root
             / self.phase1_ground_truth["depth_anything_v2"]["metadata"],
+            "dataset_depth_overview": self.repo_root
+            / self.phase1_depth["overview"],
+            "dataset_depth_report": self.phase_root
+            / "phase1_depth_anything_v2"
+            / "report.json",
         }
         if name in reproducibility:
             return self._safe_path(reproducibility[name])
@@ -472,6 +534,8 @@ class DatasetRepository:
         detail = self.object_detail(object_id)
         detail["schema_version"] = "lalitha_studio_evidence_v1"
         detail["claims"] = {
+            "phase1_relative_depth_proposals_generated": True,
+            "phase1_depth_accuracy_validated": False,
             "phase2_pseudo_label_self_consistency_measured": True,
             "phase2_human_ground_truth_accuracy_validated": False,
             "phase3_experimental_non_metric": True,
@@ -484,10 +548,17 @@ class DatasetRepository:
             "code_commit_recorded_in_source_report": bool(
                 self.phase0_environment.get("source", {}).get("commit")
             ),
+            "model_checkpoint_revision_recorded": bool(
+                self.phase1_depth.get("model", {}).get("revision")
+            ),
             "model_checkpoint_hash_recorded": False,
             "license_manifest_recorded": True,
-            "peak_memory_recorded": False,
-            "runtime_recorded": False,
+            "peak_memory_recorded": bool(
+                self.phase1_depth.get("runtime", {}).get("peak_gpu_memory_bytes")
+            ),
+            "runtime_recorded": bool(
+                self.phase1_depth.get("runtime", {}).get("total_seconds")
+            ),
             "random_seed_recorded": False,
             "completeness": "partial",
             "decision": "research_only",

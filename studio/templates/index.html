@@ -128,6 +128,36 @@
           </div>
         </section>
 
+        <section class="baseline-section" aria-labelledby="dataset-depth-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">PHASE 1 / STL-1 DEPTH BENCHMARK</p>
+              <h2 id="dataset-depth-title">Relative-depth proposals for all 120 views</h2>
+            </div>
+            <div class="baseline-actions">
+              <a class="button secondary" href="/api/artifacts/dataset_depth_report">Benchmark report</a>
+            </div>
+          </div>
+          <div id="dataset-depth-summary" class="metric-grid baseline-grid"></div>
+          <article class="truth-banner phase1-authority-banner">
+            <div class="truth-icon">!</div>
+            <div>
+              <strong>This is a consistency benchmark, not a depth-accuracy score.</strong>
+              <p>STL-1 has no scan, metric depth, calibrated cameras or human-reviewed component truth. Lower flip error indicates better model self-consistency only.</p>
+            </div>
+          </article>
+          <article class="evidence-card">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">24 OBJECTS / ISOMETRIC SUMMARY</p>
+                <h3>Dataset depth overview</h3>
+              </div>
+              <span class="pill warning">Machine proposal</span>
+            </div>
+            <img class="wide-evidence" src="/api/artifacts/dataset_depth_overview" alt="STL-1 Depth Anything V2 overview" loading="lazy">
+          </article>
+        </section>
+
         <section id="object-workspace" class="workspace hidden">
           <div class="section-heading object-heading">
             <div>
@@ -156,6 +186,8 @@
                 <button data-layer="normalized">Normalized</button>
                 <button data-layer="mask">Silhouette</button>
                 <button data-layer="edges">Edges</button>
+                <button data-layer="depth">Relative depth</button>
+                <button data-layer="depth_uncertainty">Uncertainty</button>
                 <button data-layer="view_audit">Phase audit</button>
               </div>
             </div>
@@ -163,6 +195,16 @@
           </div>
 
           <div id="panel-audits" class="tab-panel">
+            <article class="evidence-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">PHASE 1 / DEPTH ANYTHING V2</p>
+                  <h3>Source, feature, depth and uncertainty comparison</h3>
+                </div>
+                <span class="pill warning">Non-metric · review required</span>
+              </div>
+              <img id="phase1-depth-review" class="wide-evidence" alt="Per-object Phase 1 relative-depth review">
+            </article>
             <article class="evidence-card">
               <div class="card-heading">
                 <div>
@@ -263,6 +305,22 @@
                 <table>
                   <thead><tr><th>View</th><th>Foreground</th><th>Edges</th><th>Contours</th><th>Holes</th><th>Symmetry IoU</th></tr></thead>
                   <tbody id="feature-rows"></tbody>
+                </table>
+              </div>
+            </article>
+            <article class="evidence-card feature-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">PHASE 1 / RELATIVE DEPTH</p>
+                  <h3>Per-view consistency diagnostics</h3>
+                </div>
+                <span class="pill warning">Lower is more self-consistent</span>
+              </div>
+              <p class="feature-note">Flip error is normalized by each view's robust depth span. It measures model self-consistency, not accuracy against true depth.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>View</th><th>Mean flip error</th><th>P95 flip error</th><th>Metric</th><th>Cross-view aligned</th></tr></thead>
+                  <tbody id="depth-rows"></tbody>
                 </table>
               </div>
             </article>

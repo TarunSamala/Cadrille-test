@@ -74,6 +74,16 @@ function renderSummary(summary) {
     <div class="key-value"><span>Status</span><strong class="bad">${escapeHtml(humanize(groundTruth.depth.status || "not run"))}</strong></div>
     <div class="key-value"><span>Metric depth</span><strong class="bad">${groundTruth.depth.metric ? "Yes" : "No"}</strong></div>
     <div class="key-value"><span>Role</span><strong>Proposal and uncertainty evidence</strong></div>`;
+
+  const datasetDepth = summary.phase1.depth_anything_v2;
+  const depthRuntime = datasetDepth.runtime || {};
+  const depthCoverage = datasetDepth.coverage || {};
+  const depthOverall = datasetDepth.metrics?.overall || {};
+  $("#dataset-depth-summary").innerHTML = `
+    <article class="metric"><span>Coverage</span><strong>${depthCoverage.view_count ?? "—"}</strong><small>${depthCoverage.object_count ?? "—"} objects · five views each</small></article>
+    <article class="metric"><span>GPU runtime</span><strong>${score(depthRuntime.total_seconds, 2)}s</strong><small>${score(depthRuntime.mean_seconds_per_view, 3)} seconds per view</small></article>
+    <article class="metric"><span>Mean flip error</span><strong>${score(depthOverall.mean, 4)}</strong><small>Diagnostic only · lower is more self-consistent</small></article>
+    <article class="metric"><span>Phase 1 gate</span><strong class="compact-value">${escapeHtml(humanize(datasetDepth.phase1_gate?.status || "blocked"))}</strong><small>Metric depth: no · human GT: no</small></article>`;
 }
 
 function renderObjectList() {
@@ -96,7 +106,7 @@ function renderViews(detail) {
     const data = detail.views[view];
     return `<article class="view-card">
       <img src="${assetUrl(detail.object_id, state.layer, view)}" alt="${escapeHtml(data.label)} ${escapeHtml(state.layer)}" loading="lazy">
-      <div class="view-card-footer"><strong>${escapeHtml(data.label)}</strong><span>Pseudo IoU ${score(data.metrics?.iou)}</span></div>
+      <div class="view-card-footer"><strong>${escapeHtml(data.label)}</strong><span>Flip ${score(data.depth?.mean_flip_error_over_depth_span, 4)} · Pseudo IoU ${score(data.metrics?.iou)}</span></div>
     </article>`;
   }).join("");
 }
@@ -139,6 +149,18 @@ function renderMetadata(detail) {
       <td>${features.contour_count ?? "—"}</td>
       <td>${features.hole_count ?? "—"}</td>
       <td>${score(features.horizontal_symmetry_iou)}</td>
+    </tr>`;
+  }).join("");
+
+  $("#depth-rows").innerHTML = detail.view_order.map((view) => {
+    const data = detail.views[view];
+    const depth = data.depth || {};
+    return `<tr>
+      <td>${escapeHtml(data.label)}</td>
+      <td>${score(depth.mean_flip_error_over_depth_span, 4)}</td>
+      <td>${score(depth.p95_flip_error_over_depth_span, 4)}</td>
+      <td>${depth.metric ? "Yes" : "No"}</td>
+      <td>${depth.cross_view_aligned ? "Yes" : "No"}</td>
     </tr>`;
   }).join("");
 }
@@ -197,6 +219,7 @@ function renderObject(detail) {
   $("#report-download").href = `/api/objects/${encodeURIComponent(detail.object_id)}/report`;
   $("#report-download").classList.remove("disabled");
   $("#phase-sheet").src = assetUrl(detail.object_id, "phase_sheet");
+  $("#phase1-depth-review").src = assetUrl(detail.object_id, "phase1_depth_review");
 
   const heldOut = detail.artifacts.held_out_review;
   $("#held-out-card").classList.toggle("hidden", !heldOut);

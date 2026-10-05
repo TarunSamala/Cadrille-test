@@ -35,6 +35,12 @@ class DatasetStudioServiceTest(unittest.TestCase):
         self.assertGreaterEqual(summary["phase0"]["dependency_package_count"], 20)
         self.assertEqual(summary["phase1"]["view_count"], 120)
         self.assertFalse(summary["phase1"]["measurements_are_metric"])
+        dataset_depth = summary["phase1"]["depth_anything_v2"]
+        self.assertEqual(dataset_depth["coverage"]["object_count"], 24)
+        self.assertEqual(dataset_depth["coverage"]["view_count"], 120)
+        self.assertTrue(all(dataset_depth["checks"].values()))
+        self.assertEqual(dataset_depth["phase1_gate"]["status"], "blocked")
+        self.assertFalse(dataset_depth["phase1_gate"]["metric_depth"])
         ground_truth = summary["phase1_ground_truth"]
         self.assertEqual(ground_truth["exit_gate"]["status"], "blocked")
         self.assertEqual(ground_truth["exit_gate"]["pending_label_review_count"], 35)
@@ -57,6 +63,7 @@ class DatasetStudioServiceTest(unittest.TestCase):
             self.assertEqual(detail["bible"]["decision"], "research_only")
             self.assertFalse(any(detail["bible"]["gates"].values()))
             self.assertTrue(detail["artifacts"]["phase_sheet"])
+            self.assertTrue(detail["artifacts"]["phase1_depth_review"])
             self.assertTrue(detail["artifacts"]["phase3_preview"])
             self.assertTrue(detail["artifacts"]["phase3_stl"])
             self.assertTrue(detail["artifacts"]["phase3_3mf"])
@@ -72,6 +79,10 @@ class DatasetStudioServiceTest(unittest.TestCase):
                         "horizontal_symmetry_iou",
                     },
                 )
+                self.assertFalse(detail["views"][view]["depth"]["metric"])
+                self.assertFalse(
+                    detail["views"][view]["depth"]["cross_view_aligned"]
+                )
 
     def test_test_objects_expose_held_out_review_sheets(self) -> None:
         for item in self.repository.list_objects("test"):
@@ -84,6 +95,8 @@ class DatasetStudioServiceTest(unittest.TestCase):
     def test_export_report_keeps_accuracy_claims_honest(self) -> None:
         report = self.repository.export_object_report("ring_001")
         self.assertTrue(report["claims"]["phase2_pseudo_label_self_consistency_measured"])
+        self.assertTrue(report["claims"]["phase1_relative_depth_proposals_generated"])
+        self.assertFalse(report["claims"]["phase1_depth_accuracy_validated"])
         self.assertFalse(report["claims"]["phase2_human_ground_truth_accuracy_validated"])
         self.assertTrue(report["claims"]["phase3_experimental_non_metric"])
         self.assertFalse(report["claims"]["manufacturing_accuracy_validated"])
@@ -91,6 +104,11 @@ class DatasetStudioServiceTest(unittest.TestCase):
             report["benchmark_record"]["code_commit_recorded_in_source_report"]
         )
         self.assertTrue(report["benchmark_record"]["license_manifest_recorded"])
+        self.assertTrue(
+            report["benchmark_record"]["model_checkpoint_revision_recorded"]
+        )
+        self.assertTrue(report["benchmark_record"]["peak_memory_recorded"])
+        self.assertTrue(report["benchmark_record"]["runtime_recorded"])
         self.assertEqual(report["benchmark_record"]["completeness"], "partial")
         self.assertEqual(report["benchmark_record"]["decision"], "research_only")
         json.dumps(report)
@@ -143,10 +161,14 @@ class DatasetStudioApiTest(unittest.TestCase):
             'id="phase0-limits"',
             'id="phase1-summary"',
             'id="phase1-depth-status"',
+            'id="dataset-depth-summary"',
             'data-layer="normalized"',
             'data-layer="mask"',
             'data-layer="edges"',
+            'data-layer="depth"',
+            'data-layer="depth_uncertainty"',
             'id="feature-rows"',
+            'id="depth-rows"',
         ):
             self.assertIn(marker, markup)
         script = self.client.get("/static/studio.js")
@@ -155,6 +177,7 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertIn('$("#phase0-summary")', javascript)
         self.assertIn('$("#feature-rows")', javascript)
         self.assertIn('$("#phase1-summary")', javascript)
+        self.assertIn('$("#dataset-depth-summary")', javascript)
         script.close()
         page.close()
 
@@ -170,6 +193,22 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertEqual(depth.status_code, 200)
         self.assertEqual(depth.mimetype, "image/png")
         depth.close()
+        dataset_depth = self.client.get(
+            "/api/objects/ring_001/assets/depth?view=front"
+        )
+        self.assertEqual(dataset_depth.status_code, 200)
+        self.assertEqual(dataset_depth.mimetype, "image/png")
+        dataset_depth.close()
+        review = self.client.get(
+            "/api/objects/ring_001/assets/phase1_depth_review"
+        )
+        self.assertEqual(review.status_code, 200)
+        self.assertEqual(review.mimetype, "image/jpeg")
+        review.close()
+        overview = self.client.get("/api/artifacts/dataset_depth_overview")
+        self.assertEqual(overview.status_code, 200)
+        self.assertEqual(overview.mimetype, "image/jpeg")
+        overview.close()
 
     def test_invalid_routes_fail_closed(self) -> None:
         self.assertEqual(self.client.get("/api/objects/ring_999").status_code, 404)

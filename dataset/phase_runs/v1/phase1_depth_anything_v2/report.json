@@ -1,0 +1,3579 @@
+{
+  "schema_version": "lalitha_stl1_phase1_depth_v1",
+  "created_at_utc": "2026-10-05T03:27:54.973092+00:00",
+  "phase": "Phase 1 dataset depth proposal benchmark",
+  "status": "completed_research_only",
+  "decision": "research_only",
+  "source": {
+    "dataset": "STL-1",
+    "prepared_manifest": "dataset/prepared_v1/manifest.jsonl",
+    "prepared_manifest_sha256": "78fb416b3c3ed939a35402b87465c4410e16934527197b23a85d34425f88c196",
+    "phase1_feature_report": "dataset/phase_runs/v1/phase1_features.json",
+    "phase1_feature_report_sha256": "7f4f7e7e76d11ff685a6103d0fafa2d42e8dc251d2567d335c5f619205c8c07a",
+    "commit": "a943f018c69e248b03f948ab8bc288a4ab3890ef",
+    "pipeline": "pipeline/infer_dataset_depth_anything_v2.py",
+    "pipeline_sha256": "bb19f90cdd8e44f12dfa4e0eaee9b4cdbb97285ea1bce1ab5815f8fda4194cb7"
+  },
+  "model": {
+    "id": "depth-anything/Depth-Anything-V2-Small-hf",
+    "revision": "5426e4f0f36572d16453bbda7a8389317b1bef99",
+    "license": "Apache-2.0",
+    "role": "relative-depth and uncertainty proposal"
+  },
+  "runtime": {
+    "device": "cuda",
+    "torch_version": "2.5.1+cu124",
+    "cuda_version": "12.4",
+    "total_seconds": 33.821765,
+    "mean_seconds_per_view": 0.281848,
+    "peak_gpu_memory_bytes": 219342336
+  },
+  "coverage": {
+    "object_count": 24,
+    "view_count": 120,
+    "views_per_object": 5,
+    "view_order": [
+      "front",
+      "top",
+      "iso",
+      "lsv",
+      "rsv"
+    ],
+    "splits": {
+      "train": 18,
+      "val": 3,
+      "test": 3
+    }
+  },
+  "checks": {
+    "all_24_objects_processed": true,
+    "all_120_views_processed": true,
+    "existing_phase1_checks_pass": true,
+    "all_depth_outputs_written": true,
+    "all_uncertainty_outputs_written": true,
+    "all_predictions_finite": true
+  },
+  "phase1_gate": {
+    "machine_image_evidence_complete": true,
+    "human_reviewed_masks": false,
+    "reviewed_component_identities": false,
+    "calibrated_cameras": false,
+    "physical_scale": false,
+    "metric_depth": false,
+    "cross_view_consistent_depth": false,
+    "status": "blocked"
+  },
+  "metrics": {
+    "name": "flip consistency diagnostic; lower is more self-consistent",
+    "accuracy_metric": false,
+    "overall": {
+      "mean": 0.046892,
+      "median": 0.043206,
+      "p95": 0.088043,
+      "max": 0.116265
+    },
+    "by_view": {
+      "front": {
+        "mean": 0.053956,
+        "median": 0.051177,
+        "p95": 0.086972,
+        "max": 0.109275
+      },
+      "iso": {
+        "mean": 0.032362,
+        "median": 0.030231,
+        "p95": 0.054693,
+        "max": 0.075535
+      },
+      "lsv": {
+        "mean": 0.048164,
+        "median": 0.04273,
+        "p95": 0.100749,
+        "max": 0.105995
+      },
+      "rsv": {
+        "mean": 0.043986,
+        "median": 0.0418,
+        "p95": 0.069363,
+        "max": 0.103541
+      },
+      "top": {
+        "mean": 0.055992,
+        "median": 0.052966,
+        "p95": 0.082942,
+        "max": 0.116265
+      }
+    },
+    "by_split": {
+      "test": {
+        "mean": 0.052235,
+        "median": 0.048658,
+        "p95": 0.091429,
+        "max": 0.109275
+      },
+      "train": {
+        "mean": 0.045375,
+        "median": 0.041709,
+        "p95": 0.076996,
+        "max": 0.103541
+      },
+      "val": {
+        "mean": 0.050651,
+        "median": 0.039232,
+        "p95": 0.109076,
+        "max": 0.116265
+      }
+    },
+    "highest_uncertainty": [
+      {
+        "object_id": "ring_004",
+        "view": "top",
+        "value": 0.116265
+      },
+      {
+        "object_id": "ring_007",
+        "view": "front",
+        "value": 0.109275
+      },
+      {
+        "object_id": "ring_004",
+        "view": "lsv",
+        "value": 0.105995
+      },
+      {
+        "object_id": "ring_018",
+        "view": "rsv",
+        "value": 0.103541
+      },
+      {
+        "object_id": "ring_024",
+        "view": "lsv",
+        "value": 0.103004
+      },
+      {
+        "object_id": "ring_003",
+        "view": "front",
+        "value": 0.089463
+      },
+      {
+        "object_id": "ring_017",
+        "view": "lsv",
+        "value": 0.087968
+      },
+      {
+        "object_id": "ring_007",
+        "view": "top",
+        "value": 0.083781
+      },
+      {
+        "object_id": "ring_022",
+        "view": "top",
+        "value": 0.078191
+      },
+      {
+        "object_id": "ring_013",
+        "view": "iso",
+        "value": 0.075535
+      }
+    ],
+    "lowest_uncertainty": [
+      {
+        "object_id": "ring_007",
+        "view": "iso",
+        "value": 0.01316
+      },
+      {
+        "object_id": "ring_008",
+        "view": "iso",
+        "value": 0.017849
+      },
+      {
+        "object_id": "ring_015",
+        "view": "iso",
+        "value": 0.017979
+      },
+      {
+        "object_id": "ring_019",
+        "view": "iso",
+        "value": 0.018961
+      },
+      {
+        "object_id": "ring_006",
+        "view": "iso",
+        "value": 0.019318
+      },
+      {
+        "object_id": "ring_006",
+        "view": "lsv",
+        "value": 0.020322
+      },
+      {
+        "object_id": "ring_020",
+        "view": "lsv",
+        "value": 0.02061
+      },
+      {
+        "object_id": "ring_024",
+        "view": "rsv",
+        "value": 0.021234
+      },
+      {
+        "object_id": "ring_009",
+        "view": "iso",
+        "value": 0.021955
+      },
+      {
+        "object_id": "ring_017",
+        "view": "iso",
+        "value": 0.022144
+      }
+    ]
+  },
+  "overview": "dataset/phase_runs/v1/phase1_depth_anything_v2/dataset_depth_overview.jpg",
+  "objects": [
+    {
+      "object_id": "ring_001",
+      "source_name": "Ring 1",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_001_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_001",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_001/front.png",
+          "image_sha256": "958e32f547d19aa55756153690927306c1c60562fb8fdf72a24dfa4ae0bcb51b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_001/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_001/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_001/front.png",
+          "raw_float32_sha256": "626106ba35d772006d1a6952a75f51f05cbf7fc9c00a18f458d0c7a134363df2",
+          "robust_depth_range": {
+            "p02": 1.59932448387146,
+            "p98": 3.457074813842773
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0029395389556884765,
+            "p98": 0.3470626068115234
+          },
+          "mean_flip_error_over_depth_span": 0.047462,
+          "p95_flip_error_over_depth_span": 0.161906,
+          "runtime_seconds": 0.545723
+        },
+        "top": {
+          "object_id": "ring_001",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_001/top.png",
+          "image_sha256": "70a65e7a2dff0f0306f5d7ae764e24015508c114903b94d769db3356f3679d98",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_001/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_001/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_001/top.png",
+          "raw_float32_sha256": "d58bcad6038c5382c342641cae0c37d5b9fc89fb1f695fb4641f06d00717fcfb",
+          "robust_depth_range": {
+            "p02": 2.2278981018066406,
+            "p98": 5.490118713378906
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0031095218658447267,
+            "p98": 0.41481426239013675
+          },
+          "mean_flip_error_over_depth_span": 0.031887,
+          "p95_flip_error_over_depth_span": 0.095087,
+          "runtime_seconds": 0.234506
+        },
+        "iso": {
+          "object_id": "ring_001",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_001/iso.png",
+          "image_sha256": "779a812333c1832eac0d6b2cfce23bd695c151f0b9be3dd4a4e1ff7725309863",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_001/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_001/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_001/iso.png",
+          "raw_float32_sha256": "efeacc68bb9ba013a8c6beef4e8f9d98dd92bcbe0b1bb9d367b84b28228b1281",
+          "robust_depth_range": {
+            "p02": 0.5911319839954376,
+            "p98": 4.669914989471435
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.005026164054870606,
+            "p98": 0.348004446029663
+          },
+          "mean_flip_error_over_depth_span": 0.035256,
+          "p95_flip_error_over_depth_span": 0.068658,
+          "runtime_seconds": 0.229653
+        },
+        "lsv": {
+          "object_id": "ring_001",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_001/lsv.png",
+          "image_sha256": "07bc65ac68158ca9bf03bede6faa5459950fc6713b8bf3edfaa885726e389741",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_001/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_001/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_001/lsv.png",
+          "raw_float32_sha256": "6c750b496a0e4daaf2181b9fb346e0564e35036d12b77eba3077106c6ed85d7a",
+          "robust_depth_range": {
+            "p02": 2.024653835296631,
+            "p98": 4.675496301651001
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0017486190795898437,
+            "p98": 0.19092212677001952
+          },
+          "mean_flip_error_over_depth_span": 0.024384,
+          "p95_flip_error_over_depth_span": 0.064722,
+          "runtime_seconds": 0.228649
+        },
+        "rsv": {
+          "object_id": "ring_001",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_001/rsv.png",
+          "image_sha256": "8708130bfb6710ce44d565aba6a28f366a7bd448da3ccf0dcdfa6e14934c3cd2",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_001/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_001/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_001/rsv.png",
+          "raw_float32_sha256": "2655384230150415961d85e271556c7a131643883e717f7fba42f8a12485c6ac",
+          "robust_depth_range": {
+            "p02": 1.7947390675544739,
+            "p98": 5.052845239639282
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.00208282470703125,
+            "p98": 0.426822304725647
+          },
+          "mean_flip_error_over_depth_span": 0.042503,
+          "p95_flip_error_over_depth_span": 0.105539,
+          "runtime_seconds": 0.233297
+        }
+      }
+    },
+    {
+      "object_id": "ring_002",
+      "source_name": "Ring 2",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_002_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_002",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_002/front.png",
+          "image_sha256": "5dd7cda09f2635217cbe4aea6174953622e795408b6814b8601134f0ec4c6606",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_002/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_002/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_002/front.png",
+          "raw_float32_sha256": "575b5aeaee2355306c669606a7e5db18b80cfdd4780e704d093c38a25f2c1e9d",
+          "robust_depth_range": {
+            "p02": 1.735367214679718,
+            "p98": 3.3982713985443116
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0018088674545288087,
+            "p98": 0.20315771102905272
+          },
+          "mean_flip_error_over_depth_span": 0.038601,
+          "p95_flip_error_over_depth_span": 0.104862,
+          "runtime_seconds": 0.229242
+        },
+        "top": {
+          "object_id": "ring_002",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_002/top.png",
+          "image_sha256": "9481e10ad60b82fe965170fb0d2a391c0309fbe2c20f93fad948e680d5a62ddc",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_002/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_002/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_002/top.png",
+          "raw_float32_sha256": "14c2fe070ec16533b97e5a94a93fce2d71711e2dfc93e34318f43687a8d3a4e3",
+          "robust_depth_range": {
+            "p02": 2.5770652294158936,
+            "p98": 4.424715518951416
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0019419193267822266,
+            "p98": 0.18106842041015625
+          },
+          "mean_flip_error_over_depth_span": 0.031206,
+          "p95_flip_error_over_depth_span": 0.07158,
+          "runtime_seconds": 0.227506
+        },
+        "iso": {
+          "object_id": "ring_002",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_002/iso.png",
+          "image_sha256": "0027d2733e90bf0aaae4d1199273c456194b57a340f5c9a6e4b12d5e2bba96b4",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_002/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_002/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_002/iso.png",
+          "raw_float32_sha256": "ab7061570315039dbdc358a3d911e11449cd80c092d5e6773e6a148abf6fa8da",
+          "robust_depth_range": {
+            "p02": 0.6058026194572449,
+            "p98": 4.316438770294189
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.004915356636047363,
+            "p98": 0.3662046432495117
+          },
+          "mean_flip_error_over_depth_span": 0.037884,
+          "p95_flip_error_over_depth_span": 0.089711,
+          "runtime_seconds": 0.229771
+        },
+        "lsv": {
+          "object_id": "ring_002",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_002/lsv.png",
+          "image_sha256": "58620d50df90d7aa519d2270c81ebf9a0c5fd1c69c7701154027f12c4d810e9b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_002/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_002/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_002/lsv.png",
+          "raw_float32_sha256": "e850a28357120a77dd10c52192fad562b29e4a37f0c09e2e0eadca713ce25b89",
+          "robust_depth_range": {
+            "p02": 2.1720596599578856,
+            "p98": 4.2991655158996585
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.005545082092285157,
+            "p98": 0.36162686347961426
+          },
+          "mean_flip_error_over_depth_span": 0.06281,
+          "p95_flip_error_over_depth_span": 0.137573,
+          "runtime_seconds": 0.228734
+        },
+        "rsv": {
+          "object_id": "ring_002",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_002/rsv.png",
+          "image_sha256": "05b2931e52bf33fe4810306733d4b2a1920e8ded51591e2ae9ff05d969873431",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_002/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_002/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_002/rsv.png",
+          "raw_float32_sha256": "5f08d2dc148584bbff529428317873bfeda0043232141f4c7a6e80c5554ce79f",
+          "robust_depth_range": {
+            "p02": 2.165641164779663,
+            "p98": 4.6292890930175785
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0020391464233398436,
+            "p98": 0.33344895362854016
+          },
+          "mean_flip_error_over_depth_span": 0.032213,
+          "p95_flip_error_over_depth_span": 0.105316,
+          "runtime_seconds": 0.228269
+        }
+      }
+    },
+    {
+      "object_id": "ring_003",
+      "source_name": "Ring 3",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_003_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_003",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_003/front.png",
+          "image_sha256": "b458e11bddf23f799656d138080a3b458b339137db3de5ba432555335e7272af",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_003/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_003/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_003/front.png",
+          "raw_float32_sha256": "5c751c7c70db5eaeee22435773b793f4a07cb913abd393859ecd67c7a85e706f",
+          "robust_depth_range": {
+            "p02": 2.381333980560303,
+            "p98": 3.6930227756500247
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.004232978820800782,
+            "p98": 0.3146294021606446
+          },
+          "mean_flip_error_over_depth_span": 0.089463,
+          "p95_flip_error_over_depth_span": 0.212848,
+          "runtime_seconds": 0.234449
+        },
+        "top": {
+          "object_id": "ring_003",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_003/top.png",
+          "image_sha256": "4253b9d67c2a28db8355167945f0906b3880b4dfeda9a5ed74c72e8482192e74",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_003/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_003/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_003/top.png",
+          "raw_float32_sha256": "541d8d0786aad213f5507a0493b1e9550cd3b4e52854d1726b810d03b8f9d593",
+          "robust_depth_range": {
+            "p02": 1.2917709255218506,
+            "p98": 4.415617399215698
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0015284395217895507,
+            "p98": 0.27213705778121916
+          },
+          "mean_flip_error_over_depth_span": 0.02381,
+          "p95_flip_error_over_depth_span": 0.061639,
+          "runtime_seconds": 0.246103
+        },
+        "iso": {
+          "object_id": "ring_003",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_003/iso.png",
+          "image_sha256": "f41802defd47204c4f5c79ac53cc87df2daae9eb0838b5e1ae68fb2ea5f2f276",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_003/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_003/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_003/iso.png",
+          "raw_float32_sha256": "2c8e75aedcfc93ca7b400604ca16d55dd1e2e0deeea6cc623c9449751b543775",
+          "robust_depth_range": {
+            "p02": 0.40142320334911347,
+            "p98": 4.69887993812561
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.004683351516723633,
+            "p98": 0.31367950916290277
+          },
+          "mean_flip_error_over_depth_span": 0.027319,
+          "p95_flip_error_over_depth_span": 0.061413,
+          "runtime_seconds": 0.244856
+        },
+        "lsv": {
+          "object_id": "ring_003",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_003/lsv.png",
+          "image_sha256": "a68acdf43070bd481feaf691e7cdc36dce646466a7695658dbfbdd4c6608d846",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_003/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_003/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_003/lsv.png",
+          "raw_float32_sha256": "50d8c1ef79fe0690cbb5896fee3cfc29666188c8a6dcbcdba6db37590c46c6e4",
+          "robust_depth_range": {
+            "p02": 2.079948606491089,
+            "p98": 3.8719874811172486
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0025103616714477538,
+            "p98": 0.3420281982421871
+          },
+          "mean_flip_error_over_depth_span": 0.046565,
+          "p95_flip_error_over_depth_span": 0.137626,
+          "runtime_seconds": 0.240622
+        },
+        "rsv": {
+          "object_id": "ring_003",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_003/rsv.png",
+          "image_sha256": "115d336e8cf2ef1e5bcb075f8d9dee22a8aa4059d32fa2bbb75e3be3dad7b2a8",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_003/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_003/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_003/rsv.png",
+          "raw_float32_sha256": "38981ed6c2aa9c125de7526240fe75c584344f26684deb5e48dd2a0c8cc08dfd",
+          "robust_depth_range": {
+            "p02": 2.20165593624115,
+            "p98": 4.257110261917115
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0031584978103637697,
+            "p98": 0.5273166894912722
+          },
+          "mean_flip_error_over_depth_span": 0.057417,
+          "p95_flip_error_over_depth_span": 0.15248,
+          "runtime_seconds": 0.230146
+        }
+      }
+    },
+    {
+      "object_id": "ring_004",
+      "source_name": "Ring 4",
+      "split": "val",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_004_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_004",
+          "split": "val",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_004/front.png",
+          "image_sha256": "028fc8d1e7eea4a4d3ed507a4fb9a9dc78b5a94a7c863a91639d5e6dc95c3e30",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_004/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_004/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_004/front.png",
+          "raw_float32_sha256": "15497e2f0ba91408a01c33bfc9f0b70b6e5c4cc1b073ff894eb38ac3850c1a89",
+          "robust_depth_range": {
+            "p02": 2.1151022911071777,
+            "p98": 3.0439352989196777
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0014641284942626953,
+            "p98": 0.14501667022705078
+          },
+          "mean_flip_error_over_depth_span": 0.055282,
+          "p95_flip_error_over_depth_span": 0.133177,
+          "runtime_seconds": 0.231068
+        },
+        "top": {
+          "object_id": "ring_004",
+          "split": "val",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_004/top.png",
+          "image_sha256": "ddf4c248bf394d310d51de018d8b71d20f8d62f68f3aeb85842ebcd32ff18612",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_004/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_004/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_004/top.png",
+          "raw_float32_sha256": "da0d883b0a447022b072e352ea1603c8d0253ad652975949fbe9ef710689d4cf",
+          "robust_depth_range": {
+            "p02": 2.218409290313721,
+            "p98": 4.056761102676392
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.011028223037719727,
+            "p98": 0.44206910610198974
+          },
+          "mean_flip_error_over_depth_span": 0.116265,
+          "p95_flip_error_over_depth_span": 0.224077,
+          "runtime_seconds": 0.231762
+        },
+        "iso": {
+          "object_id": "ring_004",
+          "split": "val",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_004/iso.png",
+          "image_sha256": "30753c14902b55caaf5216bd42c4e3fbc2213b93ac104627c39facb50d03dd4f",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_004/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_004/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_004/iso.png",
+          "raw_float32_sha256": "15b1cd39b07769856ca440a3765e85451df79afe950ffdeaa0a0721693e03ac6",
+          "robust_depth_range": {
+            "p02": 0.7741119503974915,
+            "p98": 4.866538190841674
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.00785503387451172,
+            "p98": 0.4794267892837523
+          },
+          "mean_flip_error_over_depth_span": 0.04349,
+          "p95_flip_error_over_depth_span": 0.106734,
+          "runtime_seconds": 0.229906
+        },
+        "lsv": {
+          "object_id": "ring_004",
+          "split": "val",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_004/lsv.png",
+          "image_sha256": "1316e5e81c1747778ada5691c9b5a30ed84e6855f2adfd089f41ecae5338bad7",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_004/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_004/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_004/lsv.png",
+          "raw_float32_sha256": "0acf1d8cdadef875bbd3ec4182ab883524074019e71bfc788baa22775c7feaf2",
+          "robust_depth_range": {
+            "p02": 2.6555556583404543,
+            "p98": 4.203871726989746
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0057618141174316405,
+            "p98": 0.3810576725006103
+          },
+          "mean_flip_error_over_depth_span": 0.105995,
+          "p95_flip_error_over_depth_span": 0.200453,
+          "runtime_seconds": 0.230111
+        },
+        "rsv": {
+          "object_id": "ring_004",
+          "split": "val",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_004/rsv.png",
+          "image_sha256": "cb663aee7952a44d9435a18ffb15b7aaff74d83a252e6c820c36ccc6edaa3c0b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_004/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_004/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_004/rsv.png",
+          "raw_float32_sha256": "bcf5cb45ff1f3cbefa0985ff5c0c2e4a753ac6055e67c9b5e609b72df85b592b",
+          "robust_depth_range": {
+            "p02": 2.5084476137161253,
+            "p98": 4.589497022628784
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0029769134521484375,
+            "p98": 0.26144571781158416
+          },
+          "mean_flip_error_over_depth_span": 0.051377,
+          "p95_flip_error_over_depth_span": 0.116357,
+          "runtime_seconds": 0.230068
+        }
+      }
+    },
+    {
+      "object_id": "ring_005",
+      "source_name": "Ring 5",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_005_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_005",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_005/front.png",
+          "image_sha256": "152c537f2fcdd1040cb1e0a9da4f9910c78d8c9c243b4c5cea20c64750cdacc5",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_005/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_005/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_005/front.png",
+          "raw_float32_sha256": "b8b2b88c26a5e3151d4b90aedd11571144283c0d27c4287f2243609267a61052",
+          "robust_depth_range": {
+            "p02": 1.8412996411323548,
+            "p98": 3.788938307762146
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0017828154563903809,
+            "p98": 0.17516449451446534
+          },
+          "mean_flip_error_over_depth_span": 0.029128,
+          "p95_flip_error_over_depth_span": 0.071113,
+          "runtime_seconds": 0.232374
+        },
+        "top": {
+          "object_id": "ring_005",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_005/top.png",
+          "image_sha256": "ce94eaf047d6d314a077263bb06827e17d449df10b9a53378a122a72ebff3e0f",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_005/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_005/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_005/top.png",
+          "raw_float32_sha256": "173884fe82b85d35dea5bb19d1c83a2aa5ce06c6bd8b9f1c162e7f75b08593be",
+          "robust_depth_range": {
+            "p02": 2.6646588039398194,
+            "p98": 3.9471710681915284
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002053031921386719,
+            "p98": 0.267385663986206
+          },
+          "mean_flip_error_over_depth_span": 0.063216,
+          "p95_flip_error_over_depth_span": 0.160879,
+          "runtime_seconds": 0.227258
+        },
+        "iso": {
+          "object_id": "ring_005",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_005/iso.png",
+          "image_sha256": "bc40926663acf1a326557f13913b9e4972d2b21c48d7bbe6246225fe402785df",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_005/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_005/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_005/iso.png",
+          "raw_float32_sha256": "b6111f6bcc862c5cea870f44b5e00a0f1d48d7de108d43140721131388403972",
+          "robust_depth_range": {
+            "p02": 0.37598286390304564,
+            "p98": 4.2329465198516845
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002576746940612793,
+            "p98": 0.42247607707977286
+          },
+          "mean_flip_error_over_depth_span": 0.029102,
+          "p95_flip_error_over_depth_span": 0.081671,
+          "runtime_seconds": 0.342983
+        },
+        "lsv": {
+          "object_id": "ring_005",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_005/lsv.png",
+          "image_sha256": "1a39c4de508699a360e2ecad3cebcb991053a649931e41db6a865ea99b88ba2f",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_005/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_005/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_005/lsv.png",
+          "raw_float32_sha256": "666ce260771d8aa6955c24178883a558d575cf308b747ee6393e66e3ad3fc116",
+          "robust_depth_range": {
+            "p02": 2.281067519187927,
+            "p98": 4.64293755531311
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0024053192138671874,
+            "p98": 0.3253243780136108
+          },
+          "mean_flip_error_over_depth_span": 0.037537,
+          "p95_flip_error_over_depth_span": 0.115232,
+          "runtime_seconds": 0.284498
+        },
+        "rsv": {
+          "object_id": "ring_005",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_005/rsv.png",
+          "image_sha256": "ddf423a2989b2282c9d1ced53c490b426bf2115835e6276ad850677f9043de52",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_005/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_005/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_005/rsv.png",
+          "raw_float32_sha256": "644dbd0f4ee87d2f2f1f738261dfcd2e870896136e52a8bdf89fecc155ef8552",
+          "robust_depth_range": {
+            "p02": 2.600108070373535,
+            "p98": 4.536432914733886
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.010213565826416016,
+            "p98": 0.24486892700195312
+          },
+          "mean_flip_error_over_depth_span": 0.059083,
+          "p95_flip_error_over_depth_span": 0.114175,
+          "runtime_seconds": 0.230561
+        }
+      }
+    },
+    {
+      "object_id": "ring_006",
+      "source_name": "Ring 6",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_006_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_006",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_006/front.png",
+          "image_sha256": "87013c0216b4106192ca6277d4e02247f9701ab6c8e8bd7c495b393c8f6bac59",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_006/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_006/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_006/front.png",
+          "raw_float32_sha256": "c8f758a2be5b78eddf76f56e57905674aa585bcad49d1d50d8e30db9e05e496c",
+          "robust_depth_range": {
+            "p02": 1.7130732393264771,
+            "p98": 3.752748727798462
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.00156705379486084,
+            "p98": 0.22097314834594717
+          },
+          "mean_flip_error_over_depth_span": 0.029989,
+          "p95_flip_error_over_depth_span": 0.085669,
+          "runtime_seconds": 0.230969
+        },
+        "top": {
+          "object_id": "ring_006",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_006/top.png",
+          "image_sha256": "fbec01b8d6aaff28e4a612f75dbed6c9868ffd157e0a9e93d3271ef3ccf8aded",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_006/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_006/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_006/top.png",
+          "raw_float32_sha256": "6cc573bc70d615929cb521814a30c7235c707de4ada5f8fee582f78609675f14",
+          "robust_depth_range": {
+            "p02": 2.8985162734985352,
+            "p98": 4.2849205970764155
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.00213770866394043,
+            "p98": 0.1997019290924065
+          },
+          "mean_flip_error_over_depth_span": 0.047378,
+          "p95_flip_error_over_depth_span": 0.121045,
+          "runtime_seconds": 0.224322
+        },
+        "iso": {
+          "object_id": "ring_006",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_006/iso.png",
+          "image_sha256": "f52218818739e8e6682794dcf38599e50403b7a40cab22f5e85535e0c5a2ddad",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_006/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_006/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_006/iso.png",
+          "raw_float32_sha256": "e69dd1231fbc5456a3429d23d4382ef9387d87329f8b47fadac1dfa3d133b861",
+          "robust_depth_range": {
+            "p02": 0.6780102133750916,
+            "p98": 4.533859920501709
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0022086381912231447,
+            "p98": 0.22319226264953618
+          },
+          "mean_flip_error_over_depth_span": 0.019318,
+          "p95_flip_error_over_depth_span": 0.049857,
+          "runtime_seconds": 0.272779
+        },
+        "lsv": {
+          "object_id": "ring_006",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_006/lsv.png",
+          "image_sha256": "ad6f750c0128d8f42693d60ef0a9e1307f4fd7614ef52a219aace90c2ef28766",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_006/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_006/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_006/lsv.png",
+          "raw_float32_sha256": "12127d220e5d49fc1fe6e9a48fe17a822ec01eaa5f608ff3402c82bd84272bdb",
+          "robust_depth_range": {
+            "p02": 1.8587808156013488,
+            "p98": 4.4565928936004635
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0013416624069213868,
+            "p98": 0.2094370555877686
+          },
+          "mean_flip_error_over_depth_span": 0.020322,
+          "p95_flip_error_over_depth_span": 0.056393,
+          "runtime_seconds": 0.229255
+        },
+        "rsv": {
+          "object_id": "ring_006",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_006/rsv.png",
+          "image_sha256": "3ea5d8ba70b3b7e61e652e2df2e421c7b38ae188199210ba558bd0d6a0834f3b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_006/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_006/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_006/rsv.png",
+          "raw_float32_sha256": "264a0b94a57e483236a8efb6f7ca31071538f2bb7309aeff8e05bff35dcbb545",
+          "robust_depth_range": {
+            "p02": 2.060976152420044,
+            "p98": 4.453792486190796
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0021180391311645505,
+            "p98": 0.28469388961792025
+          },
+          "mean_flip_error_over_depth_span": 0.036157,
+          "p95_flip_error_over_depth_span": 0.094975,
+          "runtime_seconds": 0.366844
+        }
+      }
+    },
+    {
+      "object_id": "ring_007",
+      "source_name": "Ring 7",
+      "split": "test",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_007_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_007",
+          "split": "test",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_007/front.png",
+          "image_sha256": "7edef361ed397f71181811a750d380806be98229d1f61bf5c59c99df23a55aa5",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_007/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_007/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_007/front.png",
+          "raw_float32_sha256": "0d4d4f4b7e5bf479f57bfdef834ef4dd572a63648df8e9a12c16911c52d6e7ab",
+          "robust_depth_range": {
+            "p02": 2.033950853347778,
+            "p98": 3.53890118598938
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.006359720230102539,
+            "p98": 0.4416566848754882
+          },
+          "mean_flip_error_over_depth_span": 0.109275,
+          "p95_flip_error_over_depth_span": 0.237836,
+          "runtime_seconds": 0.231361
+        },
+        "top": {
+          "object_id": "ring_007",
+          "split": "test",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_007/top.png",
+          "image_sha256": "f1f548faf56deda463975344713d6901c98f596bbe72dabc8882cb51c2b17460",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_007/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_007/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_007/top.png",
+          "raw_float32_sha256": "3d2fa9fbd1d54471a75dc850df3727d98ae26e081f3e2f194dbacbda1c43c741",
+          "robust_depth_range": {
+            "p02": 2.9436027812957763,
+            "p98": 4.320775985717773
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0038268852233886716,
+            "p98": 0.3171859836578371
+          },
+          "mean_flip_error_over_depth_span": 0.083781,
+          "p95_flip_error_over_depth_span": 0.207984,
+          "runtime_seconds": 0.219934
+        },
+        "iso": {
+          "object_id": "ring_007",
+          "split": "test",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_007/iso.png",
+          "image_sha256": "238f6793bdefeeeff3e6f42e34bba308c5346f2369a162ac90db6e818acca210",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_007/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_007/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_007/iso.png",
+          "raw_float32_sha256": "34bb489a3aacbd6cc0552de61431dcc014c5c57593c1edd83cf990d934fd678f",
+          "robust_depth_range": {
+            "p02": 0.2728958421945572,
+            "p98": 4.835282306671142
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0022160625457763672,
+            "p98": 0.21740972995758018
+          },
+          "mean_flip_error_over_depth_span": 0.01316,
+          "p95_flip_error_over_depth_span": 0.031891,
+          "runtime_seconds": 0.235909
+        },
+        "lsv": {
+          "object_id": "ring_007",
+          "split": "test",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_007/lsv.png",
+          "image_sha256": "5054e1ad301c88eaa1d9750d150f31a1d8d81b7978b487c910d6da93149ca7e3",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_007/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_007/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_007/lsv.png",
+          "raw_float32_sha256": "a5b7c6559de569f1ef970015696183951843ef0cf57434258d019704b43c6271",
+          "robust_depth_range": {
+            "p02": 2.0754152488708497,
+            "p98": 4.385144786834717
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002561235427856445,
+            "p98": 0.3716433715820312
+          },
+          "mean_flip_error_over_depth_span": 0.043431,
+          "p95_flip_error_over_depth_span": 0.139699,
+          "runtime_seconds": 0.250613
+        },
+        "rsv": {
+          "object_id": "ring_007",
+          "split": "test",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_007/rsv.png",
+          "image_sha256": "41f705eab9ee7042510f14ec5991861fed2ae0ded2778e440715c5b928bb143d",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_007/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_007/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_007/rsv.png",
+          "raw_float32_sha256": "53c5fdbd99cfdce65423b1de7063d6edb997d2f8e6fa703fc12a79a871f1c770",
+          "robust_depth_range": {
+            "p02": 2.51125226020813,
+            "p98": 4.429677181243896
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.005013294219970703,
+            "p98": 0.34266860961914053
+          },
+          "mean_flip_error_over_depth_span": 0.057559,
+          "p95_flip_error_over_depth_span": 0.146338,
+          "runtime_seconds": 0.326288
+        }
+      }
+    },
+    {
+      "object_id": "ring_008",
+      "source_name": "Ring 8",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_008_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_008",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_008/front.png",
+          "image_sha256": "3750d312b2860fb99d588ac4b5cfd22dabefb12714dc828d75915716248697eb",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_008/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_008/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_008/front.png",
+          "raw_float32_sha256": "65cd9cba5bd4e85bbd563fcd4171e9ff7d55c947b92a93e24ea239d38a24ace2",
+          "robust_depth_range": {
+            "p02": 2.404081869125366,
+            "p98": 3.217100715637207
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0024020195007324217,
+            "p98": 0.16302642822265617
+          },
+          "mean_flip_error_over_depth_span": 0.072855,
+          "p95_flip_error_over_depth_span": 0.155067,
+          "runtime_seconds": 0.22846
+        },
+        "top": {
+          "object_id": "ring_008",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_008/top.png",
+          "image_sha256": "909d737ce4281c330589d5ee885e10113dab9e75d3c4cebee8a605fd97ba88e1",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_008/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_008/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_008/top.png",
+          "raw_float32_sha256": "51f7948816512088f7335c764a35b5c042351582bc5fc9dd727063a6651bc0e8",
+          "robust_depth_range": {
+            "p02": 2.3780706119537354,
+            "p98": 4.151809997558594
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0028899860382080077,
+            "p98": 0.3156654596328734
+          },
+          "mean_flip_error_over_depth_span": 0.072791,
+          "p95_flip_error_over_depth_span": 0.149556,
+          "runtime_seconds": 0.221927
+        },
+        "iso": {
+          "object_id": "ring_008",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_008/iso.png",
+          "image_sha256": "0e62fb5e945698fd6385ff6bba3e8b3c49b417c74094cddec24357114ffba80b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_008/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_008/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_008/iso.png",
+          "raw_float32_sha256": "918bd33f05644956fa7cf9e3009d48a88b8de3e2047801c3b8d0b44e5846135f",
+          "robust_depth_range": {
+            "p02": 0.535678917169571,
+            "p98": 4.944296360015869
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0030488967895507812,
+            "p98": 0.3106334686279296
+          },
+          "mean_flip_error_over_depth_span": 0.017849,
+          "p95_flip_error_over_depth_span": 0.055374,
+          "runtime_seconds": 0.226904
+        },
+        "lsv": {
+          "object_id": "ring_008",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_008/lsv.png",
+          "image_sha256": "7c6ec1a18420f8ebe652bda2634d746d53fcdb6eebb47618c74f8398a6e084e6",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_008/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_008/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_008/lsv.png",
+          "raw_float32_sha256": "cdab84445565715fbb6df1dcaf6291eef921c285d224d59f34fd28da3a362285",
+          "robust_depth_range": {
+            "p02": 2.8249489498138427,
+            "p98": 4.68767674446106
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0020717525482177733,
+            "p98": 0.24234610557556155
+          },
+          "mean_flip_error_over_depth_span": 0.035937,
+          "p95_flip_error_over_depth_span": 0.082968,
+          "runtime_seconds": 0.235605
+        },
+        "rsv": {
+          "object_id": "ring_008",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_008/rsv.png",
+          "image_sha256": "150bf01ab8ee887d6e2b48fc7c1c1e4bf489e77355a6d60593a9e34d18b3dce6",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_008/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_008/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_008/rsv.png",
+          "raw_float32_sha256": "ee67423ced13b746f64d6c448a1770b54faacaa62bc36bec3a7ec66fc4004927",
+          "robust_depth_range": {
+            "p02": 1.9377615928649903,
+            "p98": 5.108717632293701
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0013634681701660157,
+            "p98": 0.2532365798950195
+          },
+          "mean_flip_error_over_depth_span": 0.022696,
+          "p95_flip_error_over_depth_span": 0.066641,
+          "runtime_seconds": 0.228157
+        }
+      }
+    },
+    {
+      "object_id": "ring_009",
+      "source_name": "Ring 9",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_009_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_009",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_009/front.png",
+          "image_sha256": "8b6d1d847080297c91baaad4399f2fa32331546ffd4c8493bf29c040a6b9a301",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_009/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_009/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_009/front.png",
+          "raw_float32_sha256": "b956dad525fbc1271b0cf96e19c024ded9936e03611d84aa3ed962eb57be8352",
+          "robust_depth_range": {
+            "p02": 1.8836545419692994,
+            "p98": 3.654845962524414
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0021600914001464844,
+            "p98": 0.25648268699645965
+          },
+          "mean_flip_error_over_depth_span": 0.043057,
+          "p95_flip_error_over_depth_span": 0.113727,
+          "runtime_seconds": 0.276217
+        },
+        "top": {
+          "object_id": "ring_009",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_009/top.png",
+          "image_sha256": "5e285180280068881346b2a40e4cb412b6abfe813355f0e070d3391c46a48010",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_009/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_009/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_009/top.png",
+          "raw_float32_sha256": "65160c0b736230f8ccd6fa56c76d7c75c0ca7d67bf5f18e801cb5ba29ac78b4e",
+          "robust_depth_range": {
+            "p02": 2.507019567489624,
+            "p98": 3.627791333198547
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0018268585205078124,
+            "p98": 0.21024935245513915
+          },
+          "mean_flip_error_over_depth_span": 0.053129,
+          "p95_flip_error_over_depth_span": 0.135518,
+          "runtime_seconds": 0.364455
+        },
+        "iso": {
+          "object_id": "ring_009",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_009/iso.png",
+          "image_sha256": "3314e05d22dc3c735df381e1e6d595790fc4cf2c0590d8697224ec9c0c7ed6b3",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_009/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_009/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_009/iso.png",
+          "raw_float32_sha256": "2fe37d2117fad4e9b5a833d5c9f3b5a593674d0779d0a6c4c4eb049eaf54fce7",
+          "robust_depth_range": {
+            "p02": 0.4574743062257767,
+            "p98": 4.220671977996826
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0017621493339538572,
+            "p98": 0.24255801677703864
+          },
+          "mean_flip_error_over_depth_span": 0.021955,
+          "p95_flip_error_over_depth_span": 0.055304,
+          "runtime_seconds": 0.311846
+        },
+        "lsv": {
+          "object_id": "ring_009",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_009/lsv.png",
+          "image_sha256": "3774dff4803b8f3e500e401f1c7e1e3e28bd1b4c5de250bc966251665d52e520",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_009/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_009/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_009/lsv.png",
+          "raw_float32_sha256": "54010eba5ad8cea52fb741645c8cc721c7ef2a408e9ef63f6b84bc5597a781f5",
+          "robust_depth_range": {
+            "p02": 2.2122308444976806,
+            "p98": 3.818885021209717
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0021309852600097656,
+            "p98": 0.2002211904525757
+          },
+          "mean_flip_error_over_depth_span": 0.042028,
+          "p95_flip_error_over_depth_span": 0.105843,
+          "runtime_seconds": 0.266036
+        },
+        "rsv": {
+          "object_id": "ring_009",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_009/rsv.png",
+          "image_sha256": "efb5e3f44194b92607d7d7ae860fccc8c1d48fcbee4ee46918687c8c0c7a6ccd",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_009/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_009/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_009/rsv.png",
+          "raw_float32_sha256": "8f8549486f28e249f5569b2eb7366b3d879b13d96eec488d628598c795705aca",
+          "robust_depth_range": {
+            "p02": 2.431305475234985,
+            "p98": 4.314240493774414
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0028058815002441405,
+            "p98": 0.26049255371093755
+          },
+          "mean_flip_error_over_depth_span": 0.041096,
+          "p95_flip_error_over_depth_span": 0.096148,
+          "runtime_seconds": 0.287271
+        }
+      }
+    },
+    {
+      "object_id": "ring_010",
+      "source_name": "Ring 10",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_010_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_010",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_010/front.png",
+          "image_sha256": "85fef708df474464e5094eb7e47aa2b3a28476b0d489f81e6b509ead2e795127",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_010/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_010/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_010/front.png",
+          "raw_float32_sha256": "e74c4da5899cb0f09a349df2d1e933d757ed3cb88927f40e02fc1f9d75435067",
+          "robust_depth_range": {
+            "p02": 2.19941171169281,
+            "p98": 3.377274374961853
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0023318910598754882,
+            "p98": 0.3187910938262939
+          },
+          "mean_flip_error_over_depth_span": 0.069879,
+          "p95_flip_error_over_depth_span": 0.225074,
+          "runtime_seconds": 0.231781
+        },
+        "top": {
+          "object_id": "ring_010",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_010/top.png",
+          "image_sha256": "3bfb90713ed7a1bef17115ddbd98a9e83a1e0a31bd470dc4650ee56504499c2a",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_010/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_010/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_010/top.png",
+          "raw_float32_sha256": "4d6bc624610cce3416d51e1bc653d8a9180ef778878e102e5cfd724da616c20a",
+          "robust_depth_range": {
+            "p02": 2.3797760009765625,
+            "p98": 3.9949242973327634
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0038541507720947265,
+            "p98": 0.23771095275878865
+          },
+          "mean_flip_error_over_depth_span": 0.056975,
+          "p95_flip_error_over_depth_span": 0.124307,
+          "runtime_seconds": 0.229137
+        },
+        "iso": {
+          "object_id": "ring_010",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_010/iso.png",
+          "image_sha256": "d35d70a4d94ea38fb806da3416e02e47214f39270f4785fe3d3bd71557b6dda9",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_010/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_010/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_010/iso.png",
+          "raw_float32_sha256": "4f02aefd5bc96d9829487b7e4263177016d2f2e02054c812938e5356fa3142d0",
+          "robust_depth_range": {
+            "p02": 0.30818004488945006,
+            "p98": 4.037299690246582
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002590923309326172,
+            "p98": 0.30129394531249953
+          },
+          "mean_flip_error_over_depth_span": 0.027021,
+          "p95_flip_error_over_depth_span": 0.068297,
+          "runtime_seconds": 0.321639
+        },
+        "lsv": {
+          "object_id": "ring_010",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_010/lsv.png",
+          "image_sha256": "8243ab1e234c5b52dd574a8a76847f15a9295dda40e48a3415df6fddf79e210c",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_010/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_010/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_010/lsv.png",
+          "raw_float32_sha256": "6908bcfcf5f1c14fcb5800061513148df036bc7624476f17c49dcd2fcacbbd97",
+          "robust_depth_range": {
+            "p02": 1.7892921161651612,
+            "p98": 4.54799467086792
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.006811838150024414,
+            "p98": 0.318901162147522
+          },
+          "mean_flip_error_over_depth_span": 0.055647,
+          "p95_flip_error_over_depth_span": 0.109929,
+          "runtime_seconds": 0.322996
+        },
+        "rsv": {
+          "object_id": "ring_010",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_010/rsv.png",
+          "image_sha256": "a2c3c6aa4a132b7f6ad1d200a00e32ba076226b2cb5bd6bf6dededd1d4049758",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_010/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_010/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_010/rsv.png",
+          "raw_float32_sha256": "ea37fc0cf3f6cdf034da8d2a39c82b2514a297c90bb055a12207675b3469e507",
+          "robust_depth_range": {
+            "p02": 1.9313808107376098,
+            "p98": 5.160390567779541
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.009202423095703125,
+            "p98": 0.4513459205627441
+          },
+          "mean_flip_error_over_depth_span": 0.045937,
+          "p95_flip_error_over_depth_span": 0.114485,
+          "runtime_seconds": 0.247519
+        }
+      }
+    },
+    {
+      "object_id": "ring_011",
+      "source_name": "Ring 11",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_011_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_011",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_011/front.png",
+          "image_sha256": "04d1a7687ec9e1f2dacb00d38930767fb879b4898bc924543ca240d360ad2d98",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_011/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_011/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_011/front.png",
+          "raw_float32_sha256": "cf0e5a275cc703d45ebacca0e3f18a57b9d0d3d6d1dd6626c431f6c73caccb20",
+          "robust_depth_range": {
+            "p02": 1.5382928848266602,
+            "p98": 3.5916575431823725
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0024704933166503906,
+            "p98": 0.24011886119842496
+          },
+          "mean_flip_error_over_depth_span": 0.037708,
+          "p95_flip_error_over_depth_span": 0.088041,
+          "runtime_seconds": 0.256639
+        },
+        "top": {
+          "object_id": "ring_011",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_011/top.png",
+          "image_sha256": "919f6372f5ac3e6f64c0186c47dc4f5bc7e7cca0c1f331088ce0c2fe6c76b030",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_011/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_011/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_011/top.png",
+          "raw_float32_sha256": "9a6229ed54ce82b766db86e989b53df5bd67e4bf208aa9177de3d533a32be26a",
+          "robust_depth_range": {
+            "p02": 2.660591344833374,
+            "p98": 4.361029033660889
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0036388492584228513,
+            "p98": 0.3471087837219229
+          },
+          "mean_flip_error_over_depth_span": 0.052804,
+          "p95_flip_error_over_depth_span": 0.117232,
+          "runtime_seconds": 0.234181
+        },
+        "iso": {
+          "object_id": "ring_011",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_011/iso.png",
+          "image_sha256": "e0275cff3acdd5a494278623af8b8c930cc5885bf50c33038b31c91a9227140d",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_011/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_011/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_011/iso.png",
+          "raw_float32_sha256": "21ed2f3e0758e371610da74b9aefa707aec2e2be5b4b154ef4b2b11ae108f9ac",
+          "robust_depth_range": {
+            "p02": 0.4543820869922638,
+            "p98": 5.1368915081024165
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.024730348587036138,
+            "p98": 0.6333638238906856
+          },
+          "mean_flip_error_over_depth_span": 0.055254,
+          "p95_flip_error_over_depth_span": 0.099899,
+          "runtime_seconds": 0.257223
+        },
+        "lsv": {
+          "object_id": "ring_011",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_011/lsv.png",
+          "image_sha256": "400ecbb3a0e9cbaa1a296ac71e84ec56325e5d378618c4caff9b1ebe2586d41f",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_011/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_011/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_011/lsv.png",
+          "raw_float32_sha256": "d75d3ac9fa9d83b3becdf3e50f24d7f27308d92d826ca2cfe511ca54654f38cb",
+          "robust_depth_range": {
+            "p02": 1.81869441986084,
+            "p98": 4.463125972747803
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.011743936538696289,
+            "p98": 0.2578866863250732
+          },
+          "mean_flip_error_over_depth_span": 0.044847,
+          "p95_flip_error_over_depth_span": 0.078263,
+          "runtime_seconds": 0.230565
+        },
+        "rsv": {
+          "object_id": "ring_011",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_011/rsv.png",
+          "image_sha256": "7258f1107961c83304d628e5b2690ba347698a88b8ca09bfb1a670f7a340b2d2",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_011/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_011/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_011/rsv.png",
+          "raw_float32_sha256": "038fd64de53b8b543cf995d3b5ebf8db0cba2a9676fa36864b0322bd322d70e9",
+          "robust_depth_range": {
+            "p02": 2.3844616842269897,
+            "p98": 5.268599691390992
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.001873030662536621,
+            "p98": 0.2087820720672608
+          },
+          "mean_flip_error_over_depth_span": 0.022649,
+          "p95_flip_error_over_depth_span": 0.053262,
+          "runtime_seconds": 0.229031
+        }
+      }
+    },
+    {
+      "object_id": "ring_012",
+      "source_name": "Ring 12",
+      "split": "val",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_012_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_012",
+          "split": "val",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_012/front.png",
+          "image_sha256": "82377caca685fa1911c2bcf714272470def597a3a12ebafd61466804297e4e1f",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_012/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_012/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_012/front.png",
+          "raw_float32_sha256": "43590d9667986344608ccc5c2b69007b866d09a3184251c358643b415f5335e5",
+          "robust_depth_range": {
+            "p02": 1.751736147403717,
+            "p98": 3.164676570892334
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0015623331069946288,
+            "p98": 0.21942996978759755
+          },
+          "mean_flip_error_over_depth_span": 0.039232,
+          "p95_flip_error_over_depth_span": 0.125366,
+          "runtime_seconds": 0.24295
+        },
+        "top": {
+          "object_id": "ring_012",
+          "split": "val",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_012/top.png",
+          "image_sha256": "f4b5e524aaf776884facee27fb9abb298d5aa8aa3a78f870dd9b3753104b28de",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_012/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_012/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_012/top.png",
+          "raw_float32_sha256": "c7eb3e8274649b0c9c1e111fba73cdfe478d1b3066af24b6eee1903b695e21e2",
+          "robust_depth_range": {
+            "p02": 2.5170726776123047,
+            "p98": 4.705947208404541
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.001954460144042969,
+            "p98": 0.31039237976074213
+          },
+          "mean_flip_error_over_depth_span": 0.034211,
+          "p95_flip_error_over_depth_span": 0.099565,
+          "runtime_seconds": 0.226229
+        },
+        "iso": {
+          "object_id": "ring_012",
+          "split": "val",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_012/iso.png",
+          "image_sha256": "638ffd4ea458eb4838a27036951e72c95fa900add1a2e8504d478429257e9ad6",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_012/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_012/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_012/iso.png",
+          "raw_float32_sha256": "a3c2dd3e74e55dc5c1d5068f3fa8f508563be556396e5a4dbac85c2f1028569a",
+          "robust_depth_range": {
+            "p02": 0.343704617023468,
+            "p98": 4.893259544372559
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.004628657102584839,
+            "p98": 0.34679647445678724
+          },
+          "mean_flip_error_over_depth_span": 0.03136,
+          "p95_flip_error_over_depth_span": 0.063301,
+          "runtime_seconds": 0.231371
+        },
+        "lsv": {
+          "object_id": "ring_012",
+          "split": "val",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_012/lsv.png",
+          "image_sha256": "d9d743f1aefdebfc652a4e29c457f28fea6befe343d90c5428f1d75941e5f594",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_012/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_012/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_012/lsv.png",
+          "raw_float32_sha256": "d5765ca12c52832bce1f7b0496bf7b28e15e9e2c8c0fb3872758513f3d205e72",
+          "robust_depth_range": {
+            "p02": 2.2087505197525026,
+            "p98": 4.483910465240478
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.006735653877258301,
+            "p98": 0.3867497158050537
+          },
+          "mean_flip_error_over_depth_span": 0.066728,
+          "p95_flip_error_over_depth_span": 0.153396,
+          "runtime_seconds": 0.232502
+        },
+        "rsv": {
+          "object_id": "ring_012",
+          "split": "val",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_012/rsv.png",
+          "image_sha256": "4f77a49c13789c84e7cd1dc06845037002c4355f087990181e607bc48f9226d0",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_012/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_012/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_012/rsv.png",
+          "raw_float32_sha256": "ca9e25bf6ae07fee54f79ab061fb63555a33d454e794e5fcd813a9208467238d",
+          "robust_depth_range": {
+            "p02": 2.625862259864807,
+            "p98": 4.585940580368042
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002271261215209961,
+            "p98": 0.22542378902435276
+          },
+          "mean_flip_error_over_depth_span": 0.035051,
+          "p95_flip_error_over_depth_span": 0.094668,
+          "runtime_seconds": 0.228135
+        }
+      }
+    },
+    {
+      "object_id": "ring_013",
+      "source_name": "Ring 13",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_013_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_013",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_013/front.png",
+          "image_sha256": "f2e88d57a15addf26f56ef98ba033a770f19acc8ff45384603da1615b59b417f",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_013/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_013/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_013/front.png",
+          "raw_float32_sha256": "4226be3b1f134d8eba198ccb854b00daa1bfa7d4f6865dd77a2ec780d390ac17",
+          "robust_depth_range": {
+            "p02": 1.9141403436660767,
+            "p98": 3.479340205192566
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0032421064376831057,
+            "p98": 0.20574242115020752
+          },
+          "mean_flip_error_over_depth_span": 0.049094,
+          "p95_flip_error_over_depth_span": 0.107792,
+          "runtime_seconds": 0.232832
+        },
+        "top": {
+          "object_id": "ring_013",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_013/top.png",
+          "image_sha256": "2ab6708d6bf53e07f3a3a37c0ed9b57fe212961a3a617b99621684b5e2d5bd37",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_013/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_013/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_013/top.png",
+          "raw_float32_sha256": "e257b027ff14cbfd5be36ca40f138d1c4f6d40de957e047bb6c6c754be3324ae",
+          "robust_depth_range": {
+            "p02": 2.6661308002471924,
+            "p98": 3.9378891658782957
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0016372966766357421,
+            "p98": 0.1882976341247557
+          },
+          "mean_flip_error_over_depth_span": 0.041389,
+          "p95_flip_error_over_depth_span": 0.101164,
+          "runtime_seconds": 0.234455
+        },
+        "iso": {
+          "object_id": "ring_013",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_013/iso.png",
+          "image_sha256": "0a7e14aacab0f145f0d65a35f2f7b42b16dcd2c1749257d5ba66b60365869222",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_013/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_013/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_013/iso.png",
+          "raw_float32_sha256": "0be71a38e27c0fb7e8ae28636c4166cc79608e8b0380ddd10789c9f219454c87",
+          "robust_depth_range": {
+            "p02": 0.550668535232544,
+            "p98": 5.004227256774902
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.013717752695083619,
+            "p98": 0.7551270723342896
+          },
+          "mean_flip_error_over_depth_span": 0.075535,
+          "p95_flip_error_over_depth_span": 0.157459,
+          "runtime_seconds": 0.353487
+        },
+        "lsv": {
+          "object_id": "ring_013",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_013/lsv.png",
+          "image_sha256": "75fb018e28c06f56f243072811292f9a4aca6f3037221c527852b99c793b4922",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_013/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_013/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_013/lsv.png",
+          "raw_float32_sha256": "5243ed19c84eaa82ad8f946a215e8dd8006da1fa140a29aceb44229c009100ac",
+          "robust_depth_range": {
+            "p02": 2.5396281242370606,
+            "p98": 5.064422225952148
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.005124092102050781,
+            "p98": 0.509401273727417
+          },
+          "mean_flip_error_over_depth_span": 0.050383,
+          "p95_flip_error_over_depth_span": 0.14332,
+          "runtime_seconds": 0.330467
+        },
+        "rsv": {
+          "object_id": "ring_013",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_013/rsv.png",
+          "image_sha256": "46ae24ebb05848971d3e1f8b345bb6c5059e9d15778b65ee3caa49f50fb15dfa",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_013/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_013/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_013/rsv.png",
+          "raw_float32_sha256": "c9d5ebd1a47f229f3d56a343de99a5e5c1eee9b8a596b748111346421b097086",
+          "robust_depth_range": {
+            "p02": 2.8428422260284423,
+            "p98": 5.201335563659668
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.009766082763671875,
+            "p98": 0.4012565898895264
+          },
+          "mean_flip_error_over_depth_span": 0.070984,
+          "p95_flip_error_over_depth_span": 0.148942,
+          "runtime_seconds": 0.342942
+        }
+      }
+    },
+    {
+      "object_id": "ring_014",
+      "source_name": "Ring 14",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_014_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_014",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_014/front.png",
+          "image_sha256": "6a4b8fb5812ca1230366700927e0f67a5cdf4205f39fdceaf3e46ff28f85d5aa",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_014/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_014/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_014/front.png",
+          "raw_float32_sha256": "c64f791017dfd63aab30797037298a1dc2294a5e976e5c05feb84845db3ff976",
+          "robust_depth_range": {
+            "p02": 2.2548457860946653,
+            "p98": 3.6088942289352417
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0013074159622192385,
+            "p98": 0.14669990539550776
+          },
+          "mean_flip_error_over_depth_span": 0.032447,
+          "p95_flip_error_over_depth_span": 0.083892,
+          "runtime_seconds": 0.368912
+        },
+        "top": {
+          "object_id": "ring_014",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_014/top.png",
+          "image_sha256": "60759f4ffafc2a9f47a91b024b912962d7216c313a95628ba7d5ce865e29409b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_014/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_014/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_014/top.png",
+          "raw_float32_sha256": "e38b2926947c2ee5acefe856d448d209eba1102f1356a3da3d34343c3a4a3daa",
+          "robust_depth_range": {
+            "p02": 2.6345839977264403,
+            "p98": 4.748157024383545
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0021057844161987303,
+            "p98": 0.40082938671112
+          },
+          "mean_flip_error_over_depth_span": 0.045532,
+          "p95_flip_error_over_depth_span": 0.15444,
+          "runtime_seconds": 0.233181
+        },
+        "iso": {
+          "object_id": "ring_014",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_014/iso.png",
+          "image_sha256": "d6bc0bd96fe51801ec0efb6357c5a6cccea644d46094765383d52b2e1b230342",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_014/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_014/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_014/iso.png",
+          "raw_float32_sha256": "889b8d74f7fb3d93731a6eb33e4c479142258df6224ddece88e5b06252057f94",
+          "robust_depth_range": {
+            "p02": 0.727228947877884,
+            "p98": 4.83643310546875
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.007030353546142579,
+            "p98": 0.5132870936393737
+          },
+          "mean_flip_error_over_depth_span": 0.034473,
+          "p95_flip_error_over_depth_span": 0.105888,
+          "runtime_seconds": 0.229282
+        },
+        "lsv": {
+          "object_id": "ring_014",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_014/lsv.png",
+          "image_sha256": "c8ed08ded5ac453e9d4e79a62ef871e77c2697a97bb18e2a8547976f3329bff0",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_014/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_014/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_014/lsv.png",
+          "raw_float32_sha256": "c079b25cd52770c657d1b90b7786e6e4b4d2f006853aa396f14884ac0810479c",
+          "robust_depth_range": {
+            "p02": 2.0511270999908446,
+            "p98": 4.3339013099670405
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002447032928466797,
+            "p98": 0.22801604270935014
+          },
+          "mean_flip_error_over_depth_span": 0.039385,
+          "p95_flip_error_over_depth_span": 0.077927,
+          "runtime_seconds": 0.225172
+        },
+        "rsv": {
+          "object_id": "ring_014",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_014/rsv.png",
+          "image_sha256": "42207168a95febbe666aef152259102d70eaa1fa128c7febda34f2b94c91f1d2",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_014/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_014/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_014/rsv.png",
+          "raw_float32_sha256": "aae7f99151f86e175882c643758620d768803726b6b31d1c8870ed0c47ee9d63",
+          "robust_depth_range": {
+            "p02": 2.5704221725463867,
+            "p98": 5.020993061065674
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.003780708312988281,
+            "p98": 0.24567167282104488
+          },
+          "mean_flip_error_over_depth_span": 0.036926,
+          "p95_flip_error_over_depth_span": 0.080971,
+          "runtime_seconds": 0.228258
+        }
+      }
+    },
+    {
+      "object_id": "ring_015",
+      "source_name": "Ring 15",
+      "split": "test",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_015_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_015",
+          "split": "test",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_015/front.png",
+          "image_sha256": "f2acce4d5a08117c6f5d47ff84220a229f712c911920da7e710dd3c1a873e4dd",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_015/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_015/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_015/front.png",
+          "raw_float32_sha256": "fdd016a05644a6dd4c5b760107d614effb602f80a5a1cc3b32cca005b341f31a",
+          "robust_depth_range": {
+            "p02": 1.9680347681045531,
+            "p98": 3.517780075073242
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0040473461151123045,
+            "p98": 0.22653360366821282
+          },
+          "mean_flip_error_over_depth_span": 0.066156,
+          "p95_flip_error_over_depth_span": 0.12925,
+          "runtime_seconds": 0.254847
+        },
+        "top": {
+          "object_id": "ring_015",
+          "split": "test",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_015/top.png",
+          "image_sha256": "08a8a3f9460b76f9437e5061e832c848d35d0e35f4802f7cb880cf69c1160e08",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_015/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_015/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_015/top.png",
+          "raw_float32_sha256": "60b14e5e8ba3e3636a3d55895d0ad01db0467dfd519575190ff3a48d5d053173",
+          "robust_depth_range": {
+            "p02": 2.790990514755249,
+            "p98": 4.806387596130371
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.003218183517456055,
+            "p98": 0.29443249225616447
+          },
+          "mean_flip_error_over_depth_span": 0.046624,
+          "p95_flip_error_over_depth_span": 0.105577,
+          "runtime_seconds": 0.227547
+        },
+        "iso": {
+          "object_id": "ring_015",
+          "split": "test",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_015/iso.png",
+          "image_sha256": "d651171f32907c8e5463df100f565f0e0da08bdfcbfc14210db930353b608d7b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_015/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_015/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_015/iso.png",
+          "raw_float32_sha256": "32962db10e348ffdce147c8692d12af38dee5571e7eb074d26c8607cdee9d010",
+          "robust_depth_range": {
+            "p02": 0.5590564930438996,
+            "p98": 5.195409708023071
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0035654735565185548,
+            "p98": 0.2299316692352295
+          },
+          "mean_flip_error_over_depth_span": 0.017979,
+          "p95_flip_error_over_depth_span": 0.041301,
+          "runtime_seconds": 0.227653
+        },
+        "lsv": {
+          "object_id": "ring_015",
+          "split": "test",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_015/lsv.png",
+          "image_sha256": "1a2f63187681c35a9403712cca3ea28300121702e91bf0261130b769a4daae9c",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_015/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_015/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_015/lsv.png",
+          "raw_float32_sha256": "0dddbbda104a7396825e144383b6f9347928d8d3e9280369f2155c2c8f763125",
+          "robust_depth_range": {
+            "p02": 2.148011202812195,
+            "p98": 3.82975040435791
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0023847007751464843,
+            "p98": 0.18078109860420224
+          },
+          "mean_flip_error_over_depth_span": 0.036676,
+          "p95_flip_error_over_depth_span": 0.087495,
+          "runtime_seconds": 0.229102
+        },
+        "rsv": {
+          "object_id": "ring_015",
+          "split": "test",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_015/rsv.png",
+          "image_sha256": "2425004168f3e1885902bd76cfe2814cb6f1c2adfd897607a09185016745c681",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_015/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_015/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_015/rsv.png",
+          "raw_float32_sha256": "f83137d3b72a3d42068adba8a39642ed6904e1efdc6eb86ac8b810e24ef1d9bc",
+          "robust_depth_range": {
+            "p02": 2.3420232248306276,
+            "p98": 3.9363879108428956
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.00417327880859375,
+            "p98": 0.2322193908691403
+          },
+          "mean_flip_error_over_depth_span": 0.050935,
+          "p95_flip_error_over_depth_span": 0.12671,
+          "runtime_seconds": 0.242251
+        }
+      }
+    },
+    {
+      "object_id": "ring_016",
+      "source_name": "Ring 16",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_016_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_016",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_016/front.png",
+          "image_sha256": "b4380447633886bef4407eee86f6794e3f7d4ef0588eacbba1e6ea8a893a3c1b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_016/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_016/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_016/front.png",
+          "raw_float32_sha256": "be8a6774d44cbfeb8de83000b3b5bcf0ca0c55e7477dccc816d1137645d72a52",
+          "robust_depth_range": {
+            "p02": 1.9931123089790344,
+            "p98": 3.4318735361099244
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0021991729736328125,
+            "p98": 0.3025232410430907
+          },
+          "mean_flip_error_over_depth_span": 0.054928,
+          "p95_flip_error_over_depth_span": 0.148885,
+          "runtime_seconds": 0.239425
+        },
+        "top": {
+          "object_id": "ring_016",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_016/top.png",
+          "image_sha256": "60fde6798fdd1611fdc9cc212b42593f31bbd5e956eb3df94e6db1ade3a45454",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_016/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_016/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_016/top.png",
+          "raw_float32_sha256": "d725a98e3c01d2e0c7902baaf5cd9bbb7304fcf14528c834c14f6d975a456e11",
+          "robust_depth_range": {
+            "p02": 2.4215107107162477,
+            "p98": 3.817333950996399
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0016316938400268554,
+            "p98": 0.21412962436676025
+          },
+          "mean_flip_error_over_depth_span": 0.048592,
+          "p95_flip_error_over_depth_span": 0.121534,
+          "runtime_seconds": 0.237348
+        },
+        "iso": {
+          "object_id": "ring_016",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_016/iso.png",
+          "image_sha256": "07cb27bea2091c65ddd04756845ba62d9457153b28358d9ee537e016678aff64",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_016/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_016/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_016/iso.png",
+          "raw_float32_sha256": "a8de5bb30ddeb9a58b9db3a2070d2fe1266fb8822b97a3b289bf417d739491a3",
+          "robust_depth_range": {
+            "p02": 0.4719123363494873,
+            "p98": 4.374990940093994
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.003343009948730469,
+            "p98": 0.2705336093902591
+          },
+          "mean_flip_error_over_depth_span": 0.025112,
+          "p95_flip_error_over_depth_span": 0.059528,
+          "runtime_seconds": 0.24926
+        },
+        "lsv": {
+          "object_id": "ring_016",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_016/lsv.png",
+          "image_sha256": "f02330c4bfc13049ff6754176ba286e2d5c02d4dc696f2bf33f5656597fd8221",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_016/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_016/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_016/lsv.png",
+          "raw_float32_sha256": "eed85227820d4395cc8e22559cc69e482637492344b5e416da4d1d4c56e6ac6e",
+          "robust_depth_range": {
+            "p02": 2.2646899890899657,
+            "p98": 4.733573360443115
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0016046714782714843,
+            "p98": 0.2511294078826904
+          },
+          "mean_flip_error_over_depth_span": 0.029056,
+          "p95_flip_error_over_depth_span": 0.068819,
+          "runtime_seconds": 0.227001
+        },
+        "rsv": {
+          "object_id": "ring_016",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_016/rsv.png",
+          "image_sha256": "94edcad83fb4239cf5fdbe2b78c3adb4a855d3a829f9e8df87ae4b45495d9968",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_016/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_016/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_016/rsv.png",
+          "raw_float32_sha256": "a7fee6915a2646bb4b86aea7831c4d8b52c3be18600947970e711dfb14a2218c",
+          "robust_depth_range": {
+            "p02": 2.5563857793807983,
+            "p98": 4.447345876693726
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.003779077529907226,
+            "p98": 0.3085690498352051
+          },
+          "mean_flip_error_over_depth_span": 0.06018,
+          "p95_flip_error_over_depth_span": 0.144829,
+          "runtime_seconds": 0.229371
+        }
+      }
+    },
+    {
+      "object_id": "ring_017",
+      "source_name": "Ring 17",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_017_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_017",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_017/front.png",
+          "image_sha256": "2232e135cf691bca264072da453df1da2775d318f3ef19cdc65e16d902e69f1c",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_017/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_017/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_017/front.png",
+          "raw_float32_sha256": "d797b7f438c3697e5af809ff13d7e38a8e987dc073c60110b07b3600b7ede7c4",
+          "robust_depth_range": {
+            "p02": 2.0667876625061035,
+            "p98": 3.4360598373413085
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0021098899841308595,
+            "p98": 0.3111568450927734
+          },
+          "mean_flip_error_over_depth_span": 0.053062,
+          "p95_flip_error_over_depth_span": 0.144729,
+          "runtime_seconds": 0.235914
+        },
+        "top": {
+          "object_id": "ring_017",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_017/top.png",
+          "image_sha256": "2a78afe091488ce2bd97a1cc5eb7a5c59dc3a5ab3ce42bac579afe5a8afea6f9",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_017/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_017/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_017/top.png",
+          "raw_float32_sha256": "f1accc5ef2dd9a0cfc4ea4750a2f382080ff0ea350bef9ea6a3ff1955032c30c",
+          "robust_depth_range": {
+            "p02": 2.6202703523635864,
+            "p98": 3.8822946500778195
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0018715524673461913,
+            "p98": 0.28555981636047295
+          },
+          "mean_flip_error_over_depth_span": 0.058129,
+          "p95_flip_error_over_depth_span": 0.163006,
+          "runtime_seconds": 0.232751
+        },
+        "iso": {
+          "object_id": "ring_017",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_017/iso.png",
+          "image_sha256": "9b0b65574b5791dd1f33b9adf7f3c827bd0d25db4f49b93936dd02f8ceb031c7",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_017/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_017/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_017/iso.png",
+          "raw_float32_sha256": "6a429de6d0f9b1af1434cd5dcabcda0c2a75e5ccf62781e521fd76dcecd5ab1d",
+          "robust_depth_range": {
+            "p02": 0.347713383436203,
+            "p98": 4.948304204940796
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0026662015914916994,
+            "p98": 0.4386313056945799
+          },
+          "mean_flip_error_over_depth_span": 0.022144,
+          "p95_flip_error_over_depth_span": 0.072956,
+          "runtime_seconds": 0.230641
+        },
+        "lsv": {
+          "object_id": "ring_017",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_017/lsv.png",
+          "image_sha256": "87c3c6e1df0fbf94b55cc05709ced983d08af8fab0c53ceb2c2766a6fc04e1bf",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_017/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_017/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_017/lsv.png",
+          "raw_float32_sha256": "9c6b614988e325382d9dd065b4b4f5660eb68cef1ee4398853163dfeb1ac49e5",
+          "robust_depth_range": {
+            "p02": 2.007311749458313,
+            "p98": 4.738000736236572
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.003978242874145508,
+            "p98": 0.6970242929458617
+          },
+          "mean_flip_error_over_depth_span": 0.087968,
+          "p95_flip_error_over_depth_span": 0.242161,
+          "runtime_seconds": 0.227515
+        },
+        "rsv": {
+          "object_id": "ring_017",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_017/rsv.png",
+          "image_sha256": "7ab51d764246699937f6cf33803670653a0efd99e31a5922fc3d13c8dbcd1c3f",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_017/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_017/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_017/rsv.png",
+          "raw_float32_sha256": "f98def0befd361439e26ea9bd40f9d108ce9cea4aac8d540e74163c2e6cbca8d",
+          "robust_depth_range": {
+            "p02": 2.2774908447265627,
+            "p98": 5.323571681976318
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.006606206893920898,
+            "p98": 0.6523206543922421
+          },
+          "mean_flip_error_over_depth_span": 0.060046,
+          "p95_flip_error_over_depth_span": 0.176812,
+          "runtime_seconds": 0.26426
+        }
+      }
+    },
+    {
+      "object_id": "ring_018",
+      "source_name": "Ring 18",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_018_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_018",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_018/front.png",
+          "image_sha256": "71fcbd25523dfa78386daf61ba26d851ce60fceebeba24707a2eab1f0d50e90f",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_018/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_018/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_018/front.png",
+          "raw_float32_sha256": "e66ac09c5c8a7f360a741b082cfec8857c708ea637a920eab75a2879c63f38b7",
+          "robust_depth_range": {
+            "p02": 2.013441982269287,
+            "p98": 3.6656416606903077
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.005802116394042969,
+            "p98": 0.2965970039367674
+          },
+          "mean_flip_error_over_depth_span": 0.071702,
+          "p95_flip_error_over_depth_span": 0.139085,
+          "runtime_seconds": 0.296839
+        },
+        "top": {
+          "object_id": "ring_018",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_018/top.png",
+          "image_sha256": "50c9a9e2224e6078c45055fab20ad7760ee7c1436b546762d8767313f05ab6ab",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_018/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_018/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_018/top.png",
+          "raw_float32_sha256": "1b6ad8e7bbdd566946f40b9b386524ed8702998be761782f1913c352b79cab00",
+          "robust_depth_range": {
+            "p02": 2.6241708517074587,
+            "p98": 4.061995191574097
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.003914341926574707,
+            "p98": 0.29005064010620096
+          },
+          "mean_flip_error_over_depth_span": 0.071281,
+          "p95_flip_error_over_depth_span": 0.167779,
+          "runtime_seconds": 0.263762
+        },
+        "iso": {
+          "object_id": "ring_018",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_018/iso.png",
+          "image_sha256": "8c82132f754a01127a7badec743d7b78be0c5966dba8963e889c265ec955c630",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_018/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_018/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_018/iso.png",
+          "raw_float32_sha256": "c742db1bedfcd78353dcd33c86b3efee27e42e21e39dcc973b7c86037059cdd7",
+          "robust_depth_range": {
+            "p02": 0.5020158314704896,
+            "p98": 4.560049057006836
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.005938522815704346,
+            "p98": 0.5154261970520019
+          },
+          "mean_flip_error_over_depth_span": 0.051512,
+          "p95_flip_error_over_depth_span": 0.120993,
+          "runtime_seconds": 0.251519
+        },
+        "lsv": {
+          "object_id": "ring_018",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_018/lsv.png",
+          "image_sha256": "4819497e317deb79e1e8a766424389ac97b671fecea08a725287924d8244fc6e",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_018/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_018/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_018/lsv.png",
+          "raw_float32_sha256": "97912dc6cdce1aba6d306c71d7e6df0d086d6db995a1044ec91519dc4ee9a99a",
+          "robust_depth_range": {
+            "p02": 2.345755558013916,
+            "p98": 4.1159982490539555
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0032650184631347655,
+            "p98": 0.3085919761657715
+          },
+          "mean_flip_error_over_depth_span": 0.06117,
+          "p95_flip_error_over_depth_span": 0.155005,
+          "runtime_seconds": 0.283802
+        },
+        "rsv": {
+          "object_id": "ring_018",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_018/rsv.png",
+          "image_sha256": "5f547518d168ba879ee2fa0cada1135a0cda3063ba5bf7ab45b0bc9e6ae69b7b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_018/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_018/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_018/rsv.png",
+          "raw_float32_sha256": "62a8312ae5f3ec21f263230225ed0071544e1cf6b7809992981219065d4531a5",
+          "robust_depth_range": {
+            "p02": 2.4701688957214354,
+            "p98": 4.780858402252197
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.006640701293945313,
+            "p98": 0.5969516563415527
+          },
+          "mean_flip_error_over_depth_span": 0.103541,
+          "p95_flip_error_over_depth_span": 0.221964,
+          "runtime_seconds": 0.239936
+        }
+      }
+    },
+    {
+      "object_id": "ring_019",
+      "source_name": "Ring 19",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_019_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_019",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_019/front.png",
+          "image_sha256": "544a2102b22da44c4ed4b981704cc304b7ef1d6e8263beda4795d103de4f8b39",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_019/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_019/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_019/front.png",
+          "raw_float32_sha256": "4f6ea51de2adf613116c81c9af923ec593f5b7bd1f82a75b46c0a330f8ca451b",
+          "robust_depth_range": {
+            "p02": 1.737604455947876,
+            "p98": 2.8801747608184813
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0023099613189697266,
+            "p98": 0.18181015968322756
+          },
+          "mean_flip_error_over_depth_span": 0.055997,
+          "p95_flip_error_over_depth_span": 0.135286,
+          "runtime_seconds": 0.241924
+        },
+        "top": {
+          "object_id": "ring_019",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_019/top.png",
+          "image_sha256": "0c035c8a9e7aa59fdef1f6772335d39b9314704ce0d7ffc7e1afbbc0b95bdc8a",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_019/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_019/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_019/top.png",
+          "raw_float32_sha256": "1c23b0c36741114040cdfff267b17ca4b1533d80c06a2ffc0d38579d18966f69",
+          "robust_depth_range": {
+            "p02": 2.5912107610702515,
+            "p98": 4.431236705780028
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.004293670654296875,
+            "p98": 0.3122002220153808
+          },
+          "mean_flip_error_over_depth_span": 0.064771,
+          "p95_flip_error_over_depth_span": 0.152419,
+          "runtime_seconds": 0.232045
+        },
+        "iso": {
+          "object_id": "ring_019",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_019/iso.png",
+          "image_sha256": "409a5e23d0c923a849fe5c4bcdb7790c4e5a6059b17e1bb889441814e19138ee",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_019/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_019/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_019/iso.png",
+          "raw_float32_sha256": "b0e390a1dd9cf0235deda9dd6bf2dbc46f1c4ecc901a8153185f52879ec2ff57",
+          "robust_depth_range": {
+            "p02": 0.7031382143497467,
+            "p98": 5.809271574020386
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002758579254150391,
+            "p98": 0.30325955390930165
+          },
+          "mean_flip_error_over_depth_span": 0.018961,
+          "p95_flip_error_over_depth_span": 0.047501,
+          "runtime_seconds": 0.23025
+        },
+        "lsv": {
+          "object_id": "ring_019",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_019/lsv.png",
+          "image_sha256": "5414b86fab5cf475d2aa71f690b14910516aff7cfc50a4540584072f7b76d7d1",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_019/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_019/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_019/lsv.png",
+          "raw_float32_sha256": "de550386be146bea238d652af2e2996d9c4b7a6933fcf8ffe9dcc2b9d541c3ae",
+          "robust_depth_range": {
+            "p02": 2.702951879501343,
+            "p98": 5.237448272705078
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0032028293609619135,
+            "p98": 0.3784668540954591
+          },
+          "mean_flip_error_over_depth_span": 0.030947,
+          "p95_flip_error_over_depth_span": 0.070023,
+          "runtime_seconds": 0.228736
+        },
+        "rsv": {
+          "object_id": "ring_019",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_019/rsv.png",
+          "image_sha256": "4883c0a4d85c98e7b658fff3b592ea87c366c68c334de4783467b49b88701fd1",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_019/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_019/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_019/rsv.png",
+          "raw_float32_sha256": "ef7934a8a9f500625c3eccd5eb2cdc1dd0291c4e4f4bd67865947bf20e327dfd",
+          "robust_depth_range": {
+            "p02": 2.325023441314697,
+            "p98": 5.620619659423828
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0017705154418945314,
+            "p98": 0.3086166524887084
+          },
+          "mean_flip_error_over_depth_span": 0.023202,
+          "p95_flip_error_over_depth_span": 0.067136,
+          "runtime_seconds": 0.230275
+        }
+      }
+    },
+    {
+      "object_id": "ring_020",
+      "source_name": "Ring 20",
+      "split": "val",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_020_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_020",
+          "split": "val",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_020/front.png",
+          "image_sha256": "a52aa4043b16b2077c31baba17396b85342c4518a2dafb919f51e8c3d7bafc3c",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_020/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_020/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_020/front.png",
+          "raw_float32_sha256": "f313cc108e3dff3470fdafba24b92c7a0e8a06fdeb81c61583d60697b80b5ac9",
+          "robust_depth_range": {
+            "p02": 1.5766060590744018,
+            "p98": 2.81744421005249
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0034001731872558604,
+            "p98": 0.24223966598510743
+          },
+          "mean_flip_error_over_depth_span": 0.063468,
+          "p95_flip_error_over_depth_span": 0.164255,
+          "runtime_seconds": 0.238421
+        },
+        "top": {
+          "object_id": "ring_020",
+          "split": "val",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_020/top.png",
+          "image_sha256": "f8cb2a537fe9dbcafa47a3d0c596979ed65e8e32ba2e4a2d4de8a0d61fad4113",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_020/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_020/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_020/top.png",
+          "raw_float32_sha256": "9fa2a36e3ad39cdebcca520191fe31e1b5c6ff3dc4920cc56e1419bb56056255",
+          "robust_depth_range": {
+            "p02": 2.492697596549988,
+            "p98": 4.207479429244995
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0012068510055541991,
+            "p98": 0.18063910007476816
+          },
+          "mean_flip_error_over_depth_span": 0.034317,
+          "p95_flip_error_over_depth_span": 0.093785,
+          "runtime_seconds": 0.240963
+        },
+        "iso": {
+          "object_id": "ring_020",
+          "split": "val",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_020/iso.png",
+          "image_sha256": "fd7b907853bd5ed2af74e4491b759b5eb281778b9adb40a71083efc18aa1a508",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_020/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_020/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_020/iso.png",
+          "raw_float32_sha256": "dedbf83a37f351c7332dbeb6ad11a6118f434001c1ba08d2b9ff312f640f9a33",
+          "robust_depth_range": {
+            "p02": 0.7553398787975312,
+            "p98": 4.9713146686553955
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.003337125778198242,
+            "p98": 0.5386149501800538
+          },
+          "mean_flip_error_over_depth_span": 0.036629,
+          "p95_flip_error_over_depth_span": 0.121233,
+          "runtime_seconds": 0.249583
+        },
+        "lsv": {
+          "object_id": "ring_020",
+          "split": "val",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_020/lsv.png",
+          "image_sha256": "db4524303a1188ef0ed7f08eeacbf05b84a9b3674fd1719b44b7e985f39da057",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_020/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_020/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_020/lsv.png",
+          "raw_float32_sha256": "de5a135b3126d2f68368fd9a697c910c571780c33a8caaee676c9ae71d469ca6",
+          "robust_depth_range": {
+            "p02": 2.0975791215896606,
+            "p98": 5.273690462112427
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0013866424560546875,
+            "p98": 0.22279846668243408
+          },
+          "mean_flip_error_over_depth_span": 0.02061,
+          "p95_flip_error_over_depth_span": 0.055452,
+          "runtime_seconds": 1.124527
+        },
+        "rsv": {
+          "object_id": "ring_020",
+          "split": "val",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_020/rsv.png",
+          "image_sha256": "7abe0b0492e33b90aaa5d97e62e6ed1013d56f6ea356843b969c8dd59d503a99",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_020/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_020/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_020/rsv.png",
+          "raw_float32_sha256": "e746460c6f740c773b76bffbafea76699c6d4ccce28fd4d7ae6e92c834e3d100",
+          "robust_depth_range": {
+            "p02": 2.434279680252075,
+            "p98": 5.533688297271729
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0038383817672729497,
+            "p98": 0.2346926736831666
+          },
+          "mean_flip_error_over_depth_span": 0.025744,
+          "p95_flip_error_over_depth_span": 0.057734,
+          "runtime_seconds": 0.225377
+        }
+      }
+    },
+    {
+      "object_id": "ring_021",
+      "source_name": "Ring 21",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_021_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_021",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_021/front.png",
+          "image_sha256": "826d1d9db9af599cadc96b5a5aab0615869050dff075403681f4ee917b5226b1",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_021/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_021/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_021/front.png",
+          "raw_float32_sha256": "cfc9f8a09630b950ef5a0791bca3e46710ebca6c643cf7e243d058a3a26a9ebf",
+          "robust_depth_range": {
+            "p02": 2.591206693649292,
+            "p98": 3.6576735019683837
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.001169252395629883,
+            "p98": 0.18234605789184566
+          },
+          "mean_flip_error_over_depth_span": 0.039153,
+          "p95_flip_error_over_depth_span": 0.087774,
+          "runtime_seconds": 0.232375
+        },
+        "top": {
+          "object_id": "ring_021",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_021/top.png",
+          "image_sha256": "28e76a5e74ca820bec512da45d8e6dff4b8be10cf7be61bc76110da3fc75fcfb",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_021/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_021/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_021/top.png",
+          "raw_float32_sha256": "01fc097720f84c2dedb296cc997e31a81a54aff511b288daf83388f79e752169",
+          "robust_depth_range": {
+            "p02": 2.4113924741744994,
+            "p98": 3.977755975723267
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.005532407760620117,
+            "p98": 0.24813897609710714
+          },
+          "mean_flip_error_over_depth_span": 0.073875,
+          "p95_flip_error_over_depth_span": 0.136272,
+          "runtime_seconds": 0.227848
+        },
+        "iso": {
+          "object_id": "ring_021",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_021/iso.png",
+          "image_sha256": "6d5ecf3a2aa70debc6db7093d5143ea0ca34bd15b972467b6ca9fdb69ce6a70c",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_021/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_021/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_021/iso.png",
+          "raw_float32_sha256": "3f44aaa4ffcbdb3ae3d55be3cc185212e4ced46ea6c4ef2db92d50d8ba819db4",
+          "robust_depth_range": {
+            "p02": 0.8651343894004822,
+            "p98": 5.3880455207824705
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.004073276519775391,
+            "p98": 0.43390131950378424
+          },
+          "mean_flip_error_over_depth_span": 0.027801,
+          "p95_flip_error_over_depth_span": 0.080627,
+          "runtime_seconds": 0.234609
+        },
+        "lsv": {
+          "object_id": "ring_021",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_021/lsv.png",
+          "image_sha256": "fde0eb40e6a43e2d12d31c3ed11f8f302ff9585055457c6159405be03344d6b3",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_021/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_021/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_021/lsv.png",
+          "raw_float32_sha256": "65c8d42116204a030b13b644a6ab9070b96923a4e7d6f377ebb1d85740bfa00f",
+          "robust_depth_range": {
+            "p02": 1.5354027986526488,
+            "p98": 5.162365245819092
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.004587593078613282,
+            "p98": 0.44580396652221677
+          },
+          "mean_flip_error_over_depth_span": 0.034951,
+          "p95_flip_error_over_depth_span": 0.105221,
+          "runtime_seconds": 0.356603
+        },
+        "rsv": {
+          "object_id": "ring_021",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_021/rsv.png",
+          "image_sha256": "4d8d5ef12271c7128933b74fa99b737fe0c5d689ff26326b12e125fae8b2a8ff",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_021/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_021/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_021/rsv.png",
+          "raw_float32_sha256": "61213a5f0aa0b73df78209290ea4736cc0e3e44b57cc5c5cc8f678127ff2f046",
+          "robust_depth_range": {
+            "p02": 2.398110294342041,
+            "p98": 5.629961833953858
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0034495496749877928,
+            "p98": 0.29166194438934223
+          },
+          "mean_flip_error_over_depth_span": 0.025987,
+          "p95_flip_error_over_depth_span": 0.065681,
+          "runtime_seconds": 0.31074
+        }
+      }
+    },
+    {
+      "object_id": "ring_022",
+      "source_name": "Ring 22",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_022_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_022",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_022/front.png",
+          "image_sha256": "60ce3f059d5c687c5154a0cd071f390e9208037be55c02a3a4649de87a47903c",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_022/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_022/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_022/front.png",
+          "raw_float32_sha256": "b00d021311e7f3bbbfa8c46367d8e1c76c948d2309352b0207cff0b70145d0b0",
+          "robust_depth_range": {
+            "p02": 2.4511559009552,
+            "p98": 3.38378252029419
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002042055130004883,
+            "p98": 0.12915558815002443
+          },
+          "mean_flip_error_over_depth_span": 0.049292,
+          "p95_flip_error_over_depth_span": 0.116118,
+          "runtime_seconds": 0.264677
+        },
+        "top": {
+          "object_id": "ring_022",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_022/top.png",
+          "image_sha256": "bd16e6a90f52a42c9826f88f3b864e93fd0b9922679094fb3409daa57db9b79e",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_022/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_022/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_022/top.png",
+          "raw_float32_sha256": "a9d08c31db8f48fb5fd4f98e36f2efc1e09b3371496be0b7185ae2567728714e",
+          "robust_depth_range": {
+            "p02": 2.338453245162964,
+            "p98": 3.885405158996582
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.00479888916015625,
+            "p98": 0.30654096603393555
+          },
+          "mean_flip_error_over_depth_span": 0.078191,
+          "p95_flip_error_over_depth_span": 0.171095,
+          "runtime_seconds": 0.233805
+        },
+        "iso": {
+          "object_id": "ring_022",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_022/iso.png",
+          "image_sha256": "a2a28f926bbe48f093f76e1cc2f07a8de2c06c1cacb9154d2f86b0c494376bfe",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_022/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_022/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_022/iso.png",
+          "raw_float32_sha256": "990acf2d68b1b8289c733649063779a924f7183b37ef093b285fb7f8c286690f",
+          "robust_depth_range": {
+            "p02": 0.4156574356555939,
+            "p98": 5.1028977966308595
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0055433082580566406,
+            "p98": 0.4419421863555908
+          },
+          "mean_flip_error_over_depth_span": 0.035614,
+          "p95_flip_error_over_depth_span": 0.079896,
+          "runtime_seconds": 0.233542
+        },
+        "lsv": {
+          "object_id": "ring_022",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_022/lsv.png",
+          "image_sha256": "ab6513dce3f85be19744933e1ca066103e417a72bf222121cd712d739895ba5a",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_022/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_022/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_022/lsv.png",
+          "raw_float32_sha256": "21c0abba32fdc66dcef17db4847e8fad06623e2b6fd193a49a70097a94777ad2",
+          "robust_depth_range": {
+            "p02": 2.443534827232361,
+            "p98": 5.2428912162780765
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.003033733367919922,
+            "p98": 0.23797881603240958
+          },
+          "mean_flip_error_over_depth_span": 0.026888,
+          "p95_flip_error_over_depth_span": 0.065348,
+          "runtime_seconds": 0.228689
+        },
+        "rsv": {
+          "object_id": "ring_022",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_022/rsv.png",
+          "image_sha256": "79b360d29af0ef73b7b042710411cb3871a1114ce9281be922c0eb81acb7964e",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_022/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_022/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_022/rsv.png",
+          "raw_float32_sha256": "5833044399901348a66f00724cfe394cf6bf452a8806312e91e119b699981045",
+          "robust_depth_range": {
+            "p02": 2.858661661148071,
+            "p98": 5.716318769454956
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.002037515640258789,
+            "p98": 0.4667900562286384
+          },
+          "mean_flip_error_over_depth_span": 0.029783,
+          "p95_flip_error_over_depth_span": 0.096408,
+          "runtime_seconds": 0.228032
+        }
+      }
+    },
+    {
+      "object_id": "ring_023",
+      "source_name": "Ring 23",
+      "split": "test",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_023_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_023",
+          "split": "test",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_023/front.png",
+          "image_sha256": "722c144d93c12bf4c74ddc59ce0e1bc938247be8661e2f0ffd6e03630dfd0153",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_023/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_023/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_023/front.png",
+          "raw_float32_sha256": "63dd2b74866c5a6a5719c9345bf74d4c0905e3755842e990f514d5379abfe22a",
+          "robust_depth_range": {
+            "p02": 2.072686972618103,
+            "p98": 3.1946698427200317
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0017049884796142582,
+            "p98": 0.19120100498199466
+          },
+          "mean_flip_error_over_depth_span": 0.054306,
+          "p95_flip_error_over_depth_span": 0.136088,
+          "runtime_seconds": 0.254028
+        },
+        "top": {
+          "object_id": "ring_023",
+          "split": "test",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_023/top.png",
+          "image_sha256": "920413b16187ee73d045ab2d069f975e5981afafa95113ae8a3fd573098eb9af",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_023/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_023/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_023/top.png",
+          "raw_float32_sha256": "4f8aa800ee23076e1e89ce038607addfce77defa52531f4600d1e32ed072af57",
+          "robust_depth_range": {
+            "p02": 2.4849553680419922,
+            "p98": 4.323367824554444
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0026975154876708986,
+            "p98": 0.3591186428070068
+          },
+          "mean_flip_error_over_depth_span": 0.072262,
+          "p95_flip_error_over_depth_span": 0.169745,
+          "runtime_seconds": 0.233295
+        },
+        "iso": {
+          "object_id": "ring_023",
+          "split": "test",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_023/iso.png",
+          "image_sha256": "a901b45e66235dc8c9cc9501c4b4a5417059e0bde0ab2edf8d133f82481fcd7b",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_023/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_023/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_023/iso.png",
+          "raw_float32_sha256": "102855a82ed49eca041dea98b2b3b478ecf1ece95bb54f3aeffac572a89a43c9",
+          "robust_depth_range": {
+            "p02": 0.3425212347507477,
+            "p98": 4.64025390625
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0044289278984069825,
+            "p98": 0.5162772655487061
+          },
+          "mean_flip_error_over_depth_span": 0.039368,
+          "p95_flip_error_over_depth_span": 0.105435,
+          "runtime_seconds": 0.228204
+        },
+        "lsv": {
+          "object_id": "ring_023",
+          "split": "test",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_023/lsv.png",
+          "image_sha256": "d03343a0aeea62fb0457555591fd69fe76ea698e8bcc58385925bcfcd06c6f13",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_023/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_023/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_023/lsv.png",
+          "raw_float32_sha256": "baa510870411358e1b4f6aa0d9039b1797e3765001ca3cc418ac31705f684c9f",
+          "robust_depth_range": {
+            "p02": 2.098021626472473,
+            "p98": 4.911197185516357
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.006708860397338867,
+            "p98": 0.26145100593566895
+          },
+          "mean_flip_error_over_depth_span": 0.048658,
+          "p95_flip_error_over_depth_span": 0.08742,
+          "runtime_seconds": 0.227694
+        },
+        "rsv": {
+          "object_id": "ring_023",
+          "split": "test",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_023/rsv.png",
+          "image_sha256": "cf40b0d9533cb073cfdd2888d6717d58f9598cf81b77195c6cfe28013610c3e5",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_023/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_023/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_023/rsv.png",
+          "raw_float32_sha256": "6281ef21286ff9961e18eff0a7816047d2aee9a2c03ec4efb3936c292b140c72",
+          "robust_depth_range": {
+            "p02": 2.480308241844177,
+            "p98": 5.461032085418701
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0013819885253906251,
+            "p98": 0.44992265701293976
+          },
+          "mean_flip_error_over_depth_span": 0.043355,
+          "p95_flip_error_over_depth_span": 0.131329,
+          "runtime_seconds": 0.227965
+        }
+      }
+    },
+    {
+      "object_id": "ring_024",
+      "source_name": "Ring 24",
+      "split": "train",
+      "status": "machine_proposals_complete_human_review_missing",
+      "review_sheet": "dataset/phase_runs/v1/phase1_depth_anything_v2/reviews/ring_024_review.jpg",
+      "views": {
+        "front": {
+          "object_id": "ring_024",
+          "split": "train",
+          "view": "front",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_024/front.png",
+          "image_sha256": "8ceabe5494876db84d92e10c892e831aea05b5e205cf10380d8912db095c7e11",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_024/front.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_024/front.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_024/front.png",
+          "raw_float32_sha256": "8c3f297936253c7f6d4bb5ba2f50f33ceaea5527e9a6305d41bcbc016b466599",
+          "robust_depth_range": {
+            "p02": 2.0717492389678953,
+            "p98": 3.1007908058166502
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0012857151031494141,
+            "p98": 0.1346392202377321
+          },
+          "mean_flip_error_over_depth_span": 0.043413,
+          "p95_flip_error_over_depth_span": 0.10739,
+          "runtime_seconds": 0.26181
+        },
+        "top": {
+          "object_id": "ring_024",
+          "split": "train",
+          "view": "top",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_024/top.png",
+          "image_sha256": "1682aa18f58a5f1df624b2e944b48e640da5b3fc308a28cdb1d6aea335390d33",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_024/top.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_024/top.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_024/top.png",
+          "raw_float32_sha256": "b6037ec35990a2c860985e2bf7eee1e7436aa5746a08444dc4554bdb325b6135",
+          "robust_depth_range": {
+            "p02": 2.39951753616333,
+            "p98": 4.383464908599853
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0021365165710449216,
+            "p98": 0.25263152122497556
+          },
+          "mean_flip_error_over_depth_span": 0.041381,
+          "p95_flip_error_over_depth_span": 0.106889,
+          "runtime_seconds": 0.232417
+        },
+        "iso": {
+          "object_id": "ring_024",
+          "split": "train",
+          "view": "iso",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_024/iso.png",
+          "image_sha256": "c101c412d85e30de3bf41c9f2b2b70a251174cfd001109e76da68bf81f7637fe",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_024/iso.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_024/iso.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_024/iso.png",
+          "raw_float32_sha256": "7ca450e85a9b79ef374edc7437d21d6f0b757be9a8cc5dc14de1ee216e05a012",
+          "robust_depth_range": {
+            "p02": 0.5858350896835327,
+            "p98": 4.870572185516357
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.007976911067962647,
+            "p98": 0.3580349349975579
+          },
+          "mean_flip_error_over_depth_span": 0.032592,
+          "p95_flip_error_over_depth_span": 0.06387,
+          "runtime_seconds": 0.235726
+        },
+        "lsv": {
+          "object_id": "ring_024",
+          "split": "train",
+          "view": "lsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_024/lsv.png",
+          "image_sha256": "610b8c4a36be2d388819e06cb132584be506ac1881cf85c91b9cd5f8c99c8e67",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_024/lsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_024/lsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_024/lsv.png",
+          "raw_float32_sha256": "6412c66639bbacf7b15594d61f89213af13eaa9585e2f3c701e35dcd7a6778ed",
+          "robust_depth_range": {
+            "p02": 2.6096828269958494,
+            "p98": 4.780585384368896
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.008027868270874023,
+            "p98": 0.721878376007079
+          },
+          "mean_flip_error_over_depth_span": 0.103004,
+          "p95_flip_error_over_depth_span": 0.203434,
+          "runtime_seconds": 0.232412
+        },
+        "rsv": {
+          "object_id": "ring_024",
+          "split": "train",
+          "view": "rsv",
+          "authority": "machine_proposal",
+          "metric": false,
+          "cross_view_aligned": false,
+          "image_path": "dataset/prepared_v1/images/ring_024/rsv.png",
+          "image_sha256": "c5215c22a973fee6e4a331c1694c0212dc9ab921e18bb9c0d04b8e4ec83497a9",
+          "mask_path": "dataset/prepared_v1/masks/jewelry/ring_024/rsv.png",
+          "mask_authority": "pseudo_background_difference",
+          "depth_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/depth_u16/ring_024/rsv.png",
+          "uncertainty_u16": "dataset/phase_runs/v1/phase1_depth_anything_v2/uncertainty_u16/ring_024/rsv.png",
+          "raw_float32_sha256": "be7a1947c1db19ea91ff9525f26ec140ddcadd91ea34cd914183d7ec21d203c1",
+          "robust_depth_range": {
+            "p02": 2.280517873764038,
+            "p98": 4.608438749313354
+          },
+          "robust_uncertainty_range": {
+            "p02": 0.0008727741241455079,
+            "p98": 0.19238719940185484
+          },
+          "mean_flip_error_over_depth_span": 0.021234,
+          "p95_flip_error_over_depth_span": 0.062303,
+          "runtime_seconds": 0.228898
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "No human depth, scan or CAD ground truth exists for STL-1, so depth accuracy is not measured.",
+    "The silhouette masks are pseudo-labels and are used only to scope diagnostics.",
+    "Depth is relative, independently normalized per image and not expressed in millimetres.",
+    "Monocular predictions are not cross-view consistent by default.",
+    "Reflective metal, transparent stones, prongs and shadows remain likely failure regions.",
+    "Flip consistency is not accuracy; it is only a model self-consistency diagnostic."
+  ]
+}
