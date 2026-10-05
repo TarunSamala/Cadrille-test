@@ -145,6 +145,8 @@ class DatasetStudioApiTest(unittest.TestCase):
         javascript = script.get_data(as_text=True)
         self.assertIn('$("#phase0-summary")', javascript)
         self.assertIn('$("#feature-rows")', javascript)
+        script.close()
+        page.close()
 
     def test_object_and_asset_routes(self) -> None:
         detail = self.client.get("/api/objects/ring_001")

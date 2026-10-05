@@ -18,7 +18,7 @@
     "requirements-studio.txt": "e9eae9074f097c101b125118dcd281694b2df5425064ab983bb2ca54cf50bea3",
     "requirements-validation.txt": "6af10d158f7f15572e41b4855e56c90becda43248fc21bcc79f287c2d5992403"
   },
-  "generated_at_utc": "2026-10-05T02:26:28.105426+00:00",
+  "generated_at_utc": "2026-10-05T02:27:50.786832+00:00",
   "known_limits": [
     "The freeze validates software on CPU because the host NVIDIA driver was unavailable.",
     "GPU execution and peak VRAM remain a separate pending reproducibility gate.",
@@ -48,8 +48,8 @@
   "source": {
     "baseline_tag": "baseline-v1.0",
     "canonical_branch": "main",
-    "commit": "79b390acb6bade147f0e68757f647f9d881b2909",
+    "commit": "8b8496a846a074d8eb554136543fd8bbb7b05bb4",
     "remote": "https://github.com/TarunSamala/Image2CAD.git",
-    "working_tree_clean_at_generation": false
+    "working_tree_clean_at_generation": true
   }
 }
