@@ -1,0 +1,55 @@
+{
+  "bible_phase": "Phase 0 - Reproducibility Freeze",
+  "container": {
+    "base_digest": "sha256:c8268a92a69bd500f8be0e665b2630ee006dadaf7bfbc24249141b15ff622755",
+    "base_image": "pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime",
+    "image_id": "sha256:477f06cad62aa5e3192c462d3b1f9eafffaccdff28efb308aa90feb9e71cee16",
+    "image_name": "image2cad-validation:phase0"
+  },
+  "environment_file_sha256": {
+    "Dockerfile": "22f70312a391e914d6dce6164bc78bb0c8be8d08a5a02bacd9a11007b84bf5e7",
+    "Dockerfile.auditor": "dd8abca0609a222f0db63c03c19b34db61ad52a73ad468ec684c1a9d26644979",
+    "Dockerfile.cadrille": "f0096ab41ae5f9f939ace346a01f26d3a271218cff9d00678ecc064ba902f829",
+    "Dockerfile.validation": "d3e3d1e681d779ffd73532fcd96dea72fdb201331c6e0377821b4550afb165dd",
+    "constraints-validation.txt": "3c51e5dd3648fd68591df6ca6856b327e7fadc7c837cdc67b7bc6ee5c8db527c",
+    "requirements-app.txt": "d7d8134a229abb267a28a59f632404423cb737a4f55f1fabc4af4fd02168541c",
+    "requirements-phase1.txt": "2b1391cb97242585c56a6db1d0eeba8458ba3c35f6a2520c72585251c963354b",
+    "requirements-phase2.txt": "b78b606b366c87db0f13bb350f1c41b3e0d11907181675796b621c4cb52d74e4",
+    "requirements-studio.txt": "e9eae9074f097c101b125118dcd281694b2df5425064ab983bb2ca54cf50bea3",
+    "requirements-validation.txt": "6af10d158f7f15572e41b4855e56c90becda43248fc21bcc79f287c2d5992403"
+  },
+  "generated_at_utc": "2026-10-05T02:26:28.105426+00:00",
+  "known_limits": [
+    "The freeze validates software on CPU because the host NVIDIA driver was unavailable.",
+    "GPU execution and peak VRAM remain a separate pending reproducibility gate.",
+    "Package license fields are metadata-derived and require legal review.",
+    "STL-1 has no human masks, calibrated cameras, physical scale, component truth, or CAD targets."
+  ],
+  "regression": {
+    "command": "PYTHONPATH=pipeline python -m unittest discover -s tests -v",
+    "result": "passed",
+    "test_count": 104
+  },
+  "runtime": {
+    "architecture": "x86_64",
+    "cpu_count": 16,
+    "installed_python_distribution_count": 147,
+    "memory_total_bytes": 16446271488,
+    "platform": "Linux-7.2.8-arch1-2-x86_64-with-glibc2.35",
+    "python": "3.11.10 | packaged by conda-forge | (main, Oct 16 2024, 01:27:36) [GCC 13.3.0]",
+    "torch": {
+      "compiled_cuda": "12.4",
+      "cuda_available": false,
+      "gpu_names": [],
+      "version": "2.5.1+cu124"
+    }
+  },
+  "schema_version": "lalitha_phase0_environment_v1",
+  "source": {
+    "baseline_tag": "baseline-v1.0",
+    "canonical_branch": "main",
+    "commit": "79b390acb6bade147f0e68757f647f9d881b2909",
+    "remote": "https://github.com/TarunSamala/Image2CAD.git",
+    "working_tree_clean_at_generation": false
+  }
+}

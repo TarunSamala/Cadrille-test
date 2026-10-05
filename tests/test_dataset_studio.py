@@ -30,6 +30,11 @@ class DatasetStudioServiceTest(unittest.TestCase):
         self.assertEqual(
             summary["governance"]["authoritative_output"], "STEP / exact B-rep"
         )
+        self.assertRegex(summary["phase0"]["source"]["commit"], r"^[0-9a-f]{40}$")
+        self.assertEqual(summary["phase0"]["regression"]["result"], "passed")
+        self.assertGreaterEqual(summary["phase0"]["dependency_package_count"], 20)
+        self.assertEqual(summary["phase1"]["view_count"], 120)
+        self.assertFalse(summary["phase1"]["measurements_are_metric"])
 
     def test_object_filters_preserve_object_level_splits(self) -> None:
         self.assertEqual(len(self.repository.list_objects("train")), 18)
@@ -50,6 +55,16 @@ class DatasetStudioServiceTest(unittest.TestCase):
             self.assertTrue(detail["artifacts"]["phase3_3mf"])
             for view in VIEW_ORDER:
                 self.assertTrue(all(detail["artifacts"]["views"][view].values()))
+                self.assertEqual(
+                    set(detail["views"][view]["features"]),
+                    {
+                        "foreground_fraction",
+                        "edge_fraction",
+                        "contour_count",
+                        "hole_count",
+                        "horizontal_symmetry_iou",
+                    },
+                )
 
     def test_test_objects_expose_held_out_review_sheets(self) -> None:
         for item in self.repository.list_objects("test"):
@@ -65,6 +80,10 @@ class DatasetStudioServiceTest(unittest.TestCase):
         self.assertFalse(report["claims"]["phase2_human_ground_truth_accuracy_validated"])
         self.assertTrue(report["claims"]["phase3_experimental_non_metric"])
         self.assertFalse(report["claims"]["manufacturing_accuracy_validated"])
+        self.assertTrue(
+            report["benchmark_record"]["code_commit_recorded_in_source_report"]
+        )
+        self.assertTrue(report["benchmark_record"]["license_manifest_recorded"])
         self.assertEqual(report["benchmark_record"]["completeness"], "partial")
         self.assertEqual(report["benchmark_record"]["decision"], "research_only")
         json.dumps(report)
@@ -101,6 +120,31 @@ class DatasetStudioApiTest(unittest.TestCase):
         summary = self.client.get("/api/summary")
         self.assertEqual(summary.status_code, 200)
         self.assertEqual(summary.get_json()["dataset"]["image_count"], 120)
+        environment = self.client.get("/api/artifacts/phase0_environment")
+        self.assertEqual(environment.status_code, 200)
+        self.assertRegex(
+            environment.get_json()["source"]["commit"], r"^[0-9a-f]{40}$"
+        )
+        environment.close()
+
+    def test_studio_page_exposes_visual_and_metadata_evidence_controls(self) -> None:
+        page = self.client.get("/")
+        self.assertEqual(page.status_code, 200)
+        markup = page.get_data(as_text=True)
+        for marker in (
+            'id="phase0-summary"',
+            'id="phase0-limits"',
+            'data-layer="normalized"',
+            'data-layer="mask"',
+            'data-layer="edges"',
+            'id="feature-rows"',
+        ):
+            self.assertIn(marker, markup)
+        script = self.client.get("/static/studio.js")
+        self.assertEqual(script.status_code, 200)
+        javascript = script.get_data(as_text=True)
+        self.assertIn('$("#phase0-summary")', javascript)
+        self.assertIn('$("#feature-rows")', javascript)
 
     def test_object_and_asset_routes(self) -> None:
         detail = self.client.get("/api/objects/ring_001")

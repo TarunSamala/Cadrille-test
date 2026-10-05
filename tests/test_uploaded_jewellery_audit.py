@@ -57,6 +57,15 @@ class UploadedJewelleryAuditTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "exactly one image or all five"):
                 run_audit({"front": source, "top": source}, Path(directory) / "invalid", segmenter_name="opencv")
 
+    def test_corrupt_image_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory) / "corrupt.png"
+            source.write_bytes(b"this is not a decodable image")
+            with self.assertRaisesRegex(ValueError, "Cannot decode image"):
+                run_audit(
+                    {"single": source}, Path(directory) / "invalid", segmenter_name="opencv"
+                )
+
 
 if __name__ == "__main__":
     unittest.main()

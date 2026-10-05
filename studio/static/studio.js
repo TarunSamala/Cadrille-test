@@ -16,6 +16,10 @@ function score(value, digits = 3) {
   return typeof value === "number" ? value.toFixed(digits) : "—";
 }
 
+function percent(value) {
+  return typeof value === "number" ? `${(value * 100).toFixed(1)}%` : "—";
+}
+
 async function api(path) {
   const response = await fetch(path);
   const payload = await response.json().catch(() => ({}));
@@ -45,6 +49,17 @@ function renderSummary(summary) {
     <article class="metric"><span>Evidence class</span><strong class="compact-value">${escapeHtml(governance.evidence_class)}</strong><small>Implemented and measured in-project</small></article>
     <article class="metric"><span>Decision</span><strong class="compact-value">Research only</strong><small>No metric or production claim</small></article>
     <article class="metric"><span>Authoritative output</span><strong class="compact-value">STEP / B-rep</strong><small>Not available for STL-1 objects</small></article>`;
+
+  const phase0 = summary.phase0;
+  const commit = phase0.source?.commit || "unknown";
+  const torch = phase0.runtime?.torch || {};
+  $("#phase0-summary").innerHTML = `
+    <article class="metric"><span>Phase 0 status</span><strong class="compact-value">${escapeHtml(humanize(phase0.status))}</strong><small>CPU/software reproducibility freeze</small></article>
+    <article class="metric"><span>Regression suite</span><strong>${phase0.regression?.test_count ?? "—"}</strong><small>${escapeHtml(phase0.regression?.result || "unknown")} in pinned container</small></article>
+    <article class="metric"><span>Source commit</span><strong class="compact-value mono">${escapeHtml(commit.slice(0, 12))}</strong><small>Canonical branch: ${escapeHtml(phase0.source?.canonical_branch || "—")}</small></article>
+    <article class="metric"><span>Validation runtime</span><strong class="compact-value">PyTorch ${escapeHtml(torch.version || "—")}</strong><small>CUDA available: ${torch.cuda_available ? "yes" : "no"} · ${phase0.dependency_package_count} packages inventoried</small></article>`;
+  $("#phase0-limits").innerHTML = (phase0.known_limits || [])
+    .map((item) => `<li>${escapeHtml(item)}</li>`).join("");
 }
 
 function renderObjectList() {
@@ -98,6 +113,19 @@ function renderMetadata(detail) {
     const available = value !== null && value !== undefined;
     const display = available ? String(value).replaceAll("_", " ") : "Unavailable";
     return `<div class="key-value"><span>${label}</span><strong class="${available ? "good" : "bad"}">${escapeHtml(display)}</strong></div>`;
+  }).join("");
+
+  $("#feature-rows").innerHTML = detail.view_order.map((view) => {
+    const data = detail.views[view];
+    const features = data.features || {};
+    return `<tr>
+      <td>${escapeHtml(data.label)}</td>
+      <td>${percent(features.foreground_fraction)}</td>
+      <td>${percent(features.edge_fraction)}</td>
+      <td>${features.contour_count ?? "—"}</td>
+      <td>${features.hole_count ?? "—"}</td>
+      <td>${score(features.horizontal_symmetry_iou)}</td>
+    </tr>`;
   }).join("");
 }
 

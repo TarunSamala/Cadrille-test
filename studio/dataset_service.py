@@ -56,8 +56,19 @@ class DatasetRepository:
         self.phase3_report = self._read_json(
             self.phase_root / "phase3" / "visual_hull" / "phase3_batch_report.json"
         )
+        self.phase1_features = self._read_json(self.phase_root / "phase1_features.json")
+        self.phase0_environment = self._read_json(
+            self.repo_root / "docs" / "reproducibility" / "environment_manifest.json"
+        )
+        self.phase0_licenses = self._read_json(
+            self.repo_root
+            / "docs"
+            / "reproducibility"
+            / "dependency_license_manifest.json"
+        )
         self.records = self._read_manifest(self.prepared_root / "manifest.jsonl")
         self._records_by_id = {record["object_id"]: record for record in self.records}
+        self._phase1_by_object = self._index_phase1_features()
         self._phase2_metrics = self._index_phase2_metrics()
         self._phase3_objects = {
             item["object_id"]: item for item in self.phase3_report.get("objects", [])
@@ -111,6 +122,18 @@ class DatasetRepository:
             }
         return indexed
 
+    def _index_phase1_features(self) -> dict[str, dict[str, dict[str, Any]]]:
+        indexed: dict[str, dict[str, dict[str, Any]]] = {}
+        for row in self.phase1_features.get("views", []):
+            indexed.setdefault(row["object_id"], {})[row["view"]] = {
+                "foreground_fraction": float(row["foreground_fraction"]),
+                "edge_fraction": float(row["edge_fraction"]),
+                "contour_count": int(row["contour_count"]),
+                "hole_count": int(row["hole_count"]),
+                "horizontal_symmetry_iou": float(row["horizontal_symmetry_iou"]),
+            }
+        return indexed
+
     def _record(self, object_id: str) -> dict[str, Any]:
         try:
             return self._records_by_id[object_id]
@@ -154,6 +177,31 @@ class DatasetRepository:
                 "authoritative_output": "STEP / exact B-rep",
                 "dataset_has_authoritative_step": False,
                 "decision": "research_only",
+            },
+            "phase0": {
+                "status": "in_progress",
+                "source": deepcopy(self.phase0_environment.get("source", {})),
+                "container": deepcopy(self.phase0_environment.get("container", {})),
+                "runtime": deepcopy(self.phase0_environment.get("runtime", {})),
+                "regression": deepcopy(self.phase0_environment.get("regression", {})),
+                "known_limits": deepcopy(
+                    self.phase0_environment.get("known_limits", [])
+                ),
+                "dependency_package_count": int(
+                    self.phase0_licenses.get("package_count", 0)
+                ),
+                "dependency_unknown_license_count": int(
+                    self.phase0_licenses.get("unknown_license_count", 0)
+                ),
+                "legal_status": self.phase0_licenses.get("legal_status"),
+            },
+            "phase1": {
+                "stage": self.phase1_features.get("stage"),
+                "view_count": int(self.phase1_features.get("view_count", 0)),
+                "measurements_are_metric": bool(
+                    self.phase1_features.get("measurements_are_metric", False)
+                ),
+                "checks": deepcopy(self.phase1_features.get("checks", {})),
             },
             "phase2": {
                 "status": "pseudo-label self-consistency benchmark; not human-ground-truth accuracy",
@@ -202,6 +250,7 @@ class DatasetRepository:
 
     def object_detail(self, object_id: str) -> dict[str, Any]:
         record = self._record(object_id)
+        phase1 = self._phase1_by_object.get(object_id, {})
         phase2 = self._phase2_metrics.get(object_id, {})
         phase3 = deepcopy(self._phase3_objects.get(object_id))
         views: dict[str, Any] = {}
@@ -214,6 +263,7 @@ class DatasetRepository:
                 "mask_occupancy": metadata.get("mask_occupancy"),
                 "camera_calibrated": bool(metadata.get("camera_calibrated", False)),
                 "source_sha256": metadata.get("source_sha256"),
+                "features": deepcopy(phase1.get(view, {})),
                 "metrics": deepcopy(phase2.get(view)),
             }
         return {
@@ -246,6 +296,11 @@ class DatasetRepository:
                         "stage": "normalization, masks and edges",
                         "evidence_class": "PROVEN-IN-PROJECT",
                         "state": "inferred",
+                    },
+                    {
+                        "stage": "foreground, edge, contour, hole and symmetry measurements",
+                        "evidence_class": "PROVEN-IN-PROJECT",
+                        "state": "measured_non_metric",
                     },
                     {
                         "stage": "visual-hull mesh",
@@ -344,6 +399,22 @@ class DatasetRepository:
             "processing_comparison": "dataset_processing_comparison.png",
             "held_out_comparison": "held_out_prediction_comparison.png",
         }
+        reproducibility = {
+            "phase0_environment": self.repo_root
+            / "docs"
+            / "reproducibility"
+            / "environment_manifest.json",
+            "phase0_licenses": self.repo_root
+            / "docs"
+            / "reproducibility"
+            / "dependency_license_manifest.json",
+            "phase0_status": self.repo_root
+            / "docs"
+            / "reproducibility"
+            / "PHASE0_STATUS.md",
+        }
+        if name in reproducibility:
+            return self._safe_path(reproducibility[name])
         try:
             filename = allowed[name]
         except KeyError as exc:
@@ -365,9 +436,11 @@ class DatasetRepository:
         detail["benchmark_record"] = {
             "capture_tier": "A",
             "input_hashes_recorded": True,
-            "code_commit_recorded_in_source_report": False,
+            "code_commit_recorded_in_source_report": bool(
+                self.phase0_environment.get("source", {}).get("commit")
+            ),
             "model_checkpoint_hash_recorded": False,
-            "license_manifest_recorded": False,
+            "license_manifest_recorded": True,
             "peak_memory_recorded": False,
             "runtime_recorded": False,
             "random_seed_recorded": False,
@@ -379,4 +452,3 @@ class DatasetRepository:
 
 def _natural_key(value: str) -> tuple[Any, ...]:
     return tuple(int(part) if part.isdigit() else part for part in re.split(r"(\d+)", value))
-

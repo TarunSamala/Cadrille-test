@@ -65,6 +65,25 @@
         </section>
         <section id="governance-summary" class="metric-grid governance-grid" aria-label="Project Bible status"></section>
 
+        <section class="baseline-section" aria-labelledby="phase0-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">PHASE 0 / REPRODUCIBILITY</p>
+              <h2 id="phase0-title">Software baseline</h2>
+            </div>
+            <div class="baseline-actions">
+              <a class="button secondary" href="/api/artifacts/phase0_environment">Environment manifest</a>
+              <a class="button secondary" href="/api/artifacts/phase0_licenses">Dependency licenses</a>
+              <a class="button secondary" href="/api/artifacts/phase0_status">Gate report</a>
+            </div>
+          </div>
+          <div id="phase0-summary" class="metric-grid baseline-grid"></div>
+          <article class="evidence-card">
+            <p class="eyebrow">KNOWN LIMITS</p>
+            <ul id="phase0-limits" class="limit-list"></ul>
+          </article>
+        </section>
+
         <section id="object-workspace" class="workspace hidden">
           <div class="section-heading object-heading">
             <div>
@@ -187,6 +206,22 @@
                 <div id="supervision-list" class="key-value-list"></div>
               </article>
             </div>
+            <article class="evidence-card feature-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">PHASE 1 / FEATURE EXTRACTION</p>
+                  <h3>Per-view non-metric measurements</h3>
+                </div>
+                <span class="pill warning">Image evidence only</span>
+              </div>
+              <p class="feature-note">Foreground and edge density, contour/hole counts and horizontal symmetry are measured from normalized image evidence. They are not millimetres, component truth or manufacturing dimensions.</p>
+              <div class="table-wrap">
+                <table>
+                  <thead><tr><th>View</th><th>Foreground</th><th>Edges</th><th>Contours</th><th>Holes</th><th>Symmetry IoU</th></tr></thead>
+                  <tbody id="feature-rows"></tbody>
+                </table>
+              </div>
+            </article>
           </div>
         </section>
 

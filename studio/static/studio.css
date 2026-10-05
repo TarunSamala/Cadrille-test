@@ -70,6 +70,11 @@ h3 { margin-bottom: 16px; font-size: 16px; }
 .metric small { display: block; margin-top: 9px; color: #78909a; font-size: 10px; }
 .metric strong.compact-value { font-size: 16px; line-height: 1.2; }
 .governance-grid { margin-top: -18px; margin-bottom: 34px; }
+.baseline-section { max-width: 1480px; margin: 0 auto 42px; }
+.baseline-grid { margin: 0 0 13px; }
+.baseline-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+.limit-list { margin: 0; padding-left: 18px; color: var(--muted); font-size: 11px; line-height: 1.65; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .authority-card { margin-top: 13px; border-color: #65502b; }
 .truth-banner { display: flex; gap: 14px; max-width: 1480px; margin: 0 auto 34px; padding: 16px 18px; border: 1px solid #5b4827; border-radius: 12px; background: rgba(60, 42, 14, .35); }
 .truth-icon { display: grid; place-items: center; flex: 0 0 28px; height: 28px; border-radius: 50%; color: #151006; background: var(--warning); font-weight: 900; }
@@ -122,6 +127,8 @@ h3 { margin-bottom: 16px; font-size: 16px; }
 .evidence-row strong { color: var(--accent-2); text-transform: uppercase; }
 .download-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: auto; padding-top: 22px; }
 .metadata-layout { grid-template-columns: 1.55fr 1fr; }
+.feature-card { margin-top: 13px; }
+.feature-note { max-width: 920px; margin-bottom: 14px; color: var(--muted); font-size: 11px; line-height: 1.55; }
 .table-wrap { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; font-size: 11px; }
 th, td { padding: 10px 8px; border-bottom: 1px solid var(--line); text-align: right; }
@@ -144,6 +151,7 @@ footer { max-width: 1480px; margin: 40px auto 0; padding-top: 20px; border-top: 
   .sidebar { position: static; width: auto; max-height: 410px; }
   .main-content { margin-left: 0; padding: 28px 16px; }
   .topbar { align-items: start; flex-direction: column; }
+  .baseline-actions { justify-content: flex-start; }
   .metric-grid { grid-template-columns: repeat(2, 1fr); }
   .two-column, .metadata-layout { grid-template-columns: 1fr; }
   .toolbar { align-items: flex-start; flex-direction: column; }
