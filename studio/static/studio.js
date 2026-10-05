@@ -60,6 +60,20 @@ function renderSummary(summary) {
     <article class="metric"><span>Validation runtime</span><strong class="compact-value">PyTorch ${escapeHtml(torch.version || "—")}</strong><small>CUDA available: ${torch.cuda_available ? "yes" : "no"} · ${phase0.dependency_package_count} packages inventoried</small></article>`;
   $("#phase0-limits").innerHTML = (phase0.known_limits || [])
     .map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+
+  const groundTruth = summary.phase1_ground_truth;
+  const gate = groundTruth.exit_gate;
+  $("#phase1-summary").innerHTML = `
+    <article class="metric"><span>Phase 1 gate</span><strong class="compact-value">${escapeHtml(humanize(gate.status))}</strong><small>Human GT complete: ${gate.human_ground_truth_complete ? "yes" : "no"}</small></article>
+    <article class="metric"><span>Mask reviews pending</span><strong>${gate.pending_label_review_count}</strong><small>Five views · seven labels per view</small></article>
+    <article class="metric"><span>Component IDs pending</span><strong>${gate.pending_component_identity_count}</strong><small>${groundTruth.component_count} stable identities proposed</small></article>
+    <article class="metric"><span>Scale and cameras</span><strong class="compact-value">${gate.physical_scale_missing ? "Scale missing" : "Scale recorded"}</strong><small>${gate.pending_camera_record_count} camera records pending</small></article>`;
+  $("#phase1-authority").textContent = groundTruth.authority_policy;
+  $("#phase1-depth-status").innerHTML = `
+    <div class="key-value"><span>Model</span><strong>Depth Anything V2 Small</strong></div>
+    <div class="key-value"><span>Status</span><strong class="bad">${escapeHtml(humanize(groundTruth.depth.status || "not run"))}</strong></div>
+    <div class="key-value"><span>Metric depth</span><strong class="bad">${groundTruth.depth.metric ? "Yes" : "No"}</strong></div>
+    <div class="key-value"><span>Role</span><strong>Proposal and uncertainty evidence</strong></div>`;
 }
 
 function renderObjectList() {

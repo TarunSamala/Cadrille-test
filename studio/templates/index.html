@@ -84,6 +84,50 @@
           </article>
         </section>
 
+        <section class="baseline-section" aria-labelledby="phase1-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">PHASE 1 / RING01 GROUND TRUTH</p>
+              <h2 id="phase1-title">Human review workspace</h2>
+            </div>
+            <div class="baseline-actions">
+              <a class="button secondary" href="/api/artifacts/phase1_manifest">Review manifest</a>
+              <a class="button secondary" href="/api/artifacts/phase1_depth_metadata">Depth metadata</a>
+            </div>
+          </div>
+          <div id="phase1-summary" class="metric-grid baseline-grid"></div>
+          <article class="truth-banner phase1-authority-banner">
+            <div class="truth-icon">!</div>
+            <div>
+              <strong>Machine proposals are not human ground truth.</strong>
+              <p id="phase1-authority">Loading authority policy…</p>
+            </div>
+          </article>
+          <div class="two-column phase1-evidence-grid">
+            <article class="evidence-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">MASKS / COMPONENTS / NEGATIVE SPACE</p>
+                  <h3>Five-view review sheet</h3>
+                </div>
+                <span class="pill warning">Review required</span>
+              </div>
+              <img class="wide-evidence" src="/api/artifacts/phase1_review" alt="Ring01 Phase 1 mask and negative-space review sheet" loading="lazy">
+            </article>
+            <article class="evidence-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">RELATIVE DEPTH + UNCERTAINTY</p>
+                  <h3>Depth Anything V2 Small</h3>
+                </div>
+                <span class="pill warning">Non-metric</span>
+              </div>
+              <img class="wide-evidence" src="/api/artifacts/phase1_depth_review" alt="Ring01 relative-depth and uncertainty review sheet" loading="lazy">
+              <div id="phase1-depth-status" class="key-value-list depth-status"></div>
+            </article>
+          </div>
+        </section>
+
         <section id="object-workspace" class="workspace hidden">
           <div class="section-heading object-heading">
             <div>

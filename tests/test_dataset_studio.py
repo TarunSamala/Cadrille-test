@@ -35,6 +35,13 @@ class DatasetStudioServiceTest(unittest.TestCase):
         self.assertGreaterEqual(summary["phase0"]["dependency_package_count"], 20)
         self.assertEqual(summary["phase1"]["view_count"], 120)
         self.assertFalse(summary["phase1"]["measurements_are_metric"])
+        ground_truth = summary["phase1_ground_truth"]
+        self.assertEqual(ground_truth["exit_gate"]["status"], "blocked")
+        self.assertEqual(ground_truth["exit_gate"]["pending_label_review_count"], 35)
+        self.assertEqual(
+            ground_truth["depth"]["status"], "machine_proposals_pending_review"
+        )
+        self.assertFalse(ground_truth["depth"]["metric"])
 
     def test_object_filters_preserve_object_level_splits(self) -> None:
         self.assertEqual(len(self.repository.list_objects("train")), 18)
@@ -134,6 +141,8 @@ class DatasetStudioApiTest(unittest.TestCase):
         for marker in (
             'id="phase0-summary"',
             'id="phase0-limits"',
+            'id="phase1-summary"',
+            'id="phase1-depth-status"',
             'data-layer="normalized"',
             'data-layer="mask"',
             'data-layer="edges"',
@@ -145,6 +154,7 @@ class DatasetStudioApiTest(unittest.TestCase):
         javascript = script.get_data(as_text=True)
         self.assertIn('$("#phase0-summary")', javascript)
         self.assertIn('$("#feature-rows")', javascript)
+        self.assertIn('$("#phase1-summary")', javascript)
         script.close()
         page.close()
 
@@ -156,6 +166,10 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertEqual(image.status_code, 200)
         self.assertEqual(image.mimetype, "image/png")
         image.close()
+        depth = self.client.get("/api/artifacts/phase1_depth_review")
+        self.assertEqual(depth.status_code, 200)
+        self.assertEqual(depth.mimetype, "image/png")
+        depth.close()
 
     def test_invalid_routes_fail_closed(self) -> None:
         self.assertEqual(self.client.get("/api/objects/ring_999").status_code, 404)

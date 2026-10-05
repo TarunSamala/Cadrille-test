@@ -1,0 +1,136 @@
+{
+  "schema_version": "lalitha_depth_proposal_v1",
+  "created_at_utc": "2026-10-05T02:55:59.211156+00:00",
+  "model": {
+    "id": "depth-anything/Depth-Anything-V2-Small-hf",
+    "revision": "5426e4f0f36572d16453bbda7a8389317b1bef99",
+    "license": "Apache-2.0",
+    "role": "relative-depth proposal"
+  },
+  "device": "cuda",
+  "torch_version": "2.5.1+cu124",
+  "cuda_version": "12.4",
+  "peak_gpu_memory_bytes": 196220416,
+  "runtime_seconds": 1.016589,
+  "review_summary": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_depth_anything_v2_review.png",
+  "views": {
+    "front": {
+      "authority": "machine_proposal",
+      "metric": false,
+      "cross_view_aligned": false,
+      "relative_depth_orientation": "model_native_uninterpreted",
+      "runtime_seconds": 0.436926,
+      "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_relative_depth.npy",
+      "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_relative_depth_u16.png",
+      "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_relative_depth_preview.png",
+      "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_uncertainty_u16.png",
+      "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_uncertainty_preview.png",
+      "raw_sha256": "f30c4f3b9fc545434887ab805a922abec005b7c2d36e06118575b3dd0bd962bd",
+      "robust_range": {
+        "p02": 2.4223358154296877,
+        "p98": 4.237338867187499
+      },
+      "uncertainty_robust_range": {
+        "p02": 0.0016558742523193359,
+        "p98": 0.24187708854675274
+      },
+      "mean_masked_flip_uncertainty": 0.07145075500011444
+    },
+    "side": {
+      "authority": "machine_proposal",
+      "metric": false,
+      "cross_view_aligned": false,
+      "relative_depth_orientation": "model_native_uninterpreted",
+      "runtime_seconds": 0.144948,
+      "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_relative_depth.npy",
+      "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_relative_depth_u16.png",
+      "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_relative_depth_preview.png",
+      "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_uncertainty_u16.png",
+      "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_uncertainty_preview.png",
+      "raw_sha256": "a77ee4b310af78fbb37b7487dd7e5046a8a3939bb3554ec593afa9c717b8d2af",
+      "robust_range": {
+        "p02": 3.2122467803955077,
+        "p98": 4.959371109008789
+      },
+      "uncertainty_robust_range": {
+        "p02": 0.0033052444458007814,
+        "p98": 0.5546292400360088
+      },
+      "mean_masked_flip_uncertainty": 0.1282462179660797
+    },
+    "top": {
+      "authority": "machine_proposal",
+      "metric": false,
+      "cross_view_aligned": false,
+      "relative_depth_orientation": "model_native_uninterpreted",
+      "runtime_seconds": 0.136563,
+      "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_relative_depth.npy",
+      "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_relative_depth_u16.png",
+      "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_relative_depth_preview.png",
+      "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_uncertainty_u16.png",
+      "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_uncertainty_preview.png",
+      "raw_sha256": "0b35c9b55cf5970d5c2bef804de0d280a90fa3748679dc2473b4203ff9bb2920",
+      "robust_range": {
+        "p02": 2.464200735092163,
+        "p98": 3.712486219406128
+      },
+      "uncertainty_robust_range": {
+        "p02": 0.0008024692535400391,
+        "p98": 0.11052594184875485
+      },
+      "mean_masked_flip_uncertainty": 0.032219938933849335
+    },
+    "angled": {
+      "authority": "machine_proposal",
+      "metric": false,
+      "cross_view_aligned": false,
+      "relative_depth_orientation": "model_native_uninterpreted",
+      "runtime_seconds": 0.12361,
+      "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_relative_depth.npy",
+      "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_relative_depth_u16.png",
+      "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_relative_depth_preview.png",
+      "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_uncertainty_u16.png",
+      "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_uncertainty_preview.png",
+      "raw_sha256": "2660cbcfc7a98d85b67fb3711bb21ebc494e52ce892e76cd1f7aa21ca3d3f57e",
+      "robust_range": {
+        "p02": 1.4130002522468568,
+        "p98": 5.006805324554443
+      },
+      "uncertainty_robust_range": {
+        "p02": 0.004127035140991211,
+        "p98": 0.3691706085205065
+      },
+      "mean_masked_flip_uncertainty": 0.1296987682580948
+    },
+    "back": {
+      "authority": "machine_proposal",
+      "metric": false,
+      "cross_view_aligned": false,
+      "relative_depth_orientation": "model_native_uninterpreted",
+      "runtime_seconds": 0.126378,
+      "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_relative_depth.npy",
+      "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_relative_depth_u16.png",
+      "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_relative_depth_preview.png",
+      "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_uncertainty_u16.png",
+      "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_uncertainty_preview.png",
+      "raw_sha256": "585c492ec3d601f1d20aee704cc1b64880110e48d0f833a2d901f8cf1e2d02bf",
+      "robust_range": {
+        "p02": 2.48773250579834,
+        "p98": 4.9021595764160155
+      },
+      "uncertainty_robust_range": {
+        "p02": 0.0027183914184570313,
+        "p98": 0.3567512416839599
+      },
+      "mean_masked_flip_uncertainty": 0.08701588213443756
+    }
+  },
+  "limitations": [
+    "No metric scale is inferred.",
+    "Predictions from separate views are not cross-view consistent by default.",
+    "Specular metal, transparent gemstone facets and reflections can produce false depth.",
+    "Flip consistency is a diagnostic, not calibrated uncertainty.",
+    "Human review and geometric benchmarking are required before promotion."
+  ],
+  "decision": "research_only"
+}

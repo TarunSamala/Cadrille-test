@@ -66,6 +66,9 @@ class DatasetRepository:
             / "reproducibility"
             / "dependency_license_manifest.json"
         )
+        self.phase1_ground_truth = self._read_json(
+            self.repo_root / "data" / "ring01_ground_truth_v1" / "manifest.json"
+        )
         self.records = self._read_manifest(self.prepared_root / "manifest.jsonl")
         self._records_by_id = {record["object_id"]: record for record in self.records}
         self._phase1_by_object = self._index_phase1_features()
@@ -203,6 +206,7 @@ class DatasetRepository:
                 ),
                 "checks": deepcopy(self.phase1_features.get("checks", {})),
             },
+            "phase1_ground_truth": self._phase1_ground_truth_summary(),
             "phase2": {
                 "status": "pseudo-label self-consistency benchmark; not human-ground-truth accuracy",
                 "test": deepcopy(self.phase_summary.get("test", {})),
@@ -225,6 +229,37 @@ class DatasetRepository:
                 "decision": "research_only",
             },
             "limitations": deepcopy(self.dataset_report.get("limitations", [])),
+        }
+
+    def _phase1_ground_truth_summary(self) -> dict[str, Any]:
+        manifest = self.phase1_ground_truth
+        gate = manifest.get("exit_gate", {})
+        depth = manifest.get("depth_anything_v2", {})
+        return {
+            "object_id": manifest.get("object_id"),
+            "status": manifest.get("status"),
+            "exit_gate": {
+                "status": gate.get("status"),
+                "pending_label_review_count": len(
+                    gate.get("pending_label_reviews", [])
+                ),
+                "pending_component_identity_count": len(
+                    gate.get("pending_component_identities", [])
+                ),
+                "pending_camera_record_count": len(
+                    gate.get("pending_camera_records", [])
+                ),
+                "physical_scale_missing": bool(
+                    gate.get("physical_scale_missing", True)
+                ),
+                "human_ground_truth_complete": bool(
+                    gate.get("human_ground_truth_complete", False)
+                ),
+            },
+            "component_count": len(manifest.get("component_catalog", [])),
+            "physical_scale": deepcopy(manifest.get("physical_scale", {})),
+            "depth": deepcopy(depth),
+            "authority_policy": manifest.get("authority_policy"),
         }
 
     def list_objects(self, split: str | None = None) -> list[dict[str, Any]]:
@@ -412,6 +447,16 @@ class DatasetRepository:
             / "docs"
             / "reproducibility"
             / "PHASE0_STATUS.md",
+            "phase1_manifest": self.repo_root
+            / "data"
+            / "ring01_ground_truth_v1"
+            / "manifest.json",
+            "phase1_review": self.repo_root
+            / self.phase1_ground_truth["review_summary"],
+            "phase1_depth_review": self.repo_root
+            / self.phase1_ground_truth["depth_anything_v2"]["review_summary"],
+            "phase1_depth_metadata": self.repo_root
+            / self.phase1_ground_truth["depth_anything_v2"]["metadata"],
         }
         if name in reproducibility:
             return self._safe_path(reproducibility[name])

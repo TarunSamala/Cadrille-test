@@ -1,0 +1,6 @@
+# Phase 1 relative-depth proposal environment.
+huggingface-hub==0.29.3
+regex==2026.9.29
+safetensors==0.5.3
+tokenizers==0.21.1
+transformers==4.49.0

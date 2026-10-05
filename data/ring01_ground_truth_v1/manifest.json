@@ -1,0 +1,807 @@
+{
+  "schema_version": "lalitha_phase1_ground_truth_v1",
+  "phase": "Phase 1 - Ground-Truth Ring01",
+  "object_id": "ring01",
+  "status": "human_review_required",
+  "created_at_utc": "2026-10-05T02:46:52.155670+00:00",
+  "updated_at_utc": "2026-10-05T02:55:59.211963+00:00",
+  "source_commit": null,
+  "proposal_source": "data/ring01_phase2_refined/phase2_refined.json",
+  "authority_policy": "All masks, negative spaces and depth maps remain machine proposals until an identified human reviewer approves them.",
+  "views": {
+    "front": {
+      "source": {
+        "path": "data/ring01_reference_images/ring01_front.png",
+        "sha256": "a564f0be433b01639ae981c493e6cddea11b04ef2fea0411804cc3b8cc553a74",
+        "size_wh": [
+          289,
+          212
+        ]
+      },
+      "proposals": {
+        "jewelry": {
+          "path": "data/ring01_phase2_refined/masks/jewelry/ring01_front_jewelry.png",
+          "sha256": "5dc6cf1ae579eca7fbcc7d552f831ead76212ec72c440c27b1321096ed599f8e",
+          "authority": "machine_proposal"
+        },
+        "metal": {
+          "path": "data/ring01_phase2_refined/masks/metal/ring01_front_metal.png",
+          "sha256": "b1d1e4c1fb9b232bd1894593b0da3193469bb648fa0123a285db47f5b3162168",
+          "authority": "machine_proposal"
+        },
+        "shank": {
+          "path": "data/ring01_phase2_refined/masks/shank/ring01_front_shank.png",
+          "sha256": "11f17a8179a5c521f02f173349068e916541350dac894ee5e01d06bb3721181f",
+          "authority": "machine_proposal"
+        },
+        "stone_visible": {
+          "path": "data/ring01_phase2_refined/masks/stone_visible/ring01_front_stone_visible.png",
+          "sha256": "c34eacab41b322918f6b9864e800de933c443e72bad3ec5586f9be3ac79db90d",
+          "authority": "machine_proposal"
+        },
+        "setting": {
+          "path": "data/ring01_phase2_refined/masks/setting/ring01_front_setting.png",
+          "sha256": "67e9f7d0655e75b4e5bdf2a23b63b5b24d9f9f3da3d352723003434ded460db5",
+          "authority": "machine_proposal"
+        },
+        "prongs": {
+          "path": "data/ring01_phase2_refined/masks/prongs/ring01_front_prongs.png",
+          "sha256": "52fa5a63606ca213bcb38890442020d00e9572fcc997a9d121755db18331e953",
+          "authority": "machine_proposal"
+        },
+        "negative_space": {
+          "path": "data/ring01_ground_truth_v1/proposals/negative_space/ring01_front_negative_space_proposal.png",
+          "sha256": "3c097fa02dc53a6b314cd0a877a5329677a4ffcf146ad52ac4ae3f7f30ac3fe2",
+          "authority": "machine_proposal"
+        }
+      },
+      "reviews": {
+        "jewelry": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "metal": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "shank": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "stone_visible": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "setting": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "prongs": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "negative_space": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        }
+      },
+      "review_sheet": "data/ring01_ground_truth_v1/review/ring01_front_review.png",
+      "depth_proposal": {
+        "authority": "machine_proposal",
+        "metric": false,
+        "cross_view_aligned": false,
+        "relative_depth_orientation": "model_native_uninterpreted",
+        "runtime_seconds": 0.436926,
+        "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_relative_depth.npy",
+        "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_relative_depth_u16.png",
+        "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_relative_depth_preview.png",
+        "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_uncertainty_u16.png",
+        "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_front_uncertainty_preview.png",
+        "raw_sha256": "f30c4f3b9fc545434887ab805a922abec005b7c2d36e06118575b3dd0bd962bd",
+        "robust_range": {
+          "p02": 2.4223358154296877,
+          "p98": 4.237338867187499
+        },
+        "uncertainty_robust_range": {
+          "p02": 0.0016558742523193359,
+          "p98": 0.24187708854675274
+        },
+        "mean_masked_flip_uncertainty": 0.07145075500011444
+      }
+    },
+    "side": {
+      "source": {
+        "path": "data/ring01_reference_images/ring01_side.png",
+        "sha256": "3a6d9ca7fb4f2d7390b8fd573d2f9e6624543d38b4fdb66bb356c90f3598cf14",
+        "size_wh": [
+          270,
+          212
+        ]
+      },
+      "proposals": {
+        "jewelry": {
+          "path": "data/ring01_phase2_refined/masks/jewelry/ring01_side_jewelry.png",
+          "sha256": "cbd35f7198b07b7d0ff2aebda373ad86b7e1b38009ae1ab7a22030bb956661b0",
+          "authority": "machine_proposal"
+        },
+        "metal": {
+          "path": "data/ring01_phase2_refined/masks/metal/ring01_side_metal.png",
+          "sha256": "bce163030a78308911236011f57dd49c92ae4922471150fd37f2e5c46094bfd8",
+          "authority": "machine_proposal"
+        },
+        "shank": {
+          "path": "data/ring01_phase2_refined/masks/shank/ring01_side_shank.png",
+          "sha256": "439d84ef1e379017c2c25059fc3b8f4a013e3aa5f5457a322589f4b3d3ed7b73",
+          "authority": "machine_proposal"
+        },
+        "stone_visible": {
+          "path": "data/ring01_phase2_refined/masks/stone_visible/ring01_side_stone_visible.png",
+          "sha256": "a50e9313da23ae707417f28049550a9260769d8392188bf196fbbc6cabf75103",
+          "authority": "machine_proposal"
+        },
+        "setting": {
+          "path": "data/ring01_phase2_refined/masks/setting/ring01_side_setting.png",
+          "sha256": "0adb1bdbf26406cf7d694354c8db4fcc3657279aed5dba53adc6153a4ca0190e",
+          "authority": "machine_proposal"
+        },
+        "prongs": {
+          "path": "data/ring01_phase2_refined/masks/prongs/ring01_side_prongs.png",
+          "sha256": "109928ff6cfcc33e2c1566a32bc08d11f41181b0bbb57de5096a41e60d0ceedf",
+          "authority": "machine_proposal"
+        },
+        "negative_space": {
+          "path": "data/ring01_ground_truth_v1/proposals/negative_space/ring01_side_negative_space_proposal.png",
+          "sha256": "ba5da269a43c5a1a9c6eb1b34fc25cb13fb707bf0130b79646f58cb3e9a175c7",
+          "authority": "machine_proposal"
+        }
+      },
+      "reviews": {
+        "jewelry": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "metal": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "shank": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "stone_visible": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "setting": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "prongs": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "negative_space": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        }
+      },
+      "review_sheet": "data/ring01_ground_truth_v1/review/ring01_side_review.png",
+      "depth_proposal": {
+        "authority": "machine_proposal",
+        "metric": false,
+        "cross_view_aligned": false,
+        "relative_depth_orientation": "model_native_uninterpreted",
+        "runtime_seconds": 0.144948,
+        "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_relative_depth.npy",
+        "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_relative_depth_u16.png",
+        "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_relative_depth_preview.png",
+        "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_uncertainty_u16.png",
+        "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_side_uncertainty_preview.png",
+        "raw_sha256": "a77ee4b310af78fbb37b7487dd7e5046a8a3939bb3554ec593afa9c717b8d2af",
+        "robust_range": {
+          "p02": 3.2122467803955077,
+          "p98": 4.959371109008789
+        },
+        "uncertainty_robust_range": {
+          "p02": 0.0033052444458007814,
+          "p98": 0.5546292400360088
+        },
+        "mean_masked_flip_uncertainty": 0.1282462179660797
+      }
+    },
+    "top": {
+      "source": {
+        "path": "data/ring01_reference_images/ring01_top.png",
+        "sha256": "fd2b70e7ade09adcc41ac0e9ff5cbccc2e77543d7ccbb2831fb14285a9bf70c7",
+        "size_wh": [
+          288,
+          212
+        ]
+      },
+      "proposals": {
+        "jewelry": {
+          "path": "data/ring01_phase2_refined/masks/jewelry/ring01_top_jewelry.png",
+          "sha256": "a9ec41294ab0dea08654bd93c2e949dd946c8ac53e2877205a98a5cab881b746",
+          "authority": "machine_proposal"
+        },
+        "metal": {
+          "path": "data/ring01_phase2_refined/masks/metal/ring01_top_metal.png",
+          "sha256": "85a86f2906369b91839f933af74db9661197f32065cdb469d2b4cfdff5f4bd5a",
+          "authority": "machine_proposal"
+        },
+        "shank": {
+          "path": "data/ring01_phase2_refined/masks/shank/ring01_top_shank.png",
+          "sha256": "cf90b0c93d68f0a4df56aadb71c7b394b855bdd8423d47c13f3af32f34e342fd",
+          "authority": "machine_proposal"
+        },
+        "stone_visible": {
+          "path": "data/ring01_phase2_refined/masks/stone_visible/ring01_top_stone_visible.png",
+          "sha256": "e713c90856cb8c2d235add95eac1c03229531327336be0026512b195408d68a5",
+          "authority": "machine_proposal"
+        },
+        "setting": {
+          "path": "data/ring01_phase2_refined/masks/setting/ring01_top_setting.png",
+          "sha256": "69addea6007e5e318d4524e1ceeb53f4eb34fb84c08953cb088e301663e4f40c",
+          "authority": "machine_proposal"
+        },
+        "prongs": {
+          "path": "data/ring01_phase2_refined/masks/prongs/ring01_top_prongs.png",
+          "sha256": "54c77812c0405e102aebcaf058861efc4dca4b17d791c05ea24fc3f636ef39c5",
+          "authority": "machine_proposal"
+        },
+        "negative_space": {
+          "path": "data/ring01_ground_truth_v1/proposals/negative_space/ring01_top_negative_space_proposal.png",
+          "sha256": "f578afffa8b4eff3ce3b42acc6fa654dca10414f8dbbc5e677fb4e80358f301f",
+          "authority": "machine_proposal"
+        }
+      },
+      "reviews": {
+        "jewelry": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "metal": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "shank": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "stone_visible": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "setting": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "prongs": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "negative_space": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        }
+      },
+      "review_sheet": "data/ring01_ground_truth_v1/review/ring01_top_review.png",
+      "depth_proposal": {
+        "authority": "machine_proposal",
+        "metric": false,
+        "cross_view_aligned": false,
+        "relative_depth_orientation": "model_native_uninterpreted",
+        "runtime_seconds": 0.136563,
+        "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_relative_depth.npy",
+        "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_relative_depth_u16.png",
+        "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_relative_depth_preview.png",
+        "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_uncertainty_u16.png",
+        "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_top_uncertainty_preview.png",
+        "raw_sha256": "0b35c9b55cf5970d5c2bef804de0d280a90fa3748679dc2473b4203ff9bb2920",
+        "robust_range": {
+          "p02": 2.464200735092163,
+          "p98": 3.712486219406128
+        },
+        "uncertainty_robust_range": {
+          "p02": 0.0008024692535400391,
+          "p98": 0.11052594184875485
+        },
+        "mean_masked_flip_uncertainty": 0.032219938933849335
+      }
+    },
+    "angled": {
+      "source": {
+        "path": "data/ring01_reference_images/ring01_angled.png",
+        "sha256": "4df18b5051d962f5fe4c5d9eab3e2818fd5d2dc3047df866b7207ab1b3aaa9c6",
+        "size_wh": [
+          279,
+          212
+        ]
+      },
+      "proposals": {
+        "jewelry": {
+          "path": "data/ring01_phase2_refined/masks/jewelry/ring01_angled_jewelry.png",
+          "sha256": "b385452cee8ac92ab5fb07a21f4f06eed23421ee6715b35a3ca1dcd507f02332",
+          "authority": "machine_proposal"
+        },
+        "metal": {
+          "path": "data/ring01_phase2_refined/masks/metal/ring01_angled_metal.png",
+          "sha256": "e051a825701f8aee2a7c1565f42663cc1f463c5cba8ff0722f08dabd30e913aa",
+          "authority": "machine_proposal"
+        },
+        "shank": {
+          "path": "data/ring01_phase2_refined/masks/shank/ring01_angled_shank.png",
+          "sha256": "3047154b79f72c933965f0b9d805fa2dfb0821e50e81343a5b7c450b6db3200b",
+          "authority": "machine_proposal"
+        },
+        "stone_visible": {
+          "path": "data/ring01_phase2_refined/masks/stone_visible/ring01_angled_stone_visible.png",
+          "sha256": "7ef4af9581c3d18819234291ae666ab825dc3afe6632b3d23759469f62e3ed81",
+          "authority": "machine_proposal"
+        },
+        "setting": {
+          "path": "data/ring01_phase2_refined/masks/setting/ring01_angled_setting.png",
+          "sha256": "7e9b49b5a47332b03fb421a8356ec441d4221ed2d83bcdc44ea01db699fc7761",
+          "authority": "machine_proposal"
+        },
+        "prongs": {
+          "path": "data/ring01_phase2_refined/masks/prongs/ring01_angled_prongs.png",
+          "sha256": "8c3e6b9b5f779cedd27d956ec9eb66bf1617a23fc39d404a10626d0c9f5c6b47",
+          "authority": "machine_proposal"
+        },
+        "negative_space": {
+          "path": "data/ring01_ground_truth_v1/proposals/negative_space/ring01_angled_negative_space_proposal.png",
+          "sha256": "e0840c769c692808d3ec59b1d13575916f4a35c00b59c5373e9d202d27a870d6",
+          "authority": "machine_proposal"
+        }
+      },
+      "reviews": {
+        "jewelry": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "metal": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "shank": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "stone_visible": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "setting": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "prongs": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "negative_space": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        }
+      },
+      "review_sheet": "data/ring01_ground_truth_v1/review/ring01_angled_review.png",
+      "depth_proposal": {
+        "authority": "machine_proposal",
+        "metric": false,
+        "cross_view_aligned": false,
+        "relative_depth_orientation": "model_native_uninterpreted",
+        "runtime_seconds": 0.12361,
+        "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_relative_depth.npy",
+        "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_relative_depth_u16.png",
+        "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_relative_depth_preview.png",
+        "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_uncertainty_u16.png",
+        "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_angled_uncertainty_preview.png",
+        "raw_sha256": "2660cbcfc7a98d85b67fb3711bb21ebc494e52ce892e76cd1f7aa21ca3d3f57e",
+        "robust_range": {
+          "p02": 1.4130002522468568,
+          "p98": 5.006805324554443
+        },
+        "uncertainty_robust_range": {
+          "p02": 0.004127035140991211,
+          "p98": 0.3691706085205065
+        },
+        "mean_masked_flip_uncertainty": 0.1296987682580948
+      }
+    },
+    "back": {
+      "source": {
+        "path": "data/ring01_reference_images/ring01_back.png",
+        "sha256": "20b24762e3fc9acaa4a1523b6bf4439cea8c66a222378aec994c9256d51f6551",
+        "size_wh": [
+          284,
+          212
+        ]
+      },
+      "proposals": {
+        "jewelry": {
+          "path": "data/ring01_phase2_refined/masks/jewelry/ring01_back_jewelry.png",
+          "sha256": "0f15ec73782927a9453e1b57307c1a0a2bf306e08a76def434761b763ca6d03f",
+          "authority": "machine_proposal"
+        },
+        "metal": {
+          "path": "data/ring01_phase2_refined/masks/metal/ring01_back_metal.png",
+          "sha256": "97c585b4e3d78c0659a7932e6fe04707230663ae9011fae07e4fc01ca34b148a",
+          "authority": "machine_proposal"
+        },
+        "shank": {
+          "path": "data/ring01_phase2_refined/masks/shank/ring01_back_shank.png",
+          "sha256": "f760dfa1f6d4dd113cf6e42ec03fc16531b0e7dde188f43b975eba8f2622de4b",
+          "authority": "machine_proposal"
+        },
+        "stone_visible": {
+          "path": "data/ring01_phase2_refined/masks/stone_visible/ring01_back_stone_visible.png",
+          "sha256": "8a944217ea8d27267e5d7776812bd08508fede289d8a18935e44b65ca61c5641",
+          "authority": "machine_proposal"
+        },
+        "setting": {
+          "path": "data/ring01_phase2_refined/masks/setting/ring01_back_setting.png",
+          "sha256": "31304e49cc3f4ec1a5a111ea9321ed9a40f0ee3c9b3fec2cb24ceb6e0c7d9c91",
+          "authority": "machine_proposal"
+        },
+        "prongs": {
+          "path": "data/ring01_phase2_refined/masks/prongs/ring01_back_prongs.png",
+          "sha256": "bed7cc3faf5ec80ccf962203482cc825658d3d08207f317342bc07fe228481e4",
+          "authority": "machine_proposal"
+        },
+        "negative_space": {
+          "path": "data/ring01_ground_truth_v1/proposals/negative_space/ring01_back_negative_space_proposal.png",
+          "sha256": "eb47ee4df8f81115b68601e059974d155e9dc2907f218017fb5b05fd232bd14f",
+          "authority": "machine_proposal"
+        }
+      },
+      "reviews": {
+        "jewelry": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "metal": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "shank": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "stone_visible": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "setting": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "prongs": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        },
+        "negative_space": {
+          "decision": "pending",
+          "reviewer": null,
+          "reviewed_at_utc": null,
+          "note": null
+        }
+      },
+      "review_sheet": "data/ring01_ground_truth_v1/review/ring01_back_review.png",
+      "depth_proposal": {
+        "authority": "machine_proposal",
+        "metric": false,
+        "cross_view_aligned": false,
+        "relative_depth_orientation": "model_native_uninterpreted",
+        "runtime_seconds": 0.126378,
+        "raw_float32_npy": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_relative_depth.npy",
+        "normalized_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_relative_depth_u16.png",
+        "preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_relative_depth_preview.png",
+        "uncertainty_u16": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_uncertainty_u16.png",
+        "uncertainty_preview": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_back_uncertainty_preview.png",
+        "raw_sha256": "585c492ec3d601f1d20aee704cc1b64880110e48d0f833a2d901f8cf1e2d02bf",
+        "robust_range": {
+          "p02": 2.48773250579834,
+          "p98": 4.9021595764160155
+        },
+        "uncertainty_robust_range": {
+          "p02": 0.0027183914184570313,
+          "p98": 0.3567512416839599
+        },
+        "mean_masked_flip_uncertainty": 0.08701588213443756
+      }
+    }
+  },
+  "component_catalog": [
+    {
+      "component_id": "shank_001",
+      "class": "shank",
+      "cross_view_identity": "pending_human_review",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    {
+      "component_id": "setting_001",
+      "class": "setting",
+      "cross_view_identity": "pending_human_review",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    {
+      "component_id": "stone_001",
+      "class": "round_gemstone",
+      "cross_view_identity": "pending_human_review",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    {
+      "component_id": "prong_001",
+      "class": "prong",
+      "cross_view_identity": "pending_human_review",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    {
+      "component_id": "prong_002",
+      "class": "prong",
+      "cross_view_identity": "pending_human_review",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    {
+      "component_id": "prong_003",
+      "class": "prong",
+      "cross_view_identity": "pending_human_review",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    {
+      "component_id": "prong_004",
+      "class": "prong",
+      "cross_view_identity": "pending_human_review",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    }
+  ],
+  "physical_scale": {
+    "status": "missing",
+    "measurements": [],
+    "required_examples": [
+      "inner ring diameter in mm",
+      "known gemstone diameter in mm",
+      "calibration target visible in the capture"
+    ]
+  },
+  "camera_records": {
+    "front": {
+      "intrinsics": null,
+      "extrinsics": null,
+      "projection_model": "unknown",
+      "uncertainty": "camera and crop metadata unavailable",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    "side": {
+      "intrinsics": null,
+      "extrinsics": null,
+      "projection_model": "unknown",
+      "uncertainty": "camera and crop metadata unavailable",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    "top": {
+      "intrinsics": null,
+      "extrinsics": null,
+      "projection_model": "unknown",
+      "uncertainty": "camera and crop metadata unavailable",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    "angled": {
+      "intrinsics": null,
+      "extrinsics": null,
+      "projection_model": "unknown",
+      "uncertainty": "camera and crop metadata unavailable",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    },
+    "back": {
+      "intrinsics": null,
+      "extrinsics": null,
+      "projection_model": "unknown",
+      "uncertainty": "camera and crop metadata unavailable",
+      "review": {
+        "decision": "pending",
+        "reviewer": null,
+        "reviewed_at_utc": null,
+        "note": null
+      }
+    }
+  },
+  "review_conflicts": [],
+  "review_summary": "data/ring01_ground_truth_v1/review/ring01_phase1_all_views.png",
+  "depth_policy": {
+    "model": "Depth Anything V2 Small",
+    "role": "relative-depth proposal only",
+    "metric_ground_truth": false,
+    "cross_view_consistent_by_default": false
+  },
+  "exit_gate": {
+    "status": "blocked",
+    "pending_label_reviews": [
+      "front:jewelry",
+      "front:metal",
+      "front:shank",
+      "front:stone_visible",
+      "front:setting",
+      "front:prongs",
+      "front:negative_space",
+      "side:jewelry",
+      "side:metal",
+      "side:shank",
+      "side:stone_visible",
+      "side:setting",
+      "side:prongs",
+      "side:negative_space",
+      "top:jewelry",
+      "top:metal",
+      "top:shank",
+      "top:stone_visible",
+      "top:setting",
+      "top:prongs",
+      "top:negative_space",
+      "angled:jewelry",
+      "angled:metal",
+      "angled:shank",
+      "angled:stone_visible",
+      "angled:setting",
+      "angled:prongs",
+      "angled:negative_space",
+      "back:jewelry",
+      "back:metal",
+      "back:shank",
+      "back:stone_visible",
+      "back:setting",
+      "back:prongs",
+      "back:negative_space"
+    ],
+    "pending_component_identities": [
+      "shank_001",
+      "setting_001",
+      "stone_001",
+      "prong_001",
+      "prong_002",
+      "prong_003",
+      "prong_004"
+    ],
+    "pending_camera_records": [
+      "front",
+      "side",
+      "top",
+      "angled",
+      "back"
+    ],
+    "physical_scale_missing": true,
+    "unresolved_conflicts": [],
+    "human_ground_truth_complete": false
+  },
+  "depth_anything_v2": {
+    "status": "machine_proposals_pending_review",
+    "metadata": "data/ring01_ground_truth_v1/depth_anything_v2/depth_metadata.json",
+    "review_summary": "data/ring01_ground_truth_v1/depth_anything_v2/ring01_depth_anything_v2_review.png",
+    "model_revision": "5426e4f0f36572d16453bbda7a8389317b1bef99",
+    "metric": false
+  }
+}

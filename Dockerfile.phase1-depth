@@ -1,0 +1,11 @@
+FROM image2cad-validation:phase0
+
+LABEL org.opencontainers.image.title="Image2CAD Phase 1 depth proposals"
+LABEL org.opencontainers.image.description="Depth Anything V2 Small proposal runtime; output is non-metric and requires review"
+LABEL org.opencontainers.image.base.name="image2cad-validation:phase0"
+
+COPY requirements-depth.txt /tmp/requirements-depth.txt
+RUN python -m pip install --no-cache-dir -r /tmp/requirements-depth.txt \
+    && python -c "import safetensors, transformers; print(transformers.__version__)"
+
+ENV PYTHONDONTWRITEBYTECODE=1

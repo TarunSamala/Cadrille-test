@@ -73,6 +73,9 @@ h3 { margin-bottom: 16px; font-size: 16px; }
 .baseline-section { max-width: 1480px; margin: 0 auto 42px; }
 .baseline-grid { margin: 0 0 13px; }
 .baseline-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+.phase1-authority-banner { margin-bottom: 13px; }
+.phase1-evidence-grid { grid-template-columns: 1fr 1fr; }
+.depth-status { margin-top: 14px; }
 .limit-list { margin: 0; padding-left: 18px; color: var(--muted); font-size: 11px; line-height: 1.65; }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .authority-card { margin-top: 13px; border-color: #65502b; }
