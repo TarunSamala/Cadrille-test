@@ -1,6 +1,6 @@
 {
   "schema_version": "lalitha_stl1_phase1_depth_v1",
-  "created_at_utc": "2026-10-05T03:27:54.973092+00:00",
+  "created_at_utc": "2026-10-05T03:31:06.695403+00:00",
   "phase": "Phase 1 dataset depth proposal benchmark",
   "status": "completed_research_only",
   "decision": "research_only",
@@ -10,7 +10,7 @@
     "prepared_manifest_sha256": "78fb416b3c3ed939a35402b87465c4410e16934527197b23a85d34425f88c196",
     "phase1_feature_report": "dataset/phase_runs/v1/phase1_features.json",
     "phase1_feature_report_sha256": "7f4f7e7e76d11ff685a6103d0fafa2d42e8dc251d2567d335c5f619205c8c07a",
-    "commit": "a943f018c69e248b03f948ab8bc288a4ab3890ef",
+    "commit": "4680ebebfaf8b80c8254bacc510ed79fb87a5b4e",
     "pipeline": "pipeline/infer_dataset_depth_anything_v2.py",
     "pipeline_sha256": "bb19f90cdd8e44f12dfa4e0eaee9b4cdbb97285ea1bce1ab5815f8fda4194cb7"
   },
@@ -24,8 +24,8 @@
     "device": "cuda",
     "torch_version": "2.5.1+cu124",
     "cuda_version": "12.4",
-    "total_seconds": 33.821765,
-    "mean_seconds_per_view": 0.281848,
+    "total_seconds": 31.434345,
+    "mean_seconds_per_view": 0.261953,
     "peak_gpu_memory_bytes": 219342336
   },
   "coverage": {
@@ -262,7 +262,7 @@
           },
           "mean_flip_error_over_depth_span": 0.047462,
           "p95_flip_error_over_depth_span": 0.161906,
-          "runtime_seconds": 0.545723
+          "runtime_seconds": 0.52679
         },
         "top": {
           "object_id": "ring_001",
@@ -288,7 +288,7 @@
           },
           "mean_flip_error_over_depth_span": 0.031887,
           "p95_flip_error_over_depth_span": 0.095087,
-          "runtime_seconds": 0.234506
+          "runtime_seconds": 0.241082
         },
         "iso": {
           "object_id": "ring_001",
@@ -314,7 +314,7 @@
           },
           "mean_flip_error_over_depth_span": 0.035256,
           "p95_flip_error_over_depth_span": 0.068658,
-          "runtime_seconds": 0.229653
+          "runtime_seconds": 0.232297
         },
         "lsv": {
           "object_id": "ring_001",
@@ -340,7 +340,7 @@
           },
           "mean_flip_error_over_depth_span": 0.024384,
           "p95_flip_error_over_depth_span": 0.064722,
-          "runtime_seconds": 0.228649
+          "runtime_seconds": 0.23627
         },
         "rsv": {
           "object_id": "ring_001",
@@ -366,7 +366,7 @@
           },
           "mean_flip_error_over_depth_span": 0.042503,
           "p95_flip_error_over_depth_span": 0.105539,
-          "runtime_seconds": 0.233297
+          "runtime_seconds": 0.232176
         }
       }
     },
@@ -401,7 +401,7 @@
           },
           "mean_flip_error_over_depth_span": 0.038601,
           "p95_flip_error_over_depth_span": 0.104862,
-          "runtime_seconds": 0.229242
+          "runtime_seconds": 0.236282
         },
         "top": {
           "object_id": "ring_002",
@@ -427,7 +427,7 @@
           },
           "mean_flip_error_over_depth_span": 0.031206,
           "p95_flip_error_over_depth_span": 0.07158,
-          "runtime_seconds": 0.227506
+          "runtime_seconds": 0.228461
         },
         "iso": {
           "object_id": "ring_002",
@@ -453,7 +453,7 @@
           },
           "mean_flip_error_over_depth_span": 0.037884,
           "p95_flip_error_over_depth_span": 0.089711,
-          "runtime_seconds": 0.229771
+          "runtime_seconds": 0.231048
         },
         "lsv": {
           "object_id": "ring_002",
@@ -479,7 +479,7 @@
           },
           "mean_flip_error_over_depth_span": 0.06281,
           "p95_flip_error_over_depth_span": 0.137573,
-          "runtime_seconds": 0.228734
+          "runtime_seconds": 0.230883
         },
         "rsv": {
           "object_id": "ring_002",
@@ -505,7 +505,7 @@
           },
           "mean_flip_error_over_depth_span": 0.032213,
           "p95_flip_error_over_depth_span": 0.105316,
-          "runtime_seconds": 0.228269
+          "runtime_seconds": 0.229479
         }
       }
     },
@@ -540,7 +540,7 @@
           },
           "mean_flip_error_over_depth_span": 0.089463,
           "p95_flip_error_over_depth_span": 0.212848,
-          "runtime_seconds": 0.234449
+          "runtime_seconds": 0.230532
         },
         "top": {
           "object_id": "ring_003",
@@ -566,7 +566,7 @@
           },
           "mean_flip_error_over_depth_span": 0.02381,
           "p95_flip_error_over_depth_span": 0.061639,
-          "runtime_seconds": 0.246103
+          "runtime_seconds": 0.229781
         },
         "iso": {
           "object_id": "ring_003",
@@ -592,7 +592,7 @@
           },
           "mean_flip_error_over_depth_span": 0.027319,
           "p95_flip_error_over_depth_span": 0.061413,
-          "runtime_seconds": 0.244856
+          "runtime_seconds": 0.231596
         },
         "lsv": {
           "object_id": "ring_003",
@@ -618,7 +618,7 @@
           },
           "mean_flip_error_over_depth_span": 0.046565,
           "p95_flip_error_over_depth_span": 0.137626,
-          "runtime_seconds": 0.240622
+          "runtime_seconds": 0.237654
         },
         "rsv": {
           "object_id": "ring_003",
@@ -644,7 +644,7 @@
           },
           "mean_flip_error_over_depth_span": 0.057417,
           "p95_flip_error_over_depth_span": 0.15248,
-          "runtime_seconds": 0.230146
+          "runtime_seconds": 0.238195
         }
       }
     },
@@ -679,7 +679,7 @@
           },
           "mean_flip_error_over_depth_span": 0.055282,
           "p95_flip_error_over_depth_span": 0.133177,
-          "runtime_seconds": 0.231068
+          "runtime_seconds": 0.235681
         },
         "top": {
           "object_id": "ring_004",
@@ -705,7 +705,7 @@
           },
           "mean_flip_error_over_depth_span": 0.116265,
           "p95_flip_error_over_depth_span": 0.224077,
-          "runtime_seconds": 0.231762
+          "runtime_seconds": 0.228398
         },
         "iso": {
           "object_id": "ring_004",
@@ -731,7 +731,7 @@
           },
           "mean_flip_error_over_depth_span": 0.04349,
           "p95_flip_error_over_depth_span": 0.106734,
-          "runtime_seconds": 0.229906
+          "runtime_seconds": 0.233837
         },
         "lsv": {
           "object_id": "ring_004",
@@ -757,7 +757,7 @@
           },
           "mean_flip_error_over_depth_span": 0.105995,
           "p95_flip_error_over_depth_span": 0.200453,
-          "runtime_seconds": 0.230111
+          "runtime_seconds": 0.23249
         },
         "rsv": {
           "object_id": "ring_004",
@@ -783,7 +783,7 @@
           },
           "mean_flip_error_over_depth_span": 0.051377,
           "p95_flip_error_over_depth_span": 0.116357,
-          "runtime_seconds": 0.230068
+          "runtime_seconds": 0.232256
         }
       }
     },
@@ -818,7 +818,7 @@
           },
           "mean_flip_error_over_depth_span": 0.029128,
           "p95_flip_error_over_depth_span": 0.071113,
-          "runtime_seconds": 0.232374
+          "runtime_seconds": 0.235443
         },
         "top": {
           "object_id": "ring_005",
@@ -844,7 +844,7 @@
           },
           "mean_flip_error_over_depth_span": 0.063216,
           "p95_flip_error_over_depth_span": 0.160879,
-          "runtime_seconds": 0.227258
+          "runtime_seconds": 0.239469
         },
         "iso": {
           "object_id": "ring_005",
@@ -870,7 +870,7 @@
           },
           "mean_flip_error_over_depth_span": 0.029102,
           "p95_flip_error_over_depth_span": 0.081671,
-          "runtime_seconds": 0.342983
+          "runtime_seconds": 0.236311
         },
         "lsv": {
           "object_id": "ring_005",
@@ -896,7 +896,7 @@
           },
           "mean_flip_error_over_depth_span": 0.037537,
           "p95_flip_error_over_depth_span": 0.115232,
-          "runtime_seconds": 0.284498
+          "runtime_seconds": 0.2326
         },
         "rsv": {
           "object_id": "ring_005",
@@ -922,7 +922,7 @@
           },
           "mean_flip_error_over_depth_span": 0.059083,
           "p95_flip_error_over_depth_span": 0.114175,
-          "runtime_seconds": 0.230561
+          "runtime_seconds": 0.237478
         }
       }
     },
@@ -957,7 +957,7 @@
           },
           "mean_flip_error_over_depth_span": 0.029989,
           "p95_flip_error_over_depth_span": 0.085669,
-          "runtime_seconds": 0.230969
+          "runtime_seconds": 0.236281
         },
         "top": {
           "object_id": "ring_006",
@@ -983,7 +983,7 @@
           },
           "mean_flip_error_over_depth_span": 0.047378,
           "p95_flip_error_over_depth_span": 0.121045,
-          "runtime_seconds": 0.224322
+          "runtime_seconds": 0.232415
         },
         "iso": {
           "object_id": "ring_006",
@@ -1009,7 +1009,7 @@
           },
           "mean_flip_error_over_depth_span": 0.019318,
           "p95_flip_error_over_depth_span": 0.049857,
-          "runtime_seconds": 0.272779
+          "runtime_seconds": 0.2328
         },
         "lsv": {
           "object_id": "ring_006",
@@ -1035,7 +1035,7 @@
           },
           "mean_flip_error_over_depth_span": 0.020322,
           "p95_flip_error_over_depth_span": 0.056393,
-          "runtime_seconds": 0.229255
+          "runtime_seconds": 0.225202
         },
         "rsv": {
           "object_id": "ring_006",
@@ -1061,7 +1061,7 @@
           },
           "mean_flip_error_over_depth_span": 0.036157,
           "p95_flip_error_over_depth_span": 0.094975,
-          "runtime_seconds": 0.366844
+          "runtime_seconds": 0.227849
         }
       }
     },
@@ -1096,7 +1096,7 @@
           },
           "mean_flip_error_over_depth_span": 0.109275,
           "p95_flip_error_over_depth_span": 0.237836,
-          "runtime_seconds": 0.231361
+          "runtime_seconds": 0.238126
         },
         "top": {
           "object_id": "ring_007",
@@ -1122,7 +1122,7 @@
           },
           "mean_flip_error_over_depth_span": 0.083781,
           "p95_flip_error_over_depth_span": 0.207984,
-          "runtime_seconds": 0.219934
+          "runtime_seconds": 0.231931
         },
         "iso": {
           "object_id": "ring_007",
@@ -1148,7 +1148,7 @@
           },
           "mean_flip_error_over_depth_span": 0.01316,
           "p95_flip_error_over_depth_span": 0.031891,
-          "runtime_seconds": 0.235909
+          "runtime_seconds": 0.230919
         },
         "lsv": {
           "object_id": "ring_007",
@@ -1174,7 +1174,7 @@
           },
           "mean_flip_error_over_depth_span": 0.043431,
           "p95_flip_error_over_depth_span": 0.139699,
-          "runtime_seconds": 0.250613
+          "runtime_seconds": 0.225617
         },
         "rsv": {
           "object_id": "ring_007",
@@ -1200,7 +1200,7 @@
           },
           "mean_flip_error_over_depth_span": 0.057559,
           "p95_flip_error_over_depth_span": 0.146338,
-          "runtime_seconds": 0.326288
+          "runtime_seconds": 0.226374
         }
       }
     },
@@ -1235,7 +1235,7 @@
           },
           "mean_flip_error_over_depth_span": 0.072855,
           "p95_flip_error_over_depth_span": 0.155067,
-          "runtime_seconds": 0.22846
+          "runtime_seconds": 0.227611
         },
         "top": {
           "object_id": "ring_008",
@@ -1261,7 +1261,7 @@
           },
           "mean_flip_error_over_depth_span": 0.072791,
           "p95_flip_error_over_depth_span": 0.149556,
-          "runtime_seconds": 0.221927
+          "runtime_seconds": 0.229107
         },
         "iso": {
           "object_id": "ring_008",
@@ -1287,7 +1287,7 @@
           },
           "mean_flip_error_over_depth_span": 0.017849,
           "p95_flip_error_over_depth_span": 0.055374,
-          "runtime_seconds": 0.226904
+          "runtime_seconds": 0.226454
         },
         "lsv": {
           "object_id": "ring_008",
@@ -1313,7 +1313,7 @@
           },
           "mean_flip_error_over_depth_span": 0.035937,
           "p95_flip_error_over_depth_span": 0.082968,
-          "runtime_seconds": 0.235605
+          "runtime_seconds": 0.222936
         },
         "rsv": {
           "object_id": "ring_008",
@@ -1339,7 +1339,7 @@
           },
           "mean_flip_error_over_depth_span": 0.022696,
           "p95_flip_error_over_depth_span": 0.066641,
-          "runtime_seconds": 0.228157
+          "runtime_seconds": 0.225993
         }
       }
     },
@@ -1374,7 +1374,7 @@
           },
           "mean_flip_error_over_depth_span": 0.043057,
           "p95_flip_error_over_depth_span": 0.113727,
-          "runtime_seconds": 0.276217
+          "runtime_seconds": 0.265081
         },
         "top": {
           "object_id": "ring_009",
@@ -1400,7 +1400,7 @@
           },
           "mean_flip_error_over_depth_span": 0.053129,
           "p95_flip_error_over_depth_span": 0.135518,
-          "runtime_seconds": 0.364455
+          "runtime_seconds": 0.228293
         },
         "iso": {
           "object_id": "ring_009",
@@ -1426,7 +1426,7 @@
           },
           "mean_flip_error_over_depth_span": 0.021955,
           "p95_flip_error_over_depth_span": 0.055304,
-          "runtime_seconds": 0.311846
+          "runtime_seconds": 0.232135
         },
         "lsv": {
           "object_id": "ring_009",
@@ -1452,7 +1452,7 @@
           },
           "mean_flip_error_over_depth_span": 0.042028,
           "p95_flip_error_over_depth_span": 0.105843,
-          "runtime_seconds": 0.266036
+          "runtime_seconds": 0.228308
         },
         "rsv": {
           "object_id": "ring_009",
@@ -1478,7 +1478,7 @@
           },
           "mean_flip_error_over_depth_span": 0.041096,
           "p95_flip_error_over_depth_span": 0.096148,
-          "runtime_seconds": 0.287271
+          "runtime_seconds": 0.226141
         }
       }
     },
@@ -1513,7 +1513,7 @@
           },
           "mean_flip_error_over_depth_span": 0.069879,
           "p95_flip_error_over_depth_span": 0.225074,
-          "runtime_seconds": 0.231781
+          "runtime_seconds": 0.338057
         },
         "top": {
           "object_id": "ring_010",
@@ -1539,7 +1539,7 @@
           },
           "mean_flip_error_over_depth_span": 0.056975,
           "p95_flip_error_over_depth_span": 0.124307,
-          "runtime_seconds": 0.229137
+          "runtime_seconds": 0.255918
         },
         "iso": {
           "object_id": "ring_010",
@@ -1565,7 +1565,7 @@
           },
           "mean_flip_error_over_depth_span": 0.027021,
           "p95_flip_error_over_depth_span": 0.068297,
-          "runtime_seconds": 0.321639
+          "runtime_seconds": 0.225971
         },
         "lsv": {
           "object_id": "ring_010",
@@ -1591,7 +1591,7 @@
           },
           "mean_flip_error_over_depth_span": 0.055647,
           "p95_flip_error_over_depth_span": 0.109929,
-          "runtime_seconds": 0.322996
+          "runtime_seconds": 0.225315
         },
         "rsv": {
           "object_id": "ring_010",
@@ -1617,7 +1617,7 @@
           },
           "mean_flip_error_over_depth_span": 0.045937,
           "p95_flip_error_over_depth_span": 0.114485,
-          "runtime_seconds": 0.247519
+          "runtime_seconds": 0.226953
         }
       }
     },
@@ -1652,7 +1652,7 @@
           },
           "mean_flip_error_over_depth_span": 0.037708,
           "p95_flip_error_over_depth_span": 0.088041,
-          "runtime_seconds": 0.256639
+          "runtime_seconds": 0.307965
         },
         "top": {
           "object_id": "ring_011",
@@ -1678,7 +1678,7 @@
           },
           "mean_flip_error_over_depth_span": 0.052804,
           "p95_flip_error_over_depth_span": 0.117232,
-          "runtime_seconds": 0.234181
+          "runtime_seconds": 0.207936
         },
         "iso": {
           "object_id": "ring_011",
@@ -1704,7 +1704,7 @@
           },
           "mean_flip_error_over_depth_span": 0.055254,
           "p95_flip_error_over_depth_span": 0.099899,
-          "runtime_seconds": 0.257223
+          "runtime_seconds": 0.195823
         },
         "lsv": {
           "object_id": "ring_011",
@@ -1730,7 +1730,7 @@
           },
           "mean_flip_error_over_depth_span": 0.044847,
           "p95_flip_error_over_depth_span": 0.078263,
-          "runtime_seconds": 0.230565
+          "runtime_seconds": 0.193155
         },
         "rsv": {
           "object_id": "ring_011",
@@ -1756,7 +1756,7 @@
           },
           "mean_flip_error_over_depth_span": 0.022649,
           "p95_flip_error_over_depth_span": 0.053262,
-          "runtime_seconds": 0.229031
+          "runtime_seconds": 0.193502
         }
       }
     },
@@ -1791,7 +1791,7 @@
           },
           "mean_flip_error_over_depth_span": 0.039232,
           "p95_flip_error_over_depth_span": 0.125366,
-          "runtime_seconds": 0.24295
+          "runtime_seconds": 0.327549
         },
         "top": {
           "object_id": "ring_012",
@@ -1817,7 +1817,7 @@
           },
           "mean_flip_error_over_depth_span": 0.034211,
           "p95_flip_error_over_depth_span": 0.099565,
-          "runtime_seconds": 0.226229
+          "runtime_seconds": 0.230731
         },
         "iso": {
           "object_id": "ring_012",
@@ -1843,7 +1843,7 @@
           },
           "mean_flip_error_over_depth_span": 0.03136,
           "p95_flip_error_over_depth_span": 0.063301,
-          "runtime_seconds": 0.231371
+          "runtime_seconds": 0.272149
         },
         "lsv": {
           "object_id": "ring_012",
@@ -1869,7 +1869,7 @@
           },
           "mean_flip_error_over_depth_span": 0.066728,
           "p95_flip_error_over_depth_span": 0.153396,
-          "runtime_seconds": 0.232502
+          "runtime_seconds": 0.250312
         },
         "rsv": {
           "object_id": "ring_012",
@@ -1895,7 +1895,7 @@
           },
           "mean_flip_error_over_depth_span": 0.035051,
           "p95_flip_error_over_depth_span": 0.094668,
-          "runtime_seconds": 0.228135
+          "runtime_seconds": 0.228955
         }
       }
     },
@@ -1930,7 +1930,7 @@
           },
           "mean_flip_error_over_depth_span": 0.049094,
           "p95_flip_error_over_depth_span": 0.107792,
-          "runtime_seconds": 0.232832
+          "runtime_seconds": 0.226105
         },
         "top": {
           "object_id": "ring_013",
@@ -1956,7 +1956,7 @@
           },
           "mean_flip_error_over_depth_span": 0.041389,
           "p95_flip_error_over_depth_span": 0.101164,
-          "runtime_seconds": 0.234455
+          "runtime_seconds": 0.225448
         },
         "iso": {
           "object_id": "ring_013",
@@ -1982,7 +1982,7 @@
           },
           "mean_flip_error_over_depth_span": 0.075535,
           "p95_flip_error_over_depth_span": 0.157459,
-          "runtime_seconds": 0.353487
+          "runtime_seconds": 0.225556
         },
         "lsv": {
           "object_id": "ring_013",
@@ -2008,7 +2008,7 @@
           },
           "mean_flip_error_over_depth_span": 0.050383,
           "p95_flip_error_over_depth_span": 0.14332,
-          "runtime_seconds": 0.330467
+          "runtime_seconds": 0.229356
         },
         "rsv": {
           "object_id": "ring_013",
@@ -2034,7 +2034,7 @@
           },
           "mean_flip_error_over_depth_span": 0.070984,
           "p95_flip_error_over_depth_span": 0.148942,
-          "runtime_seconds": 0.342942
+          "runtime_seconds": 0.233286
         }
       }
     },
@@ -2069,7 +2069,7 @@
           },
           "mean_flip_error_over_depth_span": 0.032447,
           "p95_flip_error_over_depth_span": 0.083892,
-          "runtime_seconds": 0.368912
+          "runtime_seconds": 0.234112
         },
         "top": {
           "object_id": "ring_014",
@@ -2095,7 +2095,7 @@
           },
           "mean_flip_error_over_depth_span": 0.045532,
           "p95_flip_error_over_depth_span": 0.15444,
-          "runtime_seconds": 0.233181
+          "runtime_seconds": 0.226568
         },
         "iso": {
           "object_id": "ring_014",
@@ -2121,7 +2121,7 @@
           },
           "mean_flip_error_over_depth_span": 0.034473,
           "p95_flip_error_over_depth_span": 0.105888,
-          "runtime_seconds": 0.229282
+          "runtime_seconds": 0.225919
         },
         "lsv": {
           "object_id": "ring_014",
@@ -2147,7 +2147,7 @@
           },
           "mean_flip_error_over_depth_span": 0.039385,
           "p95_flip_error_over_depth_span": 0.077927,
-          "runtime_seconds": 0.225172
+          "runtime_seconds": 0.229215
         },
         "rsv": {
           "object_id": "ring_014",
@@ -2173,7 +2173,7 @@
           },
           "mean_flip_error_over_depth_span": 0.036926,
           "p95_flip_error_over_depth_span": 0.080971,
-          "runtime_seconds": 0.228258
+          "runtime_seconds": 0.227529
         }
       }
     },
@@ -2208,7 +2208,7 @@
           },
           "mean_flip_error_over_depth_span": 0.066156,
           "p95_flip_error_over_depth_span": 0.12925,
-          "runtime_seconds": 0.254847
+          "runtime_seconds": 0.291998
         },
         "top": {
           "object_id": "ring_015",
@@ -2234,7 +2234,7 @@
           },
           "mean_flip_error_over_depth_span": 0.046624,
           "p95_flip_error_over_depth_span": 0.105577,
-          "runtime_seconds": 0.227547
+          "runtime_seconds": 0.318626
         },
         "iso": {
           "object_id": "ring_015",
@@ -2260,7 +2260,7 @@
           },
           "mean_flip_error_over_depth_span": 0.017979,
           "p95_flip_error_over_depth_span": 0.041301,
-          "runtime_seconds": 0.227653
+          "runtime_seconds": 0.311915
         },
         "lsv": {
           "object_id": "ring_015",
@@ -2286,7 +2286,7 @@
           },
           "mean_flip_error_over_depth_span": 0.036676,
           "p95_flip_error_over_depth_span": 0.087495,
-          "runtime_seconds": 0.229102
+          "runtime_seconds": 0.278738
         },
         "rsv": {
           "object_id": "ring_015",
@@ -2312,7 +2312,7 @@
           },
           "mean_flip_error_over_depth_span": 0.050935,
           "p95_flip_error_over_depth_span": 0.12671,
-          "runtime_seconds": 0.242251
+          "runtime_seconds": 0.229923
         }
       }
     },
@@ -2347,7 +2347,7 @@
           },
           "mean_flip_error_over_depth_span": 0.054928,
           "p95_flip_error_over_depth_span": 0.148885,
-          "runtime_seconds": 0.239425
+          "runtime_seconds": 0.33166
         },
         "top": {
           "object_id": "ring_016",
@@ -2373,7 +2373,7 @@
           },
           "mean_flip_error_over_depth_span": 0.048592,
           "p95_flip_error_over_depth_span": 0.121534,
-          "runtime_seconds": 0.237348
+          "runtime_seconds": 0.22163
         },
         "iso": {
           "object_id": "ring_016",
@@ -2399,7 +2399,7 @@
           },
           "mean_flip_error_over_depth_span": 0.025112,
           "p95_flip_error_over_depth_span": 0.059528,
-          "runtime_seconds": 0.24926
+          "runtime_seconds": 0.223019
         },
         "lsv": {
           "object_id": "ring_016",
@@ -2425,7 +2425,7 @@
           },
           "mean_flip_error_over_depth_span": 0.029056,
           "p95_flip_error_over_depth_span": 0.068819,
-          "runtime_seconds": 0.227001
+          "runtime_seconds": 0.225209
         },
         "rsv": {
           "object_id": "ring_016",
@@ -2451,7 +2451,7 @@
           },
           "mean_flip_error_over_depth_span": 0.06018,
           "p95_flip_error_over_depth_span": 0.144829,
-          "runtime_seconds": 0.229371
+          "runtime_seconds": 0.224791
         }
       }
     },
@@ -2486,7 +2486,7 @@
           },
           "mean_flip_error_over_depth_span": 0.053062,
           "p95_flip_error_over_depth_span": 0.144729,
-          "runtime_seconds": 0.235914
+          "runtime_seconds": 0.265535
         },
         "top": {
           "object_id": "ring_017",
@@ -2512,7 +2512,7 @@
           },
           "mean_flip_error_over_depth_span": 0.058129,
           "p95_flip_error_over_depth_span": 0.163006,
-          "runtime_seconds": 0.232751
+          "runtime_seconds": 0.220676
         },
         "iso": {
           "object_id": "ring_017",
@@ -2538,7 +2538,7 @@
           },
           "mean_flip_error_over_depth_span": 0.022144,
           "p95_flip_error_over_depth_span": 0.072956,
-          "runtime_seconds": 0.230641
+          "runtime_seconds": 0.224261
         },
         "lsv": {
           "object_id": "ring_017",
@@ -2564,7 +2564,7 @@
           },
           "mean_flip_error_over_depth_span": 0.087968,
           "p95_flip_error_over_depth_span": 0.242161,
-          "runtime_seconds": 0.227515
+          "runtime_seconds": 0.301012
         },
         "rsv": {
           "object_id": "ring_017",
@@ -2590,7 +2590,7 @@
           },
           "mean_flip_error_over_depth_span": 0.060046,
           "p95_flip_error_over_depth_span": 0.176812,
-          "runtime_seconds": 0.26426
+          "runtime_seconds": 0.231636
         }
       }
     },
@@ -2625,7 +2625,7 @@
           },
           "mean_flip_error_over_depth_span": 0.071702,
           "p95_flip_error_over_depth_span": 0.139085,
-          "runtime_seconds": 0.296839
+          "runtime_seconds": 0.224808
         },
         "top": {
           "object_id": "ring_018",
@@ -2651,7 +2651,7 @@
           },
           "mean_flip_error_over_depth_span": 0.071281,
           "p95_flip_error_over_depth_span": 0.167779,
-          "runtime_seconds": 0.263762
+          "runtime_seconds": 0.219432
         },
         "iso": {
           "object_id": "ring_018",
@@ -2677,7 +2677,7 @@
           },
           "mean_flip_error_over_depth_span": 0.051512,
           "p95_flip_error_over_depth_span": 0.120993,
-          "runtime_seconds": 0.251519
+          "runtime_seconds": 0.225151
         },
         "lsv": {
           "object_id": "ring_018",
@@ -2703,7 +2703,7 @@
           },
           "mean_flip_error_over_depth_span": 0.06117,
           "p95_flip_error_over_depth_span": 0.155005,
-          "runtime_seconds": 0.283802
+          "runtime_seconds": 0.224493
         },
         "rsv": {
           "object_id": "ring_018",
@@ -2729,7 +2729,7 @@
           },
           "mean_flip_error_over_depth_span": 0.103541,
           "p95_flip_error_over_depth_span": 0.221964,
-          "runtime_seconds": 0.239936
+          "runtime_seconds": 0.274553
         }
       }
     },
@@ -2764,7 +2764,7 @@
           },
           "mean_flip_error_over_depth_span": 0.055997,
           "p95_flip_error_over_depth_span": 0.135286,
-          "runtime_seconds": 0.241924
+          "runtime_seconds": 0.229335
         },
         "top": {
           "object_id": "ring_019",
@@ -2790,7 +2790,7 @@
           },
           "mean_flip_error_over_depth_span": 0.064771,
           "p95_flip_error_over_depth_span": 0.152419,
-          "runtime_seconds": 0.232045
+          "runtime_seconds": 0.22642
         },
         "iso": {
           "object_id": "ring_019",
@@ -2816,7 +2816,7 @@
           },
           "mean_flip_error_over_depth_span": 0.018961,
           "p95_flip_error_over_depth_span": 0.047501,
-          "runtime_seconds": 0.23025
+          "runtime_seconds": 0.247767
         },
         "lsv": {
           "object_id": "ring_019",
@@ -2842,7 +2842,7 @@
           },
           "mean_flip_error_over_depth_span": 0.030947,
           "p95_flip_error_over_depth_span": 0.070023,
-          "runtime_seconds": 0.228736
+          "runtime_seconds": 0.228082
         },
         "rsv": {
           "object_id": "ring_019",
@@ -2868,7 +2868,7 @@
           },
           "mean_flip_error_over_depth_span": 0.023202,
           "p95_flip_error_over_depth_span": 0.067136,
-          "runtime_seconds": 0.230275
+          "runtime_seconds": 0.297685
         }
       }
     },
@@ -2903,7 +2903,7 @@
           },
           "mean_flip_error_over_depth_span": 0.063468,
           "p95_flip_error_over_depth_span": 0.164255,
-          "runtime_seconds": 0.238421
+          "runtime_seconds": 0.225537
         },
         "top": {
           "object_id": "ring_020",
@@ -2929,7 +2929,7 @@
           },
           "mean_flip_error_over_depth_span": 0.034317,
           "p95_flip_error_over_depth_span": 0.093785,
-          "runtime_seconds": 0.240963
+          "runtime_seconds": 0.222439
         },
         "iso": {
           "object_id": "ring_020",
@@ -2955,7 +2955,7 @@
           },
           "mean_flip_error_over_depth_span": 0.036629,
           "p95_flip_error_over_depth_span": 0.121233,
-          "runtime_seconds": 0.249583
+          "runtime_seconds": 0.224658
         },
         "lsv": {
           "object_id": "ring_020",
@@ -2981,7 +2981,7 @@
           },
           "mean_flip_error_over_depth_span": 0.02061,
           "p95_flip_error_over_depth_span": 0.055452,
-          "runtime_seconds": 1.124527
+          "runtime_seconds": 0.227615
         },
         "rsv": {
           "object_id": "ring_020",
@@ -3007,7 +3007,7 @@
           },
           "mean_flip_error_over_depth_span": 0.025744,
           "p95_flip_error_over_depth_span": 0.057734,
-          "runtime_seconds": 0.225377
+          "runtime_seconds": 0.226979
         }
       }
     },
@@ -3042,7 +3042,7 @@
           },
           "mean_flip_error_over_depth_span": 0.039153,
           "p95_flip_error_over_depth_span": 0.087774,
-          "runtime_seconds": 0.232375
+          "runtime_seconds": 0.229323
         },
         "top": {
           "object_id": "ring_021",
@@ -3068,7 +3068,7 @@
           },
           "mean_flip_error_over_depth_span": 0.073875,
           "p95_flip_error_over_depth_span": 0.136272,
-          "runtime_seconds": 0.227848
+          "runtime_seconds": 0.226654
         },
         "iso": {
           "object_id": "ring_021",
@@ -3094,7 +3094,7 @@
           },
           "mean_flip_error_over_depth_span": 0.027801,
           "p95_flip_error_over_depth_span": 0.080627,
-          "runtime_seconds": 0.234609
+          "runtime_seconds": 0.222827
         },
         "lsv": {
           "object_id": "ring_021",
@@ -3120,7 +3120,7 @@
           },
           "mean_flip_error_over_depth_span": 0.034951,
           "p95_flip_error_over_depth_span": 0.105221,
-          "runtime_seconds": 0.356603
+          "runtime_seconds": 0.22811
         },
         "rsv": {
           "object_id": "ring_021",
@@ -3146,7 +3146,7 @@
           },
           "mean_flip_error_over_depth_span": 0.025987,
           "p95_flip_error_over_depth_span": 0.065681,
-          "runtime_seconds": 0.31074
+          "runtime_seconds": 0.231009
         }
       }
     },
@@ -3181,7 +3181,7 @@
           },
           "mean_flip_error_over_depth_span": 0.049292,
           "p95_flip_error_over_depth_span": 0.116118,
-          "runtime_seconds": 0.264677
+          "runtime_seconds": 0.230124
         },
         "top": {
           "object_id": "ring_022",
@@ -3207,7 +3207,7 @@
           },
           "mean_flip_error_over_depth_span": 0.078191,
           "p95_flip_error_over_depth_span": 0.171095,
-          "runtime_seconds": 0.233805
+          "runtime_seconds": 0.223567
         },
         "iso": {
           "object_id": "ring_022",
@@ -3233,7 +3233,7 @@
           },
           "mean_flip_error_over_depth_span": 0.035614,
           "p95_flip_error_over_depth_span": 0.079896,
-          "runtime_seconds": 0.233542
+          "runtime_seconds": 0.227888
         },
         "lsv": {
           "object_id": "ring_022",
@@ -3259,7 +3259,7 @@
           },
           "mean_flip_error_over_depth_span": 0.026888,
           "p95_flip_error_over_depth_span": 0.065348,
-          "runtime_seconds": 0.228689
+          "runtime_seconds": 0.227785
         },
         "rsv": {
           "object_id": "ring_022",
@@ -3285,7 +3285,7 @@
           },
           "mean_flip_error_over_depth_span": 0.029783,
           "p95_flip_error_over_depth_span": 0.096408,
-          "runtime_seconds": 0.228032
+          "runtime_seconds": 0.355431
         }
       }
     },
@@ -3320,7 +3320,7 @@
           },
           "mean_flip_error_over_depth_span": 0.054306,
           "p95_flip_error_over_depth_span": 0.136088,
-          "runtime_seconds": 0.254028
+          "runtime_seconds": 0.226802
         },
         "top": {
           "object_id": "ring_023",
@@ -3346,7 +3346,7 @@
           },
           "mean_flip_error_over_depth_span": 0.072262,
           "p95_flip_error_over_depth_span": 0.169745,
-          "runtime_seconds": 0.233295
+          "runtime_seconds": 0.226574
         },
         "iso": {
           "object_id": "ring_023",
@@ -3372,7 +3372,7 @@
           },
           "mean_flip_error_over_depth_span": 0.039368,
           "p95_flip_error_over_depth_span": 0.105435,
-          "runtime_seconds": 0.228204
+          "runtime_seconds": 0.229074
         },
         "lsv": {
           "object_id": "ring_023",
@@ -3398,7 +3398,7 @@
           },
           "mean_flip_error_over_depth_span": 0.048658,
           "p95_flip_error_over_depth_span": 0.08742,
-          "runtime_seconds": 0.227694
+          "runtime_seconds": 0.229637
         },
         "rsv": {
           "object_id": "ring_023",
@@ -3424,7 +3424,7 @@
           },
           "mean_flip_error_over_depth_span": 0.043355,
           "p95_flip_error_over_depth_span": 0.131329,
-          "runtime_seconds": 0.227965
+          "runtime_seconds": 0.225781
         }
       }
     },
@@ -3459,7 +3459,7 @@
           },
           "mean_flip_error_over_depth_span": 0.043413,
           "p95_flip_error_over_depth_span": 0.10739,
-          "runtime_seconds": 0.26181
+          "runtime_seconds": 0.224514
         },
         "top": {
           "object_id": "ring_024",
@@ -3485,7 +3485,7 @@
           },
           "mean_flip_error_over_depth_span": 0.041381,
           "p95_flip_error_over_depth_span": 0.106889,
-          "runtime_seconds": 0.232417
+          "runtime_seconds": 0.223954
         },
         "iso": {
           "object_id": "ring_024",
@@ -3511,7 +3511,7 @@
           },
           "mean_flip_error_over_depth_span": 0.032592,
           "p95_flip_error_over_depth_span": 0.06387,
-          "runtime_seconds": 0.235726
+          "runtime_seconds": 0.220864
         },
         "lsv": {
           "object_id": "ring_024",
@@ -3537,7 +3537,7 @@
           },
           "mean_flip_error_over_depth_span": 0.103004,
           "p95_flip_error_over_depth_span": 0.203434,
-          "runtime_seconds": 0.232412
+          "runtime_seconds": 0.222544
         },
         "rsv": {
           "object_id": "ring_024",
@@ -3563,7 +3563,7 @@
           },
           "mean_flip_error_over_depth_span": 0.021234,
           "p95_flip_error_over_depth_span": 0.062303,
-          "runtime_seconds": 0.228898
+          "runtime_seconds": 0.245724
         }
       }
     }
