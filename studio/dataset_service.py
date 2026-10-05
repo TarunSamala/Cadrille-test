@@ -72,6 +72,20 @@ class DatasetRepository:
         self.phase1_ground_truth = self._read_json(
             self.repo_root / "data" / "ring01_ground_truth_v1" / "manifest.json"
         )
+        self.phase1_depth_validation = self._read_json(
+            self.repo_root
+            / "data"
+            / "ring01_ground_truth_v1"
+            / "depth_validation_v1"
+            / "report.json"
+        )
+        self.phase1_pixel_features = self._read_json(
+            self.repo_root
+            / "data"
+            / "ring01_ground_truth_v1"
+            / "pixel_features_v1"
+            / "report.json"
+        )
         self.records = self._read_manifest(self.prepared_root / "manifest.jsonl")
         self._records_by_id = {record["object_id"]: record for record in self.records}
         self._phase1_by_object = self._index_phase1_features()
@@ -282,6 +296,49 @@ class DatasetRepository:
             "component_count": len(manifest.get("component_catalog", [])),
             "physical_scale": deepcopy(manifest.get("physical_scale", {})),
             "depth": deepcopy(depth),
+            "depth_validation": {
+                "status": self.phase1_depth_validation.get("status"),
+                "checks": deepcopy(self.phase1_depth_validation.get("checks", {})),
+                "runtime": deepcopy(self.phase1_depth_validation.get("runtime", {})),
+                "metric_depth": deepcopy(
+                    self.phase1_depth_validation.get("metric_depth", {})
+                ),
+                "decision": self.phase1_depth_validation.get("decision"),
+                "front_raw_object_top_bottom_delta": self.phase1_depth_validation
+                .get("views", {})
+                .get("front", {})
+                .get("whole_object_distribution", {})
+                .get("top_minus_bottom_mean"),
+                "front_regularized_object_top_bottom_delta": self.phase1_depth_validation
+                .get("views", {})
+                .get("front", {})
+                .get("regularized_whole_object_distribution", {})
+                .get("top_minus_bottom_mean"),
+                "front_raw_stone_top_bottom_delta": self.phase1_depth_validation
+                .get("views", {})
+                .get("front", {})
+                .get("stone_distribution", {})
+                .get("top_minus_bottom_mean"),
+                "front_regularized_stone_top_bottom_delta": self.phase1_depth_validation
+                .get("views", {})
+                .get("front", {})
+                .get("regularized_stone_distribution", {})
+                .get("top_minus_bottom_mean"),
+            },
+            "pixel_features": {
+                "status": self.phase1_pixel_features.get("status"),
+                "view_count": self.phase1_pixel_features.get("view_count"),
+                "feature_groups": deepcopy(
+                    self.phase1_pixel_features.get("feature_groups", {})
+                ),
+                "reconstruction_contract": deepcopy(
+                    self.phase1_pixel_features.get("reconstruction_contract", {})
+                ),
+                "depth_contract": deepcopy(
+                    self.phase1_pixel_features.get("depth_contract", {})
+                ),
+                "authority": self.phase1_pixel_features.get("authority"),
+            },
             "authority_policy": manifest.get("authority_policy"),
         }
 
@@ -519,6 +576,24 @@ class DatasetRepository:
             "dataset_depth_report": self.phase_root
             / "phase1_depth_anything_v2"
             / "report.json",
+            "ring01_depth_validation_report": self.repo_root
+            / "data"
+            / "ring01_ground_truth_v1"
+            / "depth_validation_v1"
+            / "report.json",
+            "ring01_front_depth_photo": self.repo_root
+            / self.phase1_depth_validation["front_photo_with_depth"],
+            "ring01_front_depth_audit": self.repo_root
+            / self.phase1_depth_validation["front_audit"],
+            "ring01_all_views_depth_validation": self.repo_root
+            / self.phase1_depth_validation["all_views_audit"],
+            "ring01_pixel_feature_report": self.repo_root
+            / "data"
+            / "ring01_ground_truth_v1"
+            / "pixel_features_v1"
+            / "report.json",
+            "ring01_pixel_feature_audit": self.repo_root
+            / self.phase1_pixel_features["audit_sheet"],
         }
         if name in reproducibility:
             return self._safe_path(reproducibility[name])

@@ -1,0 +1,866 @@
+{
+  "schema_version": "lalitha_ring01_depth_validation_v1",
+  "created_at_utc": "2026-10-05T17:56:20.675541+00:00",
+  "status": "completed_research_only",
+  "model": {
+    "id": "depth-anything/Depth-Anything-V2-Small-hf",
+    "revision": "5426e4f0f36572d16453bbda7a8389317b1bef99",
+    "license": "Apache-2.0"
+  },
+  "runtime": {
+    "device": "cuda",
+    "repeat_count": 3,
+    "total_seconds": 2.697563,
+    "peak_gpu_memory_bytes": 196220416
+  },
+  "checks": {
+    "all_five_views_processed": true,
+    "all_three_repeats_identical": true,
+    "all_outputs_finite": true
+  },
+  "validation_layers": {
+    "repeatability": "three independent forward passes per source view",
+    "transformation_consistency": "horizontal and vertical flip diagnostics",
+    "component_consistency": "relative-depth summaries inside Phase 1 component masks",
+    "cross_view_geometry": "blocked_without_camera_correspondence_and_calibration"
+  },
+  "metric_depth": {
+    "status": "blocked",
+    "unit": null,
+    "millimetres_per_depth_unit": null,
+    "centimetres_per_depth_unit": null,
+    "required": [
+      "at least one verified physical dimension",
+      "camera intrinsics or a calibrated capture protocol",
+      "cross-view camera poses and correspondences or scan supervision"
+    ]
+  },
+  "views": {
+    "front": {
+      "view_contract": {
+        "observed_role": "gemstone-face view with horizontal shank shoulders",
+        "source_label": "front",
+        "camera_pose_known": false,
+        "symmetry_prior": "horizontal strong; vertical approximate within the central head only"
+      },
+      "source": "data/ring01_reference_images/ring01_front.png",
+      "source_sha256": "a564f0be433b01639ae981c493e6cddea11b04ef2fea0411804cc3b8cc553a74",
+      "repeat_count": 3,
+      "repeat_raw_sha256": [
+        "7df8b992a130824ae7759359ca0e45d1175cb5b0f2fd8c762d117f3ba7f7fbba",
+        "7df8b992a130824ae7759359ca0e45d1175cb5b0f2fd8c762d117f3ba7f7fbba",
+        "7df8b992a130824ae7759359ca0e45d1175cb5b0f2fd8c762d117f3ba7f7fbba"
+      ],
+      "repeat_deterministic": true,
+      "repeat_max_abs_difference": [
+        0.0,
+        0.0
+      ],
+      "horizontal_flip_error_over_depth_span": 0.039367,
+      "vertical_flip_error_over_depth_span": 0.107243,
+      "raw_robust_range": {
+        "p02": 2.4223358154296877,
+        "p98": 4.237338867187499
+      },
+      "regularization": "horizontal_and_vertical_symmetry_diagnostic",
+      "regularized_robust_range": {
+        "p02": 2.3780570697784422,
+        "p98": 3.972022867202759
+      },
+      "transform_uncertainty_range": {
+        "p02": 0.03672528743743896,
+        "p98": 0.34539057374000526
+      },
+      "whole_object_distribution": {
+        "top": {
+          "pixels": 4469,
+          "mean": 0.463195,
+          "median": 0.49223
+        },
+        "bottom": {
+          "pixels": 5876,
+          "mean": 0.553938,
+          "median": 0.712627
+        },
+        "left": {
+          "pixels": 5147,
+          "mean": 0.517576,
+          "median": 0.531009
+        },
+        "right": {
+          "pixels": 5198,
+          "mean": 0.511926,
+          "median": 0.527933
+        },
+        "top_minus_bottom_mean": -0.090743,
+        "left_minus_right_mean": 0.00565
+      },
+      "stone_distribution": {
+        "top": {
+          "pixels": 2360,
+          "mean": 0.663484,
+          "median": 0.677025
+        },
+        "bottom": {
+          "pixels": 2283,
+          "mean": 0.845232,
+          "median": 0.847332
+        },
+        "left": {
+          "pixels": 2361,
+          "mean": 0.755535,
+          "median": 0.746935
+        },
+        "right": {
+          "pixels": 2282,
+          "mean": 0.750073,
+          "median": 0.743802
+        },
+        "top_minus_bottom_mean": -0.181748,
+        "left_minus_right_mean": 0.005462
+      },
+      "regularized_whole_object_distribution": {
+        "top": {
+          "pixels": 4469,
+          "mean": 0.579289,
+          "median": 0.644217
+        },
+        "bottom": {
+          "pixels": 5876,
+          "mean": 0.639934,
+          "median": 0.828507
+        },
+        "left": {
+          "pixels": 5147,
+          "mean": 0.624577,
+          "median": 0.675807
+        },
+        "right": {
+          "pixels": 5198,
+          "mean": 0.603,
+          "median": 0.679673
+        },
+        "top_minus_bottom_mean": -0.060645,
+        "left_minus_right_mean": 0.021577
+      },
+      "regularized_stone_distribution": {
+        "top": {
+          "pixels": 2360,
+          "mean": 0.816087,
+          "median": 0.827661
+        },
+        "bottom": {
+          "pixels": 2283,
+          "mean": 0.940426,
+          "median": 0.94976
+        },
+        "left": {
+          "pixels": 2361,
+          "mean": 0.87934,
+          "median": 0.886289
+        },
+        "right": {
+          "pixels": 2282,
+          "mean": 0.875037,
+          "median": 0.88666
+        },
+        "top_minus_bottom_mean": -0.124339,
+        "left_minus_right_mean": 0.004303
+      },
+      "component_relative_depth": {
+        "shank": {
+          "pixels": 4131,
+          "mean": 0.225566,
+          "median": 0.239289
+        },
+        "stone_visible": {
+          "pixels": 4643,
+          "mean": 0.75285,
+          "median": 0.745076
+        },
+        "setting": {
+          "pixels": 1571,
+          "mean": 0.571395,
+          "median": 0.47867
+        },
+        "prongs": {
+          "pixels": 693,
+          "mean": 0.543896,
+          "median": 0.429418
+        },
+        "negative_space": {
+          "pixels": 297,
+          "mean": 0.351243,
+          "median": 0.332005
+        }
+      },
+      "symmetry_regularized_raw": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_front_symmetry_regularized_relative_depth.npy",
+      "photo_depth_overlay": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_front_depth_overlay.png",
+      "metric": false,
+      "cross_view_aligned": false
+    },
+    "side": {
+      "view_contract": {
+        "observed_role": "ring-profile view showing hoop, basket and head elevation",
+        "source_label": "side",
+        "camera_pose_known": false,
+        "symmetry_prior": "horizontal approximate; vertical invalid"
+      },
+      "source": "data/ring01_reference_images/ring01_side.png",
+      "source_sha256": "3a6d9ca7fb4f2d7390b8fd573d2f9e6624543d38b4fdb66bb356c90f3598cf14",
+      "repeat_count": 3,
+      "repeat_raw_sha256": [
+        "db4d19c364ff97a399fa5d37bfa4a2f3efedf0f11f2fbab70fcf5bb9f3a612e1",
+        "db4d19c364ff97a399fa5d37bfa4a2f3efedf0f11f2fbab70fcf5bb9f3a612e1",
+        "db4d19c364ff97a399fa5d37bfa4a2f3efedf0f11f2fbab70fcf5bb9f3a612e1"
+      ],
+      "repeat_deterministic": true,
+      "repeat_max_abs_difference": [
+        0.0,
+        0.0
+      ],
+      "horizontal_flip_error_over_depth_span": 0.073404,
+      "vertical_flip_error_over_depth_span": 0.124436,
+      "raw_robust_range": {
+        "p02": 3.2122467803955077,
+        "p98": 4.959371109008789
+      },
+      "regularization": "horizontal_symmetry_diagnostic",
+      "regularized_robust_range": {
+        "p02": 3.249432158470154,
+        "p98": 4.930645942687988
+      },
+      "transform_uncertainty_range": {
+        "p02": 0.016513190269470214,
+        "p98": 0.36010675191879205
+      },
+      "whole_object_distribution": {
+        "top": {
+          "pixels": 4456,
+          "mean": 0.717677,
+          "median": 0.715205
+        },
+        "bottom": {
+          "pixels": 2704,
+          "mean": 0.288829,
+          "median": 0.275468
+        },
+        "left": {
+          "pixels": 3591,
+          "mean": 0.596167,
+          "median": 0.661644
+        },
+        "right": {
+          "pixels": 3569,
+          "mean": 0.515026,
+          "median": 0.568923
+        },
+        "top_minus_bottom_mean": 0.428848,
+        "left_minus_right_mean": 0.081141
+      },
+      "stone_distribution": {
+        "top": {
+          "pixels": 648,
+          "mean": 0.803188,
+          "median": 0.837172
+        },
+        "bottom": {
+          "pixels": 452,
+          "mean": 0.68495,
+          "median": 0.749287
+        },
+        "left": {
+          "pixels": 569,
+          "mean": 0.756637,
+          "median": 0.791075
+        },
+        "right": {
+          "pixels": 531,
+          "mean": 0.752423,
+          "median": 0.775499
+        },
+        "top_minus_bottom_mean": 0.118238,
+        "left_minus_right_mean": 0.004214
+      },
+      "regularized_whole_object_distribution": {
+        "top": {
+          "pixels": 4456,
+          "mean": 0.715571,
+          "median": 0.698838
+        },
+        "bottom": {
+          "pixels": 2704,
+          "mean": 0.283843,
+          "median": 0.286989
+        },
+        "left": {
+          "pixels": 3591,
+          "mean": 0.569172,
+          "median": 0.628651
+        },
+        "right": {
+          "pixels": 3569,
+          "mean": 0.53578,
+          "median": 0.588031
+        },
+        "top_minus_bottom_mean": 0.431728,
+        "left_minus_right_mean": 0.033392
+      },
+      "regularized_stone_distribution": {
+        "top": {
+          "pixels": 648,
+          "mean": 0.793339,
+          "median": 0.848358
+        },
+        "bottom": {
+          "pixels": 452,
+          "mean": 0.702702,
+          "median": 0.752192
+        },
+        "left": {
+          "pixels": 569,
+          "mean": 0.754619,
+          "median": 0.792578
+        },
+        "right": {
+          "pixels": 531,
+          "mean": 0.757677,
+          "median": 0.781773
+        },
+        "top_minus_bottom_mean": 0.090637,
+        "left_minus_right_mean": -0.003058
+      },
+      "component_relative_depth": {
+        "shank": {
+          "pixels": 4168,
+          "mean": 0.408398,
+          "median": 0.459165
+        },
+        "stone_visible": {
+          "pixels": 1100,
+          "mean": 0.754603,
+          "median": 0.783204
+        },
+        "setting": {
+          "pixels": 1892,
+          "mean": 0.764638,
+          "median": 0.744367
+        },
+        "prongs": {
+          "pixels": 349,
+          "mean": 0.855555,
+          "median": 0.889493
+        },
+        "negative_space": {
+          "pixels": 11676,
+          "mean": 0.031766,
+          "median": 0.0
+        }
+      },
+      "symmetry_regularized_raw": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_side_symmetry_regularized_relative_depth.npy",
+      "photo_depth_overlay": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_side_depth_overlay.png",
+      "metric": false,
+      "cross_view_aligned": false
+    },
+    "top": {
+      "view_contract": {
+        "observed_role": "second near gemstone-face view; not a calibrated geometric top camera",
+        "source_label": "top",
+        "camera_pose_known": false,
+        "symmetry_prior": "horizontal strong; vertical approximate within the central head only"
+      },
+      "source": "data/ring01_reference_images/ring01_top.png",
+      "source_sha256": "fd2b70e7ade09adcc41ac0e9ff5cbccc2e77543d7ccbb2831fb14285a9bf70c7",
+      "repeat_count": 3,
+      "repeat_raw_sha256": [
+        "48055378529e63e7767c5a91459ef80e0ffd1168f708fc479c3049b49877f4f6",
+        "48055378529e63e7767c5a91459ef80e0ffd1168f708fc479c3049b49877f4f6",
+        "48055378529e63e7767c5a91459ef80e0ffd1168f708fc479c3049b49877f4f6"
+      ],
+      "repeat_deterministic": true,
+      "repeat_max_abs_difference": [
+        0.0,
+        0.0
+      ],
+      "horizontal_flip_error_over_depth_span": 0.025811,
+      "vertical_flip_error_over_depth_span": 0.139864,
+      "raw_robust_range": {
+        "p02": 2.464200735092163,
+        "p98": 3.712486219406128
+      },
+      "regularization": "horizontal_and_vertical_symmetry_diagnostic",
+      "regularized_robust_range": {
+        "p02": 2.5101121425628663,
+        "p98": 3.705539846420288
+      },
+      "transform_uncertainty_range": {
+        "p02": 0.002992737293243408,
+        "p98": 0.4049266099929807
+      },
+      "whole_object_distribution": {
+        "top": {
+          "pixels": 4035,
+          "mean": 0.611488,
+          "median": 0.81142
+        },
+        "bottom": {
+          "pixels": 4046,
+          "mean": 0.685232,
+          "median": 0.883556
+        },
+        "left": {
+          "pixels": 4077,
+          "mean": 0.662577,
+          "median": 0.858881
+        },
+        "right": {
+          "pixels": 4004,
+          "mean": 0.633986,
+          "median": 0.836175
+        },
+        "top_minus_bottom_mean": -0.073744,
+        "left_minus_right_mean": 0.028591
+      },
+      "stone_distribution": {
+        "top": {
+          "pixels": 1845,
+          "mean": 0.904301,
+          "median": 0.912418
+        },
+        "bottom": {
+          "pixels": 1780,
+          "mean": 0.958842,
+          "median": 0.967542
+        },
+        "left": {
+          "pixels": 1845,
+          "mean": 0.931206,
+          "median": 0.944512
+        },
+        "right": {
+          "pixels": 1780,
+          "mean": 0.930954,
+          "median": 0.940203
+        },
+        "top_minus_bottom_mean": -0.054541,
+        "left_minus_right_mean": 0.000252
+      },
+      "regularized_whole_object_distribution": {
+        "top": {
+          "pixels": 4035,
+          "mean": 0.603114,
+          "median": 0.780484
+        },
+        "bottom": {
+          "pixels": 4046,
+          "mean": 0.672377,
+          "median": 0.810673
+        },
+        "left": {
+          "pixels": 4077,
+          "mean": 0.645651,
+          "median": 0.795884
+        },
+        "right": {
+          "pixels": 4004,
+          "mean": 0.629792,
+          "median": 0.787856
+        },
+        "top_minus_bottom_mean": -0.069263,
+        "left_minus_right_mean": 0.015859
+      },
+      "regularized_stone_distribution": {
+        "top": {
+          "pixels": 1845,
+          "mean": 0.872463,
+          "median": 0.890293
+        },
+        "bottom": {
+          "pixels": 1780,
+          "mean": 0.946083,
+          "median": 0.956585
+        },
+        "left": {
+          "pixels": 1845,
+          "mean": 0.912858,
+          "median": 0.931676
+        },
+        "right": {
+          "pixels": 1780,
+          "mean": 0.904212,
+          "median": 0.920608
+        },
+        "top_minus_bottom_mean": -0.07362,
+        "left_minus_right_mean": 0.008646
+      },
+      "component_relative_depth": {
+        "shank": {
+          "pixels": 2891,
+          "mean": 0.2326,
+          "median": 0.226568
+        },
+        "stone_visible": {
+          "pixels": 3625,
+          "mean": 0.931082,
+          "median": 0.942603
+        },
+        "setting": {
+          "pixels": 1565,
+          "mean": 0.76178,
+          "median": 0.840617
+        },
+        "prongs": {
+          "pixels": 692,
+          "mean": 0.742161,
+          "median": 0.85556
+        },
+        "negative_space": {
+          "pixels": 366,
+          "mean": 0.313084,
+          "median": 0.3108
+        }
+      },
+      "symmetry_regularized_raw": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_top_symmetry_regularized_relative_depth.npy",
+      "photo_depth_overlay": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_top_depth_overlay.png",
+      "metric": false,
+      "cross_view_aligned": false
+    },
+    "angled": {
+      "view_contract": {
+        "observed_role": "oblique view showing gemstone face, head elevation and hoop",
+        "source_label": "angled",
+        "camera_pose_known": false,
+        "symmetry_prior": "none"
+      },
+      "source": "data/ring01_reference_images/ring01_angled.png",
+      "source_sha256": "4df18b5051d962f5fe4c5d9eab3e2818fd5d2dc3047df866b7207ab1b3aaa9c6",
+      "repeat_count": 3,
+      "repeat_raw_sha256": [
+        "50c507011528e9bf89639d62610fea4a5099dfc61033699bf8b9d12c9e9159b9",
+        "50c507011528e9bf89639d62610fea4a5099dfc61033699bf8b9d12c9e9159b9",
+        "50c507011528e9bf89639d62610fea4a5099dfc61033699bf8b9d12c9e9159b9"
+      ],
+      "repeat_deterministic": true,
+      "repeat_max_abs_difference": [
+        0.0,
+        0.0
+      ],
+      "horizontal_flip_error_over_depth_span": 0.03609,
+      "vertical_flip_error_over_depth_span": 0.115321,
+      "raw_robust_range": {
+        "p02": 1.4130002522468568,
+        "p98": 5.006805324554443
+      },
+      "regularization": "none_for_oblique_view",
+      "regularized_robust_range": {
+        "p02": 1.4130002522468568,
+        "p98": 5.006805324554443
+      },
+      "transform_uncertainty_range": {
+        "p02": 0.0,
+        "p98": 0.3954195845127102
+      },
+      "whole_object_distribution": {
+        "top": {
+          "pixels": 6122,
+          "mean": 0.8268,
+          "median": 0.894712
+        },
+        "bottom": {
+          "pixels": 4818,
+          "mean": 0.473229,
+          "median": 0.341208
+        },
+        "left": {
+          "pixels": 5205,
+          "mean": 0.598813,
+          "median": 0.719267
+        },
+        "right": {
+          "pixels": 5735,
+          "mean": 0.736681,
+          "median": 0.902754
+        },
+        "top_minus_bottom_mean": 0.353571,
+        "left_minus_right_mean": -0.137868
+      },
+      "stone_distribution": {
+        "top": {
+          "pixels": 1151,
+          "mean": 0.855373,
+          "median": 0.898453
+        },
+        "bottom": {
+          "pixels": 1089,
+          "mean": 0.922421,
+          "median": 0.922902
+        },
+        "left": {
+          "pixels": 1111,
+          "mean": 0.90124,
+          "median": 0.900581
+        },
+        "right": {
+          "pixels": 1129,
+          "mean": 0.874911,
+          "median": 0.917714
+        },
+        "top_minus_bottom_mean": -0.067048,
+        "left_minus_right_mean": 0.026329
+      },
+      "regularized_whole_object_distribution": {
+        "top": {
+          "pixels": 6122,
+          "mean": 0.8268,
+          "median": 0.894712
+        },
+        "bottom": {
+          "pixels": 4818,
+          "mean": 0.473229,
+          "median": 0.341208
+        },
+        "left": {
+          "pixels": 5205,
+          "mean": 0.598813,
+          "median": 0.719267
+        },
+        "right": {
+          "pixels": 5735,
+          "mean": 0.736681,
+          "median": 0.902754
+        },
+        "top_minus_bottom_mean": 0.353571,
+        "left_minus_right_mean": -0.137868
+      },
+      "regularized_stone_distribution": {
+        "top": {
+          "pixels": 1151,
+          "mean": 0.855373,
+          "median": 0.898453
+        },
+        "bottom": {
+          "pixels": 1089,
+          "mean": 0.922421,
+          "median": 0.922902
+        },
+        "left": {
+          "pixels": 1111,
+          "mean": 0.90124,
+          "median": 0.900581
+        },
+        "right": {
+          "pixels": 1129,
+          "mean": 0.874911,
+          "median": 0.917714
+        },
+        "top_minus_bottom_mean": -0.067048,
+        "left_minus_right_mean": 0.026329
+      },
+      "component_relative_depth": {
+        "shank": {
+          "pixels": 5973,
+          "mean": 0.481846,
+          "median": 0.481103
+        },
+        "stone_visible": {
+          "pixels": 2240,
+          "mean": 0.887969,
+          "median": 0.906054
+        },
+        "setting": {
+          "pixels": 2727,
+          "mean": 0.907433,
+          "median": 0.923717
+        },
+        "prongs": {
+          "pixels": 466,
+          "mean": 0.907991,
+          "median": 0.92736
+        },
+        "negative_space": {
+          "pixels": 6422,
+          "mean": 0.086906,
+          "median": 0.0
+        }
+      },
+      "symmetry_regularized_raw": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_angled_symmetry_regularized_relative_depth.npy",
+      "photo_depth_overlay": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_angled_depth_overlay.png",
+      "metric": false,
+      "cross_view_aligned": false
+    },
+    "back": {
+      "view_contract": {
+        "observed_role": "opposite-labelled ring-profile view showing hoop and basket",
+        "source_label": "back",
+        "camera_pose_known": false,
+        "symmetry_prior": "horizontal approximate; vertical invalid"
+      },
+      "source": "data/ring01_reference_images/ring01_back.png",
+      "source_sha256": "20b24762e3fc9acaa4a1523b6bf4439cea8c66a222378aec994c9256d51f6551",
+      "repeat_count": 3,
+      "repeat_raw_sha256": [
+        "f87de9cd31c4a5e956e3bd5cc472e3287839cde21c5668b7815ae869ecc6c66e",
+        "f87de9cd31c4a5e956e3bd5cc472e3287839cde21c5668b7815ae869ecc6c66e",
+        "f87de9cd31c4a5e956e3bd5cc472e3287839cde21c5668b7815ae869ecc6c66e"
+      ],
+      "repeat_deterministic": true,
+      "repeat_max_abs_difference": [
+        0.0,
+        0.0
+      ],
+      "horizontal_flip_error_over_depth_span": 0.03604,
+      "vertical_flip_error_over_depth_span": 0.147574,
+      "raw_robust_range": {
+        "p02": 2.48773250579834,
+        "p98": 4.9021595764160155
+      },
+      "regularization": "horizontal_symmetry_diagnostic",
+      "regularized_robust_range": {
+        "p02": 2.5088208293914795,
+        "p98": 4.889728574752808
+      },
+      "transform_uncertainty_range": {
+        "p02": 0.007587449252605438,
+        "p98": 0.6649066030979156
+      },
+      "whole_object_distribution": {
+        "top": {
+          "pixels": 4654,
+          "mean": 0.828064,
+          "median": 0.824094
+        },
+        "bottom": {
+          "pixels": 2820,
+          "mean": 0.406806,
+          "median": 0.407562
+        },
+        "left": {
+          "pixels": 3720,
+          "mean": 0.682912,
+          "median": 0.768442
+        },
+        "right": {
+          "pixels": 3754,
+          "mean": 0.655453,
+          "median": 0.729966
+        },
+        "top_minus_bottom_mean": 0.421258,
+        "left_minus_right_mean": 0.027459
+      },
+      "stone_distribution": {
+        "top": {
+          "pixels": 738,
+          "mean": 0.933237,
+          "median": 0.960939
+        },
+        "bottom": {
+          "pixels": 443,
+          "mean": 0.894407,
+          "median": 0.900348
+        },
+        "left": {
+          "pixels": 597,
+          "mean": 0.915238,
+          "median": 0.941555
+        },
+        "right": {
+          "pixels": 584,
+          "mean": 0.922182,
+          "median": 0.940558
+        },
+        "top_minus_bottom_mean": 0.03883,
+        "left_minus_right_mean": -0.006944
+      },
+      "regularized_whole_object_distribution": {
+        "top": {
+          "pixels": 4654,
+          "mean": 0.827607,
+          "median": 0.821685
+        },
+        "bottom": {
+          "pixels": 2820,
+          "mean": 0.408029,
+          "median": 0.414612
+        },
+        "left": {
+          "pixels": 3720,
+          "mean": 0.672148,
+          "median": 0.756932
+        },
+        "right": {
+          "pixels": 3754,
+          "mean": 0.666471,
+          "median": 0.734531
+        },
+        "top_minus_bottom_mean": 0.419578,
+        "left_minus_right_mean": 0.005677
+      },
+      "regularized_stone_distribution": {
+        "top": {
+          "pixels": 738,
+          "mean": 0.938809,
+          "median": 0.960286
+        },
+        "bottom": {
+          "pixels": 443,
+          "mean": 0.888307,
+          "median": 0.892147
+        },
+        "left": {
+          "pixels": 597,
+          "mean": 0.919846,
+          "median": 0.937867
+        },
+        "right": {
+          "pixels": 584,
+          "mean": 0.919885,
+          "median": 0.931686
+        },
+        "top_minus_bottom_mean": 0.050502,
+        "left_minus_right_mean": -3.9e-05
+      },
+      "component_relative_depth": {
+        "shank": {
+          "pixels": 4348,
+          "mean": 0.524613,
+          "median": 0.618762
+        },
+        "stone_visible": {
+          "pixels": 1181,
+          "mean": 0.918672,
+          "median": 0.940857
+        },
+        "setting": {
+          "pixels": 1945,
+          "mean": 0.840634,
+          "median": 0.838677
+        },
+        "prongs": {
+          "pixels": 401,
+          "mean": 0.919773,
+          "median": 0.927412
+        },
+        "negative_space": {
+          "pixels": 11693,
+          "mean": 0.032461,
+          "median": 0.0
+        }
+      },
+      "symmetry_regularized_raw": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_back_symmetry_regularized_relative_depth.npy",
+      "photo_depth_overlay": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_back_depth_overlay.png",
+      "metric": false,
+      "cross_view_aligned": false
+    }
+  },
+  "front_photo_with_depth": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_front_photo_with_depth.png",
+  "front_audit": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_front_depth_audit.png",
+  "all_views_audit": "data/ring01_ground_truth_v1/depth_validation_v1/ring01_all_views_depth_validation.png",
+  "decision": "relative_depth_is_repeatable_but_not_geometrically_validated",
+  "limitations": [
+    "Repeated inference validates determinism, not geometric correctness.",
+    "Specular metal, faceted transparent stone, highlights and shadows bias monocular depth.",
+    "The symmetry-regularized output is a diagnostic hypothesis and is retained separately from raw depth.",
+    "The five labels are semantic view names, not calibrated camera extrinsics.",
+    "Metric millimetre or centimetre depth is unavailable from the current evidence."
+  ]
+}

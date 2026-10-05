@@ -75,6 +75,14 @@ function renderSummary(summary) {
     <div class="key-value"><span>Metric depth</span><strong class="bad">${groundTruth.depth.metric ? "Yes" : "No"}</strong></div>
     <div class="key-value"><span>Role</span><strong>Proposal and uncertainty evidence</strong></div>`;
 
+  const validation = groundTruth.depth_validation;
+  const pixels = groundTruth.pixel_features;
+  $("#phase1-deep-summary").innerHTML = `
+    <article class="metric"><span>Repeated depth runs</span><strong>${validation.runtime?.repeat_count ?? "—"}</strong><small>All identical: ${validation.checks?.all_three_repeats_identical ? "yes" : "no"}</small></article>
+    <article class="metric"><span>Front object bias</span><strong>${score(Math.abs(validation.front_raw_object_top_bottom_delta), 4)}</strong><small>Regularized: ${score(Math.abs(validation.front_regularized_object_top_bottom_delta), 4)}</small></article>
+    <article class="metric"><span>Front stone bias</span><strong>${score(Math.abs(validation.front_raw_stone_top_bottom_delta), 4)}</strong><small>Regularized: ${score(Math.abs(validation.front_regularized_stone_top_bottom_delta), 4)}</small></article>
+    <article class="metric"><span>Pixel reconstruction</span><strong class="compact-value">${pixels.reconstruction_contract?.pixel_exact_roundtrip ? "Exact" : "Failed"}</strong><small>${pixels.view_count} views · metric depth ${pixels.depth_contract?.metric_depth_available ? "available" : "blocked"}</small></article>`;
+
   const datasetDepth = summary.phase1.depth_anything_v2;
   const depthRuntime = datasetDepth.runtime || {};
   const depthCoverage = datasetDepth.coverage || {};

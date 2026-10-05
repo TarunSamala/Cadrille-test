@@ -48,6 +48,26 @@ class DatasetStudioServiceTest(unittest.TestCase):
             ground_truth["depth"]["status"], "machine_proposals_pending_review"
         )
         self.assertFalse(ground_truth["depth"]["metric"])
+        self.assertTrue(
+            ground_truth["depth_validation"]["checks"][
+                "all_three_repeats_identical"
+            ]
+        )
+        self.assertEqual(
+            ground_truth["depth_validation"]["metric_depth"]["status"],
+            "blocked",
+        )
+        self.assertEqual(ground_truth["pixel_features"]["view_count"], 5)
+        self.assertTrue(
+            ground_truth["pixel_features"]["reconstruction_contract"][
+                "pixel_exact_roundtrip"
+            ]
+        )
+        self.assertFalse(
+            ground_truth["pixel_features"]["depth_contract"][
+                "metric_depth_available"
+            ]
+        )
 
     def test_object_filters_preserve_object_level_splits(self) -> None:
         self.assertEqual(len(self.repository.list_objects("train")), 18)
@@ -161,6 +181,7 @@ class DatasetStudioApiTest(unittest.TestCase):
             'id="phase0-limits"',
             'id="phase1-summary"',
             'id="phase1-depth-status"',
+            'id="phase1-deep-summary"',
             'id="dataset-depth-summary"',
             'data-layer="normalized"',
             'data-layer="mask"',
@@ -177,6 +198,7 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertIn('$("#phase0-summary")', javascript)
         self.assertIn('$("#feature-rows")', javascript)
         self.assertIn('$("#phase1-summary")', javascript)
+        self.assertIn('$("#phase1-deep-summary")', javascript)
         self.assertIn('$("#dataset-depth-summary")', javascript)
         script.close()
         page.close()
@@ -193,6 +215,14 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertEqual(depth.status_code, 200)
         self.assertEqual(depth.mimetype, "image/png")
         depth.close()
+        front_audit = self.client.get("/api/artifacts/ring01_front_depth_audit")
+        self.assertEqual(front_audit.status_code, 200)
+        self.assertEqual(front_audit.mimetype, "image/png")
+        front_audit.close()
+        pixel_audit = self.client.get("/api/artifacts/ring01_pixel_feature_audit")
+        self.assertEqual(pixel_audit.status_code, 200)
+        self.assertEqual(pixel_audit.mimetype, "image/png")
+        pixel_audit.close()
         dataset_depth = self.client.get(
             "/api/objects/ring_001/assets/depth?view=front"
         )

@@ -1,0 +1,1323 @@
+{
+  "schema_version": "lalitha_phase1_pixel_features_v1",
+  "created_at_utc": "2026-10-05T17:56:43.389495+00:00",
+  "phase": "Phase 1 full pixel-level feature extraction",
+  "status": "machine_features_complete_human_semantics_pending",
+  "object_id": "ring01",
+  "view_count": 5,
+  "views": {
+    "front": {
+      "view_contract": {
+        "observed_role": "gemstone-face view with horizontal shank shoulders",
+        "source_label": "front",
+        "camera_pose_known": false,
+        "symmetry_prior": "horizontal strong; vertical approximate within the central head only"
+      },
+      "source": "data/ring01_reference_images/ring01_front.png",
+      "source_file_sha256": "a564f0be433b01639ae981c493e6cddea11b04ef2fea0411804cc3b8cc553a74",
+      "source_pixel_sha256": "6c4c7e6efd232873e643e4d78db133144a40d56aa6c69d10b80dd669a91e33e6",
+      "size_wh": [
+        289,
+        212
+      ],
+      "pixel_count": 61268,
+      "bundle": "data/ring01_ground_truth_v1/pixel_features_v1/bundles/ring01_front_pixel_features.npz",
+      "bundle_file_sha256": "aa870b44f5a135c794699208a37b9aa40f4b97e08d098486a40e4ecb10bdc08e",
+      "reconstructed_image": "data/ring01_ground_truth_v1/pixel_features_v1/roundtrip/ring01_front_reconstructed.png",
+      "reconstructed_pixel_sha256": "6c4c7e6efd232873e643e4d78db133144a40d56aa6c69d10b80dd669a91e33e6",
+      "pixel_roundtrip_exact": true,
+      "features": {
+        "rgb_u8": {
+          "shape": [
+            212,
+            289,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "6c4c7e6efd232873e643e4d78db133144a40d56aa6c69d10b80dd669a91e33e6",
+          "finite": true
+        },
+        "rgb_linear_f32": {
+          "shape": [
+            212,
+            289,
+            3
+          ],
+          "dtype": "float32",
+          "sha256": "4a967ae4109ba99a849edd8380d0c1d0ca0fc661f68a0706e3f72a2a56d123b8",
+          "finite": true
+        },
+        "gray_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "af235bc6911c853744f8fe272a46281311075d656567b36f03cf8b641e034f00",
+          "finite": true
+        },
+        "lab_u8": {
+          "shape": [
+            212,
+            289,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "d7ae94a491debe2bf8805059ed41adf0c74036c5457625785408aa7c0145b752",
+          "finite": true
+        },
+        "hsv_u8": {
+          "shape": [
+            212,
+            289,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "ba702fb439beeb9fad9c50e70b7bf9443a094d7799a7a1437252dd00425398d4",
+          "finite": true
+        },
+        "sobel_x_f32": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "float32",
+          "sha256": "e5a07f5d70526e8b5922735e85ace2a32a441753d2f7a582036a28fe0f05969e",
+          "finite": true
+        },
+        "sobel_y_f32": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "float32",
+          "sha256": "8e6a8bcaf7eb5f7f8c3b7293fba9f2e1826be6069a613b8f5533afd73cd9b41b",
+          "finite": true
+        },
+        "gradient_magnitude_f32": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "float32",
+          "sha256": "369f83af701c4b0c4096c5cd381d7828c2d7f78c99a5403f6e1d73272c0f084d",
+          "finite": true
+        },
+        "gradient_angle_radians_f32": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "float32",
+          "sha256": "2f23b8c799dc7b986a5c73a29e6da8f101e76c7906477e330269cd85ee48aca0",
+          "finite": true
+        },
+        "laplacian_f32": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "float32",
+          "sha256": "525f209cbf5eb29f7c9167ea11271b2a7d7ea6f3756018498d3579a3e4bda8d9",
+          "finite": true
+        },
+        "local_contrast_f32": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "float32",
+          "sha256": "f8bbb5b486bd369cd040169c06daf9095499820d7185b0254dd42f31dbeb9492",
+          "finite": true
+        },
+        "canny_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "66d4f0a960a917da8acf28d30746a33673f057a5262a553a344769afea2cfb1c",
+          "finite": true
+        },
+        "relative_depth_raw_f32": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "float32",
+          "sha256": "7df8b992a130824ae7759359ca0e45d1175cb5b0f2fd8c762d117f3ba7f7fbba",
+          "finite": true
+        },
+        "relative_depth_regularized_f32": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "float32",
+          "sha256": "9692dd4e439b124b493e422b3a55f1e61a7ca1042e85bcb00f6cda49ff5c246a",
+          "finite": true
+        },
+        "relative_depth_normalized_u16": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint16",
+          "sha256": "b231872c29b371e05507806db50b5107da7e1646b8e062273cb85effdcb2ce0c",
+          "finite": true
+        },
+        "relative_depth_uncertainty_u16": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint16",
+          "sha256": "9a6756e551145330c53d3cff7404367f4d186a9463ff3664f15144fa55e69788",
+          "finite": true
+        },
+        "mask_jewelry_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "f3ef081490b3b713b60b7959abeaa8fa81f1d35b3f5a46f841ccc31f670e5d11",
+          "finite": true
+        },
+        "mask_metal_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "a22f29c83f11527e94fc10be5095e4e5284d1fc6d750f781639d5bcd77945eda",
+          "finite": true
+        },
+        "mask_shank_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "8d9ab275900564ec44e5879129b264214545b045902c9de601c274bd80deb97d",
+          "finite": true
+        },
+        "mask_stone_visible_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "b0a9602fc7b2e0c8a1db3debf7ca9906b626946144340d119347eaa1916d82e5",
+          "finite": true
+        },
+        "mask_setting_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "46fbee6b006b6a948f53963f20aba66c2e52e79c69aa5d0973484c796181264e",
+          "finite": true
+        },
+        "mask_prongs_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "d1c1966c0b5d9386f17b504d105dcd008c2ddbd2257d5d1bcb5d868bb8712dcb",
+          "finite": true
+        },
+        "mask_negative_space_u8": {
+          "shape": [
+            212,
+            289
+          ],
+          "dtype": "uint8",
+          "sha256": "87bafd75d1e9de93c91a4c751627a2585ebedb98d5a72b8073b8c6ebe43d96e6",
+          "finite": true
+        }
+      },
+      "pixel_statistics": {
+        "rgb_mean": [
+          231.524629,
+          231.110906,
+          230.906395
+        ],
+        "rgb_std": [
+          35.101381,
+          35.757194,
+          36.065656
+        ],
+        "foreground_pixels": 10345,
+        "canny_edge_pixels": 3649,
+        "gradient_mean": 0.179987,
+        "gradient_p95": 1.139222
+      },
+      "depth_unit": null,
+      "metric_depth_available": false
+    },
+    "side": {
+      "view_contract": {
+        "observed_role": "ring-profile view showing hoop, basket and head elevation",
+        "source_label": "side",
+        "camera_pose_known": false,
+        "symmetry_prior": "horizontal approximate; vertical invalid"
+      },
+      "source": "data/ring01_reference_images/ring01_side.png",
+      "source_file_sha256": "3a6d9ca7fb4f2d7390b8fd573d2f9e6624543d38b4fdb66bb356c90f3598cf14",
+      "source_pixel_sha256": "a418fa81f0b460c81d6e8a7d338829862511b9dffa4409c90b38482e7731d0ca",
+      "size_wh": [
+        270,
+        212
+      ],
+      "pixel_count": 57240,
+      "bundle": "data/ring01_ground_truth_v1/pixel_features_v1/bundles/ring01_side_pixel_features.npz",
+      "bundle_file_sha256": "12e7f4d422677e16995cb7c93b0c4ee88ba657a08fc2501656ef43a9a108ba88",
+      "reconstructed_image": "data/ring01_ground_truth_v1/pixel_features_v1/roundtrip/ring01_side_reconstructed.png",
+      "reconstructed_pixel_sha256": "a418fa81f0b460c81d6e8a7d338829862511b9dffa4409c90b38482e7731d0ca",
+      "pixel_roundtrip_exact": true,
+      "features": {
+        "rgb_u8": {
+          "shape": [
+            212,
+            270,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "a418fa81f0b460c81d6e8a7d338829862511b9dffa4409c90b38482e7731d0ca",
+          "finite": true
+        },
+        "rgb_linear_f32": {
+          "shape": [
+            212,
+            270,
+            3
+          ],
+          "dtype": "float32",
+          "sha256": "fc9e7c724aa854c4011fdd03b9a22145448b6a794fa205d7305ac170f0f466f9",
+          "finite": true
+        },
+        "gray_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "8163350c838e98722b3aaf2ead5c4d025daeb2955cb1222775c74324dc171c49",
+          "finite": true
+        },
+        "lab_u8": {
+          "shape": [
+            212,
+            270,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "16181c4fa6346073fa3951e13c57b5519cdd63db1b5f84f4de9fe03a37953ac1",
+          "finite": true
+        },
+        "hsv_u8": {
+          "shape": [
+            212,
+            270,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "9c89fee9f1e8d03e1a5388c3d1f81dfe23a7d9486de57870b940a3d1b19349ea",
+          "finite": true
+        },
+        "sobel_x_f32": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "float32",
+          "sha256": "ed1a69b3173f3e2da7b191894e25a3de6ba342ba7d071c5619d319c8c7174e34",
+          "finite": true
+        },
+        "sobel_y_f32": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "float32",
+          "sha256": "3dd5dfbdc932c51ac5edc4dfeb3be0d656f204b7a1598b926e3edfdcfca630b6",
+          "finite": true
+        },
+        "gradient_magnitude_f32": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "float32",
+          "sha256": "24a3c3bbdf839deb9403b59dc65140566241c28aed2bfa085a688a0d06338f1a",
+          "finite": true
+        },
+        "gradient_angle_radians_f32": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "float32",
+          "sha256": "b95c5194dd7f4f754f4c3327b3a7d524b8be014da646887a2f720a719580f20e",
+          "finite": true
+        },
+        "laplacian_f32": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "float32",
+          "sha256": "b06a8c3a9ec9c1add6c1ebd867216c21b2e0d7f13f9724385190cac06801a8a3",
+          "finite": true
+        },
+        "local_contrast_f32": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "float32",
+          "sha256": "b0f395036aa73d287e272bf3c935fe832569a89006c23d4b05001ea9e0faba43",
+          "finite": true
+        },
+        "canny_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "4dd293676d8dd7034ae2948ecfad1e89eb94bcc5a1b2e27416b11444143c90fe",
+          "finite": true
+        },
+        "relative_depth_raw_f32": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "float32",
+          "sha256": "db4d19c364ff97a399fa5d37bfa4a2f3efedf0f11f2fbab70fcf5bb9f3a612e1",
+          "finite": true
+        },
+        "relative_depth_regularized_f32": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "float32",
+          "sha256": "4b8c3e9e79f3f52e17460681e101db5027a3a2532fac2971771dafe14b5d76d2",
+          "finite": true
+        },
+        "relative_depth_normalized_u16": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint16",
+          "sha256": "b65f54bc41c5c19cbd01f26eb459529b966c86c63e00865b614e4116d9c26551",
+          "finite": true
+        },
+        "relative_depth_uncertainty_u16": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint16",
+          "sha256": "1bd55a074059fbb57b605a63aded3fd10003059cdb14e7f51eafcdeaa32f88be",
+          "finite": true
+        },
+        "mask_jewelry_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "5fdf92907c1d8bf4a33ceefa173ba8567c0814b3f4dfb79e7cfeea17a071816d",
+          "finite": true
+        },
+        "mask_metal_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "304159255cace64e214ed19ea23d874a2867eb80b1f2575a13a8a0fd01d19dbd",
+          "finite": true
+        },
+        "mask_shank_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "bafa4f4a6a14ea18ab9b0d6aecef3c1cfc44518fff5ddef2291bec506ae4a7aa",
+          "finite": true
+        },
+        "mask_stone_visible_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "860da3714f4dd9d47ab014b30fa96df9c26060827e25eebdd48127ac50982bdf",
+          "finite": true
+        },
+        "mask_setting_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "e4c5a788f7a6eb8c3e5903c6719eb843301d84b06bebe6bd95afffef85111089",
+          "finite": true
+        },
+        "mask_prongs_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "ca90be499f4fe75c2c3d7e0cd95c4420eb17ece7b61838e24407c21d296f0115",
+          "finite": true
+        },
+        "mask_negative_space_u8": {
+          "shape": [
+            212,
+            270
+          ],
+          "dtype": "uint8",
+          "sha256": "6706f765ac7e3743043caeb04ed2895ed98cab0c67fd366345ecfeaed2e9f505",
+          "finite": true
+        }
+      },
+      "pixel_statistics": {
+        "rgb_mean": [
+          237.110709,
+          236.657285,
+          236.361967
+        ],
+        "rgb_std": [
+          34.520311,
+          35.410264,
+          35.99256
+        ],
+        "foreground_pixels": 7160,
+        "canny_edge_pixels": 3565,
+        "gradient_mean": 0.168021,
+        "gradient_p95": 1.215949
+      },
+      "depth_unit": null,
+      "metric_depth_available": false
+    },
+    "top": {
+      "view_contract": {
+        "observed_role": "second near gemstone-face view; not a calibrated geometric top camera",
+        "source_label": "top",
+        "camera_pose_known": false,
+        "symmetry_prior": "horizontal strong; vertical approximate within the central head only"
+      },
+      "source": "data/ring01_reference_images/ring01_top.png",
+      "source_file_sha256": "fd2b70e7ade09adcc41ac0e9ff5cbccc2e77543d7ccbb2831fb14285a9bf70c7",
+      "source_pixel_sha256": "49be339b5864e652f260a1a0f9dc66386540facbddb6a170da6d3fbf816ed4b9",
+      "size_wh": [
+        288,
+        212
+      ],
+      "pixel_count": 61056,
+      "bundle": "data/ring01_ground_truth_v1/pixel_features_v1/bundles/ring01_top_pixel_features.npz",
+      "bundle_file_sha256": "0992c86d3168f6a925b3996941959e1b1768579ffb06ff33b604becaaf5ba93e",
+      "reconstructed_image": "data/ring01_ground_truth_v1/pixel_features_v1/roundtrip/ring01_top_reconstructed.png",
+      "reconstructed_pixel_sha256": "49be339b5864e652f260a1a0f9dc66386540facbddb6a170da6d3fbf816ed4b9",
+      "pixel_roundtrip_exact": true,
+      "features": {
+        "rgb_u8": {
+          "shape": [
+            212,
+            288,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "49be339b5864e652f260a1a0f9dc66386540facbddb6a170da6d3fbf816ed4b9",
+          "finite": true
+        },
+        "rgb_linear_f32": {
+          "shape": [
+            212,
+            288,
+            3
+          ],
+          "dtype": "float32",
+          "sha256": "cbf935dcf44c155aa361c112643ac4ed91fd4f05abf9e17b99dc917c5b11ee3d",
+          "finite": true
+        },
+        "gray_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "d3eab86193418ca9ac37b780aa7d8f1c64158b0c643501d633ab0e2c6fe8e351",
+          "finite": true
+        },
+        "lab_u8": {
+          "shape": [
+            212,
+            288,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "2b8cb25438109508697fd44318e9969d616cbab18ee573faf76cea97ab92e4b9",
+          "finite": true
+        },
+        "hsv_u8": {
+          "shape": [
+            212,
+            288,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "d9b96e90870082046f7a37ef3189bf910e5df1c67f87d969f2f779d770b24a37",
+          "finite": true
+        },
+        "sobel_x_f32": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "float32",
+          "sha256": "aed54dcea85dd0038714ecafe430ddf3a816f91e7bd1963e7304affa5f4f3036",
+          "finite": true
+        },
+        "sobel_y_f32": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "float32",
+          "sha256": "c9a08b8ad5a53f70640b03744d7018896a69dddd7019cccd0bdbdb5fa21ed8a8",
+          "finite": true
+        },
+        "gradient_magnitude_f32": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "float32",
+          "sha256": "26a2a520067ab43783571d20fb8ba65686a7aec7defbc635aaf4c68edc572b07",
+          "finite": true
+        },
+        "gradient_angle_radians_f32": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "float32",
+          "sha256": "a68bc70d2a5eba265477badbb1b50292a9e94d9587bffec90a0d79b87bcfce3b",
+          "finite": true
+        },
+        "laplacian_f32": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "float32",
+          "sha256": "ff6541677ed3ed5ceef69afabecf0ad93af7e1d83b71b490a667eb761ab90771",
+          "finite": true
+        },
+        "local_contrast_f32": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "float32",
+          "sha256": "f40261f60dcf38fda32537c1a00c2a376ce1b2cfe5ff61cb66c3a69688684008",
+          "finite": true
+        },
+        "canny_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "c86931a365798570c9b048770983b4732ee73febf2bd93ae2d8127079b5af105",
+          "finite": true
+        },
+        "relative_depth_raw_f32": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "float32",
+          "sha256": "48055378529e63e7767c5a91459ef80e0ffd1168f708fc479c3049b49877f4f6",
+          "finite": true
+        },
+        "relative_depth_regularized_f32": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "float32",
+          "sha256": "feaf29c7e6f07314116196e2140c66ac66ef0d9bb784042367fb4a0def8020e1",
+          "finite": true
+        },
+        "relative_depth_normalized_u16": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint16",
+          "sha256": "b1b7816b757941c9f4d18fc934ea3cdfd098b55fd0a39969d1c37571a5885357",
+          "finite": true
+        },
+        "relative_depth_uncertainty_u16": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint16",
+          "sha256": "de17c0ec2f9f17125f5eab6dfb0f9dfca960d8bac71b7071462d33c8f7ba7713",
+          "finite": true
+        },
+        "mask_jewelry_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "78cad2e705bdc687034a56371976654347cdd3f508b69e0cc82cbe5c9569a271",
+          "finite": true
+        },
+        "mask_metal_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "008a725516bc33dd038cd503c86968fd94eb1784105148d3d2bb2fc9375a7b25",
+          "finite": true
+        },
+        "mask_shank_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "2b6f4a4887ce7fae2872f4a616637f9642b5a552efde014d52491c2503400c3c",
+          "finite": true
+        },
+        "mask_stone_visible_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "9de7d8ba57cfb906566bea5f5fc11deebf6331b536d224ccd7a451d762c30b65",
+          "finite": true
+        },
+        "mask_setting_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "4ea62a876e60f157f3a1bfab7e01129a67db13913a04f65204573b41c3c4f3cd",
+          "finite": true
+        },
+        "mask_prongs_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "3e728615099c83465e621654275e269a09901506193f18a1482e020acd5468de",
+          "finite": true
+        },
+        "mask_negative_space_u8": {
+          "shape": [
+            212,
+            288
+          ],
+          "dtype": "uint8",
+          "sha256": "24620f5626e7a295c4b520589e895c4977c47215c26b48fe32b2e1435716a9e8",
+          "finite": true
+        }
+      },
+      "pixel_statistics": {
+        "rgb_mean": [
+          237.537588,
+          237.218439,
+          237.086871
+        ],
+        "rgb_std": [
+          29.975584,
+          30.570586,
+          30.823944
+        ],
+        "foreground_pixels": 8081,
+        "canny_edge_pixels": 3160,
+        "gradient_mean": 0.146952,
+        "gradient_p95": 0.974397
+      },
+      "depth_unit": null,
+      "metric_depth_available": false
+    },
+    "angled": {
+      "view_contract": {
+        "observed_role": "oblique view showing gemstone face, head elevation and hoop",
+        "source_label": "angled",
+        "camera_pose_known": false,
+        "symmetry_prior": "none"
+      },
+      "source": "data/ring01_reference_images/ring01_angled.png",
+      "source_file_sha256": "4df18b5051d962f5fe4c5d9eab3e2818fd5d2dc3047df866b7207ab1b3aaa9c6",
+      "source_pixel_sha256": "672eccf98e779385935f3a0f8db8af597c4cd4b5e33680a56ee2eef8440a5920",
+      "size_wh": [
+        279,
+        212
+      ],
+      "pixel_count": 59148,
+      "bundle": "data/ring01_ground_truth_v1/pixel_features_v1/bundles/ring01_angled_pixel_features.npz",
+      "bundle_file_sha256": "4c147ea0ff7e9fbb8504363622ae240f9d9403882bd7499d0db40ceed411f037",
+      "reconstructed_image": "data/ring01_ground_truth_v1/pixel_features_v1/roundtrip/ring01_angled_reconstructed.png",
+      "reconstructed_pixel_sha256": "672eccf98e779385935f3a0f8db8af597c4cd4b5e33680a56ee2eef8440a5920",
+      "pixel_roundtrip_exact": true,
+      "features": {
+        "rgb_u8": {
+          "shape": [
+            212,
+            279,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "672eccf98e779385935f3a0f8db8af597c4cd4b5e33680a56ee2eef8440a5920",
+          "finite": true
+        },
+        "rgb_linear_f32": {
+          "shape": [
+            212,
+            279,
+            3
+          ],
+          "dtype": "float32",
+          "sha256": "e2fe177a5ceb5e85c626a55813c4564d4114e71cc0f51c86ef41aa996c8f4af8",
+          "finite": true
+        },
+        "gray_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "b00cc65ee01d3d2a22882e2eff73c4c3b34a5f32009e36a64d96f493680a2218",
+          "finite": true
+        },
+        "lab_u8": {
+          "shape": [
+            212,
+            279,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "05624b3477148b6c12fa999e6d8971bf3a1e8e0a7db9b1e63597a69ebd565112",
+          "finite": true
+        },
+        "hsv_u8": {
+          "shape": [
+            212,
+            279,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "5b4962ab22fb1f61852a93767f46a0b2087b305305e19b1b54676f9cf66c32a9",
+          "finite": true
+        },
+        "sobel_x_f32": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "float32",
+          "sha256": "a9ce61a1582d4dbd3cea27e7ecdfb4b6a9198e84514dccb7eb70bc71084c34bd",
+          "finite": true
+        },
+        "sobel_y_f32": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "float32",
+          "sha256": "a53303d5d68bfb0309d9df86e2faebfd0ad0bdf98d9877575e75a3214dde971f",
+          "finite": true
+        },
+        "gradient_magnitude_f32": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "float32",
+          "sha256": "45c3d401a997f59d17ba2270d96bd0a13dfa655cfa1e5709320f374520039aef",
+          "finite": true
+        },
+        "gradient_angle_radians_f32": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "float32",
+          "sha256": "f6d63b77ca4a8263ca7d3dc40293eb6237c0283a5719186501e533779a2145c7",
+          "finite": true
+        },
+        "laplacian_f32": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "float32",
+          "sha256": "7a90b05d8ee6522dcab26097d95965b5bc1a724ca5be66c6aa1969ac8c57f54b",
+          "finite": true
+        },
+        "local_contrast_f32": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "float32",
+          "sha256": "0a9f4e5c19a52a1312c38fda982a5cb5e995da09242a5657b96aec2f2e442cf5",
+          "finite": true
+        },
+        "canny_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "0086d1bd68aacbbd3665c40751332a403a0680d6f09fd4954359f1dcbf7e0556",
+          "finite": true
+        },
+        "relative_depth_raw_f32": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "float32",
+          "sha256": "50c507011528e9bf89639d62610fea4a5099dfc61033699bf8b9d12c9e9159b9",
+          "finite": true
+        },
+        "relative_depth_regularized_f32": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "float32",
+          "sha256": "50c507011528e9bf89639d62610fea4a5099dfc61033699bf8b9d12c9e9159b9",
+          "finite": true
+        },
+        "relative_depth_normalized_u16": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint16",
+          "sha256": "2a0318f499456a871607f0fd8089ea348486a66026eb42dca64f5b54a2b5afda",
+          "finite": true
+        },
+        "relative_depth_uncertainty_u16": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint16",
+          "sha256": "439c85b17cd9c36c8bfcc70bfdbf7e79c6b966899d01c1a16d37ba92e4350f97",
+          "finite": true
+        },
+        "mask_jewelry_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "36f619c5232c097bfe7e78c2f27ae6da1dd8cadf4114b1df184e1387e25e86e9",
+          "finite": true
+        },
+        "mask_metal_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "929bc4aecb677bad7bdbe92b03cd9b962bd8becce9f8c7820e06e47b729401f5",
+          "finite": true
+        },
+        "mask_shank_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "e77d9d840c869f705f4c237cbce2e7facb6d54ce7f1f3eaf57e3589fd94a1e97",
+          "finite": true
+        },
+        "mask_stone_visible_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "e096951b5b59a059962f80c3e29b9bee75c8e311752996aa452cbe2dade2ca10",
+          "finite": true
+        },
+        "mask_setting_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "d88543837b5ae4c59f3950fbb99d1db82f482c8614bf242b3f2c600eb27df547",
+          "finite": true
+        },
+        "mask_prongs_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "1e9180a485ac0280acb84dbf3d580e25e7240a33dd3334556aa951f41a800371",
+          "finite": true
+        },
+        "mask_negative_space_u8": {
+          "shape": [
+            212,
+            279
+          ],
+          "dtype": "uint8",
+          "sha256": "734e0382c2edb43a662d00d49967f4e04fce6b4a6d187d1777d684b9e4dc36aa",
+          "finite": true
+        }
+      },
+      "pixel_statistics": {
+        "rgb_mean": [
+          231.161087,
+          230.615727,
+          230.290069
+        ],
+        "rgb_std": [
+          36.8792,
+          37.67455,
+          38.112155
+        ],
+        "foreground_pixels": 10940,
+        "canny_edge_pixels": 3900,
+        "gradient_mean": 0.193155,
+        "gradient_p95": 1.247989
+      },
+      "depth_unit": null,
+      "metric_depth_available": false
+    },
+    "back": {
+      "view_contract": {
+        "observed_role": "opposite-labelled ring-profile view showing hoop and basket",
+        "source_label": "back",
+        "camera_pose_known": false,
+        "symmetry_prior": "horizontal approximate; vertical invalid"
+      },
+      "source": "data/ring01_reference_images/ring01_back.png",
+      "source_file_sha256": "20b24762e3fc9acaa4a1523b6bf4439cea8c66a222378aec994c9256d51f6551",
+      "source_pixel_sha256": "1c568d13eae516dd9158257b6167dd98d78c60d7a30a7f895e8bced157067741",
+      "size_wh": [
+        284,
+        212
+      ],
+      "pixel_count": 60208,
+      "bundle": "data/ring01_ground_truth_v1/pixel_features_v1/bundles/ring01_back_pixel_features.npz",
+      "bundle_file_sha256": "87a38c33ec01d2abfc45c972691e704f5a87daaf1e87dc8aae3907404a6064a1",
+      "reconstructed_image": "data/ring01_ground_truth_v1/pixel_features_v1/roundtrip/ring01_back_reconstructed.png",
+      "reconstructed_pixel_sha256": "1c568d13eae516dd9158257b6167dd98d78c60d7a30a7f895e8bced157067741",
+      "pixel_roundtrip_exact": true,
+      "features": {
+        "rgb_u8": {
+          "shape": [
+            212,
+            284,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "1c568d13eae516dd9158257b6167dd98d78c60d7a30a7f895e8bced157067741",
+          "finite": true
+        },
+        "rgb_linear_f32": {
+          "shape": [
+            212,
+            284,
+            3
+          ],
+          "dtype": "float32",
+          "sha256": "078690b1d39781128ef12d2bfc07f749ca8cb3b4df2e7690596e50a55a0c74af",
+          "finite": true
+        },
+        "gray_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "d645fbba4034137114008c721b6e954bbdb1a1f946b791e404474dc70e324ea7",
+          "finite": true
+        },
+        "lab_u8": {
+          "shape": [
+            212,
+            284,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "de8d55e19c0cb3230b862bfaa5bf41d3fe226cc0e1b0ac4d55ee88f781dd105b",
+          "finite": true
+        },
+        "hsv_u8": {
+          "shape": [
+            212,
+            284,
+            3
+          ],
+          "dtype": "uint8",
+          "sha256": "f21b455aceb77359b87e4c6b41ebcef3cabc2082054595d8fb7253b190718b68",
+          "finite": true
+        },
+        "sobel_x_f32": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "float32",
+          "sha256": "b91ba18c19b3d9af37940414f46d16cfa04e05200c0cba438a8137b22dbd6c7d",
+          "finite": true
+        },
+        "sobel_y_f32": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "float32",
+          "sha256": "5d24cbadad62ea5e907b7912e082dd8e396972d97ea712c6fe617107dde5f380",
+          "finite": true
+        },
+        "gradient_magnitude_f32": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "float32",
+          "sha256": "127d995796a9275eb0c0507db20ca9b5ab10f4c6b9e661182eed3bb6a1250cf6",
+          "finite": true
+        },
+        "gradient_angle_radians_f32": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "float32",
+          "sha256": "e875b6731b7d0c8c1504a6558ca92bd311b8f3264b2426c0e3604fd353faa90a",
+          "finite": true
+        },
+        "laplacian_f32": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "float32",
+          "sha256": "92f4542006efcf46243b661593ea2ebfe73a1263e23def074019bbcc75c466a6",
+          "finite": true
+        },
+        "local_contrast_f32": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "float32",
+          "sha256": "6bae3249e70fcd86f464f4f02904ec1c9f3a64460f761817094bb1b932c9cf5a",
+          "finite": true
+        },
+        "canny_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "1924885e081ea24d3a4ad4f50fa81a0597f3e2e97b0d6d272bf87a6df57f33a5",
+          "finite": true
+        },
+        "relative_depth_raw_f32": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "float32",
+          "sha256": "f87de9cd31c4a5e956e3bd5cc472e3287839cde21c5668b7815ae869ecc6c66e",
+          "finite": true
+        },
+        "relative_depth_regularized_f32": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "float32",
+          "sha256": "5863cdbf4ff1683837d2a786eed4018a3249ae9bee18faa81e273b67af0d6d4c",
+          "finite": true
+        },
+        "relative_depth_normalized_u16": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint16",
+          "sha256": "5e72fd9694459ba5e83d171480f986d611c9a3a987dc8a2f996b1f9af0d3a08b",
+          "finite": true
+        },
+        "relative_depth_uncertainty_u16": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint16",
+          "sha256": "adc12184f94059a15548f2ff543a0c0ac95541f101f51d76cc6e1171d6c7892a",
+          "finite": true
+        },
+        "mask_jewelry_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "d824d2a2bdca221f668ab7c6130031e518ab52e79a2e514d51a54a2c7474c0ff",
+          "finite": true
+        },
+        "mask_metal_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "b503cdf27b581a1632595451c86fbf4a3a10ea55328a95dffda1fecd9f796551",
+          "finite": true
+        },
+        "mask_shank_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "80deb362606ea3ec2947420cc893cc2776c245f48243b80f347e4cb4c62602f0",
+          "finite": true
+        },
+        "mask_stone_visible_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "d3ab69392e6eea44e8b57c44f9dda0a5b47a43bce21c91a424285b795946d7cd",
+          "finite": true
+        },
+        "mask_setting_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "bc0e06a23f71561215923546566e330eb190e20e985f7e523bf94aa81d485598",
+          "finite": true
+        },
+        "mask_prongs_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "e89990c0c10eff530794f948172c6e3afc5cec5a15d3a38cff1c50229c0ca6ac",
+          "finite": true
+        },
+        "mask_negative_space_u8": {
+          "shape": [
+            212,
+            284
+          ],
+          "dtype": "uint8",
+          "sha256": "5ebe2b7a4471e42a37b83c1d1daac9bae08150848744481cdac5f566064eadc8",
+          "finite": true
+        }
+      },
+      "pixel_statistics": {
+        "rgb_mean": [
+          236.649366,
+          236.201568,
+          235.916058
+        ],
+        "rgb_std": [
+          33.557127,
+          34.414443,
+          34.983752
+        ],
+        "foreground_pixels": 7474,
+        "canny_edge_pixels": 3381,
+        "gradient_mean": 0.159189,
+        "gradient_p95": 1.164935
+      },
+      "depth_unit": null,
+      "metric_depth_available": false
+    }
+  },
+  "feature_groups": {
+    "lossless_pixels": [
+      "rgb_u8",
+      "rgb_linear_f32",
+      "gray_u8",
+      "lab_u8",
+      "hsv_u8"
+    ],
+    "differential_geometry": [
+      "sobel_x_f32",
+      "sobel_y_f32",
+      "gradient_magnitude_f32",
+      "gradient_angle_radians_f32",
+      "laplacian_f32",
+      "local_contrast_f32",
+      "canny_u8"
+    ],
+    "semantic_masks": [
+      "mask_jewelry_u8",
+      "mask_metal_u8",
+      "mask_shank_u8",
+      "mask_stone_visible_u8",
+      "mask_setting_u8",
+      "mask_prongs_u8",
+      "mask_negative_space_u8"
+    ],
+    "depth_evidence": [
+      "relative_depth_raw_f32",
+      "relative_depth_regularized_f32",
+      "relative_depth_normalized_u16",
+      "relative_depth_uncertainty_u16"
+    ]
+  },
+  "reconstruction_contract": {
+    "pixel_exact_roundtrip": true,
+    "how": "The lossless RGB pixel matrix is retained in every feature bundle.",
+    "semantic_features_alone_reconstruct_exact_rgb": false,
+    "reason": "Edges, masks, colour statistics and depth are many-to-one transforms; exact inversion requires source pixels or a lossless residual."
+  },
+  "depth_contract": {
+    "relative_depth_available": true,
+    "metric_depth_available": false,
+    "unit": null,
+    "conversion_to_mm_or_cm": null,
+    "blocked_by": [
+      "at least one verified physical dimension",
+      "camera intrinsics or a calibrated capture protocol",
+      "cross-view camera poses and correspondences or scan supervision"
+    ]
+  },
+  "audit_sheet": "data/ring01_ground_truth_v1/pixel_features_v1/ring01_phase1_pixel_feature_audit.png",
+  "authority": "machine-derived evidence; human review required",
+  "decision": "usable_for_review_and_future_fusion_not_metric_cad_truth"
+}

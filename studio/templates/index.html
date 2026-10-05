@@ -126,6 +126,39 @@
               <div id="phase1-depth-status" class="key-value-list depth-status"></div>
             </article>
           </div>
+          <div id="phase1-deep-summary" class="metric-grid baseline-grid"></div>
+          <div class="two-column phase1-evidence-grid">
+            <article class="evidence-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">THREE RUNS / TRANSFORM VALIDATION</p>
+                  <h3>Front depth imbalance audit</h3>
+                </div>
+                <a class="button secondary" href="/api/artifacts/ring01_depth_validation_report">Validation JSON</a>
+              </div>
+              <img class="wide-evidence" src="/api/artifacts/ring01_front_depth_audit" alt="Ring01 front depth imbalance and uncertainty audit" loading="lazy">
+            </article>
+            <article class="evidence-card">
+              <div class="card-heading">
+                <div>
+                  <p class="eyebrow">PIXEL MATRICES / EXACT ROUNDTRIP</p>
+                  <h3>Complete five-view feature audit</h3>
+                </div>
+                <a class="button secondary" href="/api/artifacts/ring01_pixel_feature_report">Feature JSON</a>
+              </div>
+              <img class="wide-evidence" src="/api/artifacts/ring01_pixel_feature_audit" alt="Ring01 pixel-level feature extraction and exact reconstruction audit" loading="lazy">
+            </article>
+          </div>
+          <article class="evidence-card">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">ALL FIVE VIEWS</p>
+                <h3>Raw depth, symmetry hypothesis and uncertainty</h3>
+              </div>
+              <span class="pill warning">Metric depth blocked</span>
+            </div>
+            <img class="wide-evidence" src="/api/artifacts/ring01_all_views_depth_validation" alt="Ring01 all-view depth validation" loading="lazy">
+          </article>
         </section>
 
         <section class="baseline-section" aria-labelledby="dataset-depth-title">
