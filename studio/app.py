@@ -18,6 +18,7 @@ from studio.dataset_service import (
 
 def create_app(repo_root: str | Path | None = None) -> Flask:
     app = Flask(__name__, template_folder="templates", static_folder="static")
+    app.config["MAX_CONTENT_LENGTH"] = 12 * 1024 * 1024
     repository = DatasetRepository(repo_root)
     app.config["DATASET_REPOSITORY"] = repository
 
@@ -33,7 +34,7 @@ def create_app(repo_root: str | Path | None = None) -> Flask:
                 "dataset": "STL-1",
                 "objects": len(repository.records),
                 "read_only": False,
-                "write_scope": "phase1_review_decisions_only",
+                "write_scope": "phase1_review_decisions_and_corrected_silhouettes_only",
             }
         )
 
@@ -66,6 +67,67 @@ def create_app(repo_root: str | Path | None = None) -> Flask:
     def phase1_camera_review():
         return jsonify(
             repository.review_phase1_camera(request.get_json(silent=True) or {})
+        )
+
+    @app.get("/api/phase1/stl1/review")
+    def stl1_phase1_review_summary():
+        return jsonify(repository.stl1_phase1_review_summary())
+
+    @app.get("/api/phase1/stl1/review/<object_id>")
+    def stl1_phase1_review_object(object_id: str):
+        return jsonify(repository.stl1_phase1_review_object(object_id))
+
+    @app.get("/api/phase1/stl1/assets/<object_id>/<view>/<evidence_type>")
+    def stl1_phase1_review_asset(
+        object_id: str, view: str, evidence_type: str
+    ):
+        return send_file(
+            repository.stl1_phase1_review_asset(
+                object_id,
+                view,
+                evidence_type,
+                request.args.get("variant", "active"),
+            ),
+            conditional=True,
+        )
+
+    @app.post("/api/phase1/stl1/reviews/evidence")
+    def stl1_phase1_evidence_review():
+        return jsonify(
+            repository.review_stl1_phase1_evidence(
+                request.get_json(silent=True) or {}
+            )
+        )
+
+    @app.post("/api/phase1/stl1/reviews/object")
+    def stl1_phase1_object_review():
+        return jsonify(
+            repository.review_stl1_phase1_object(
+                request.get_json(silent=True) or {}
+            )
+        )
+
+    @app.post("/api/phase1/stl1/reviews/view")
+    def stl1_phase1_view_review():
+        return jsonify(
+            repository.review_stl1_phase1_view(
+                request.get_json(silent=True) or {}
+            )
+        )
+
+    @app.post("/api/phase1/stl1/corrections/silhouette")
+    def stl1_phase1_silhouette_correction():
+        upload = request.files.get("mask")
+        if upload is None:
+            raise DatasetError("Corrected silhouette mask is required")
+        return jsonify(
+            repository.correct_stl1_silhouette(
+                request.form.get("object_id", ""),
+                request.form.get("view", ""),
+                upload.read(),
+                request.form.get("reviewer", ""),
+                request.form.get("note"),
+            )
         )
 
     @app.get("/api/objects")
@@ -118,4 +180,3 @@ if __name__ == "__main__":
         port=int(os.environ.get("IMAGE2CAD_STUDIO_PORT", "8501")),
         debug=False,
     )
-

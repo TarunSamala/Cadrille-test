@@ -1,4 +1,12 @@
-const state = { summary: null, objects: [], selected: null, layer: "source", phase1Review: null };
+const state = {
+  summary: null,
+  objects: [],
+  selected: null,
+  layer: "source",
+  phase1Review: null,
+  stl1ReviewSummary: null,
+  stl1ReviewObject: null,
+};
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -105,6 +113,14 @@ function renderSummary(summary) {
     <article class="metric"><span>Repeated depth runs</span><strong>${completeRuntime.repeat_count ?? "—"}</strong><small>All identical: ${completeChecks.all_three_repeats_identical ? "yes" : "no"}</small></article>
     <article class="metric"><span>Source reconstruction</span><strong class="compact-value">${reconstruction.source_pixel_roundtrip_exact ? "Pixel exact" : "Failed"}</strong><small>Normalized pixels retained: ${reconstruction.normalized_pixels_retained_exactly ? "yes" : "no"}</small></article>
     <article class="metric"><span>Front vertical depth delta</span><strong>${score(bias.raw?.mean, 4)}</strong><small>Flip ensemble: ${score(bias.regularized?.mean, 4)} · diagnostic, not correction</small></article>`;
+
+  const stl1Review = summary.stl1_phase1_review || {};
+  const reviewGate = stl1Review.gate || {};
+  $("#stl1-review-summary").innerHTML = `
+    <article class="metric"><span>STL-1 review gate</span><strong class="compact-value">${escapeHtml(humanize(reviewGate.status || "blocked"))}</strong><small>${reviewGate.object_count ?? "—"} rings · ${reviewGate.view_count ?? "—"} views</small></article>
+    <article class="metric"><span>Evidence approved</span><strong>${reviewGate.approved_evidence_count ?? 0}</strong><small>of ${reviewGate.evidence_review_count ?? "—"} human decisions</small></article>
+    <article class="metric"><span>Evidence pending</span><strong>${reviewGate.pending_evidence_count ?? "—"}</strong><small>Seven review categories per view</small></article>
+    <article class="metric"><span>Object inventories pending</span><strong>${reviewGate.pending_object_review_count ?? "—"}</strong><small>Cross-view stones, prongs and relief</small></article>`;
 }
 
 const PHASE1_VIEWS = ["front", "side", "top", "angled", "back"];
@@ -174,12 +190,184 @@ async function submitPhase1(path, payload) {
   await loadPhase1Review();
 }
 
+const STL1_VIEWS = ["front", "top", "iso", "lsv", "rsv"];
+
+function stl1ReviewAssetUrl(objectId, view, evidenceType, variant = "active") {
+  return `/api/phase1/stl1/assets/${encodeURIComponent(objectId)}/${encodeURIComponent(view)}/${encodeURIComponent(evidenceType)}?variant=${encodeURIComponent(variant)}`;
+}
+
+function stl1ReviewerPayload() {
+  const reviewer = $("#stl1-reviewer").value.trim();
+  if (!reviewer) throw new Error("Enter your reviewer name before recording a decision.");
+  return { reviewer, note: $("#stl1-review-note").value.trim() || null };
+}
+
+function renderStl1ReviewObject(payload) {
+  state.stl1ReviewObject = payload;
+  const record = payload.object;
+  const definitions = payload.evidence_types;
+  const populate = (selector, values, labeler = humanize) => {
+    const select = $(selector);
+    const previous = select.value;
+    select.innerHTML = values.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(labeler(value))}</option>`).join("");
+    if (values.includes(previous)) select.value = previous;
+  };
+  populate("#stl1-review-view", STL1_VIEWS);
+  populate("#stl1-review-evidence", Object.keys(definitions), (value) => definitions[value].title);
+  $("#stl1-review-title").textContent = `${record.source_name} · ${record.object_id}`;
+  $("#stl1-review-authority").textContent = payload.authority_policy;
+  const gate = record.gate;
+  const status = $("#stl1-object-review-status");
+  status.textContent = gate.status === "pass" ? "Review complete" : `${gate.pending_evidence_count + Number(gate.object_review_pending)} items pending`;
+  status.className = `pill ${gate.status === "pass" ? "pass" : "warning"}`;
+
+  const objectReview = record.object_review;
+  const inventory = objectReview.component_inventory || {};
+  $("#stl1-has-stones").value = inventory.has_stones || "unknown";
+  $("#stl1-stone-count").value = inventory.estimated_visible_stone_count ?? "";
+  $("#stl1-has-prongs").value = inventory.has_prongs || "unknown";
+  $("#stl1-has-relief").value = inventory.has_sculptural_relief || "unknown";
+  $("#stl1-cross-view").value = inventory.cross_view_identity_consistent || "unknown";
+  $("#stl1-inventory-current").textContent = `Current: ${humanize(objectReview.decision)}${objectReview.reviewer ? ` · ${objectReview.reviewer}` : ""}`;
+  const inventoryStatus = $("#stl1-inventory-status");
+  inventoryStatus.textContent = humanize(objectReview.decision);
+  inventoryStatus.className = `pill ${objectReview.decision === "approved" ? "pass" : "warning"}`;
+  updateStl1ReviewSelection();
+}
+
+function updateStl1ReviewSelection() {
+  const payload = state.stl1ReviewObject;
+  if (!payload) return;
+  const record = payload.object;
+  const view = $("#stl1-review-view").value;
+  const evidenceType = $("#stl1-review-evidence").value;
+  const review = record.views[view].evidence[evidenceType];
+  const definition = payload.evidence_types[evidenceType];
+  $("#stl1-review-source").src = stl1ReviewAssetUrl(record.object_id, view, "normalization");
+  $("#stl1-review-evidence-image").src = stl1ReviewAssetUrl(record.object_id, view, evidenceType);
+  $("#stl1-review-question").textContent = definition.question;
+  $("#stl1-review-evidence-caption").textContent = review.corrected_path ? "Corrected active evidence" : "Machine proposal";
+  $("#stl1-review-current").textContent = `Current: ${humanize(review.decision)}${review.reviewer ? ` · ${review.reviewer}` : ""}${review.corrected_path ? " · corrected mask" : ""}`;
+  $("#stl1-mask-correction").classList.toggle("hidden", evidenceType !== "silhouette");
+}
+
+async function loadStl1ReviewSummary() {
+  state.stl1ReviewSummary = await api("/api/phase1/stl1/review");
+}
+
+async function loadStl1ReviewObject(objectId) {
+  renderStl1ReviewObject(await api(`/api/phase1/stl1/review/${encodeURIComponent(objectId)}`));
+}
+
+async function submitStl1Evidence(decision) {
+  const common = stl1ReviewerPayload();
+  const payload = await api("/api/phase1/stl1/reviews/evidence", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...common,
+      object_id: state.selected.object_id,
+      view: $("#stl1-review-view").value,
+      evidence_type: $("#stl1-review-evidence").value,
+      decision,
+    }),
+  });
+  renderStl1ReviewObject(payload);
+  await refreshStl1ReviewState();
+}
+
+async function approveStl1View() {
+  const common = stl1ReviewerPayload();
+  const payload = await api("/api/phase1/stl1/reviews/view", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...common,
+      object_id: state.selected.object_id,
+      view: $("#stl1-review-view").value,
+      decision: "approved",
+    }),
+  });
+  renderStl1ReviewObject(payload);
+  await refreshStl1ReviewState();
+}
+
+async function submitStl1ObjectReview(decision) {
+  const common = stl1ReviewerPayload();
+  const stoneCount = $("#stl1-stone-count").value.trim();
+  const payload = await api("/api/phase1/stl1/reviews/object", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ...common,
+      object_id: state.selected.object_id,
+      decision,
+      component_inventory: {
+        has_stones: $("#stl1-has-stones").value,
+        estimated_visible_stone_count: stoneCount === "" ? null : Number(stoneCount),
+        has_prongs: $("#stl1-has-prongs").value,
+        has_sculptural_relief: $("#stl1-has-relief").value,
+        cross_view_identity_consistent: $("#stl1-cross-view").value,
+      },
+    }),
+  });
+  renderStl1ReviewObject(payload);
+  await refreshStl1ReviewState();
+}
+
+async function uploadStl1CorrectedMask() {
+  const common = stl1ReviewerPayload();
+  const file = $("#stl1-corrected-mask").files[0];
+  if (!file) throw new Error("Choose a corrected binary PNG first.");
+  const form = new FormData();
+  form.append("mask", file);
+  form.append("object_id", state.selected.object_id);
+  form.append("view", $("#stl1-review-view").value);
+  form.append("reviewer", common.reviewer);
+  if (common.note) form.append("note", common.note);
+  const payload = await api("/api/phase1/stl1/corrections/silhouette", {
+    method: "POST",
+    body: form,
+  });
+  $("#stl1-corrected-mask").value = "";
+  renderStl1ReviewObject(payload);
+  await refreshStl1ReviewState();
+}
+
+async function refreshStl1ReviewState() {
+  await loadStl1ReviewSummary();
+  state.summary = await api("/api/summary");
+  renderSummary(state.summary);
+  await loadObjects($("#split-filter").value, state.selected?.object_id);
+}
+
+async function selectNextStl1Pending() {
+  const payload = state.stl1ReviewObject;
+  if (!payload) return;
+  const currentView = $("#stl1-review-view").value;
+  const currentEvidence = $("#stl1-review-evidence").value;
+  const kinds = Object.keys(payload.evidence_types);
+  const tasks = STL1_VIEWS.flatMap((view) => kinds.map((evidenceType) => ({ view, evidenceType })));
+  const currentIndex = tasks.findIndex((item) => item.view === currentView && item.evidenceType === currentEvidence);
+  const ordered = tasks.slice(currentIndex + 1).concat(tasks.slice(0, currentIndex + 1));
+  const next = ordered.find((item) => payload.object.views[item.view].evidence[item.evidenceType].decision !== "approved");
+  if (next) {
+    $("#stl1-review-view").value = next.view;
+    $("#stl1-review-evidence").value = next.evidenceType;
+    updateStl1ReviewSelection();
+    return;
+  }
+  await loadStl1ReviewSummary();
+  const nextObject = state.stl1ReviewSummary.objects.find((item) => item.pending_evidence_count > 0 || item.object_review_pending);
+  if (nextObject) await selectObject(nextObject.object_id);
+}
+
 function renderObjectList() {
   $("#object-count").textContent = state.objects.length;
   $("#object-list").innerHTML = state.objects.map((item) => `
     <button class="object-button ${state.selected?.object_id === item.object_id ? "active" : ""}" data-object-id="${escapeHtml(item.object_id)}">
       <strong>${escapeHtml(item.source_name)}</strong><span>${escapeHtml(item.split)} · ${item.view_count} views</span>
-      <span class="object-score">${score(item.phase3_mean_iou)}</span>
+      <span class="object-score">${item.phase1_pending_review_count ?? "—"} pending</span>
     </button>`).join("");
   $$(".object-button").forEach((button) => button.addEventListener("click", () => selectObject(button.dataset.objectId)));
 }
@@ -315,7 +503,8 @@ function renderObject(detail) {
   $("#object-workspace").classList.remove("hidden");
   $("#object-title").textContent = detail.source_name;
   $("#object-path").textContent = `STL-1 / ${detail.object_id}`;
-  $("#object-badges").innerHTML = `<span class="pill ${detail.split === "test" ? "test" : "pass"}">${escapeHtml(detail.split)} split</span><span class="pill warning">Tier A</span><span class="pill warning">Research only</span>`;
+  const reviewPassed = detail.phase1_review?.gate?.status === "pass";
+  $("#object-badges").innerHTML = `<span class="pill ${detail.split === "test" ? "test" : "pass"}">${escapeHtml(detail.split)} split</span><span class="pill ${reviewPassed ? "pass" : "warning"}">Phase 1 ${reviewPassed ? "reviewed" : "pending"}</span><span class="pill warning">Tier A</span><span class="pill warning">Research only</span>`;
   $("#report-download").href = `/api/objects/${encodeURIComponent(detail.object_id)}/report`;
   $("#report-download").classList.remove("disabled");
   $("#phase-sheet").src = assetUrl(detail.object_id, "phase_sheet");
@@ -337,6 +526,7 @@ async function selectObject(objectId) {
   clearError();
   try {
     renderObject(await api(`/api/objects/${encodeURIComponent(objectId)}`));
+    await loadStl1ReviewObject(objectId);
   } catch (error) { showError(error); }
 }
 
@@ -379,6 +569,29 @@ function bindControls() {
       decision: button.dataset.decision,
     }).catch(showError);
   }));
+  ["#stl1-review-view", "#stl1-review-evidence"].forEach((selector) => {
+    $(selector).addEventListener("change", updateStl1ReviewSelection);
+  });
+  $$(".stl1-evidence-decision").forEach((button) => button.addEventListener("click", () => {
+    clearError();
+    submitStl1Evidence(button.dataset.decision).catch(showError);
+  }));
+  $$(".stl1-object-decision").forEach((button) => button.addEventListener("click", () => {
+    clearError();
+    submitStl1ObjectReview(button.dataset.decision).catch(showError);
+  }));
+  $("#stl1-upload-mask").addEventListener("click", () => {
+    clearError();
+    uploadStl1CorrectedMask().catch(showError);
+  });
+  $("#stl1-approve-view").addEventListener("click", () => {
+    clearError();
+    approveStl1View().catch(showError);
+  });
+  $("#stl1-next-pending").addEventListener("click", () => {
+    clearError();
+    selectNextStl1Pending().catch(showError);
+  });
   $("#split-filter").addEventListener("change", (event) => loadObjects(event.target.value).catch(showError));
   $$("#layer-switcher button").forEach((button) => button.addEventListener("click", () => {
     state.layer = button.dataset.layer;
@@ -397,6 +610,7 @@ async function start() {
     state.summary = await api("/api/summary");
     renderSummary(state.summary);
     await loadPhase1Review();
+    await loadStl1ReviewSummary();
     await loadObjects("all", "ring_001");
   } catch (error) { showError(error); }
 }

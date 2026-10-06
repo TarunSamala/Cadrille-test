@@ -80,6 +80,12 @@ class DatasetStudioServiceTest(unittest.TestCase):
                 "metric_depth_available"
             ]
         )
+        stl1_review = summary["stl1_phase1_review"]
+        self.assertEqual(stl1_review["gate"]["object_count"], 24)
+        self.assertEqual(stl1_review["gate"]["view_count"], 120)
+        self.assertEqual(stl1_review["gate"]["evidence_review_count"], 840)
+        self.assertEqual(stl1_review["gate"]["pending_evidence_count"], 840)
+        self.assertEqual(stl1_review["gate"]["pending_object_review_count"], 24)
         geometry = summary["phase3"]["geometry_benchmark"]
         self.assertEqual(geometry["selected_object_count"], 24)
         self.assertEqual(geometry["backends"]["colmap"]["version"], "4.2.1")
@@ -94,6 +100,8 @@ class DatasetStudioServiceTest(unittest.TestCase):
     def test_every_object_exposes_real_view_and_phase_artifacts(self) -> None:
         for item in self.repository.list_objects():
             detail = self.repository.object_detail(item["object_id"])
+            self.assertEqual(item["phase1_pending_review_count"], 36)
+            self.assertEqual(detail["phase1_review"]["gate"]["status"], "blocked")
             self.assertEqual(detail["view_order"], list(VIEW_ORDER))
             self.assertEqual(detail["bible"]["capture"]["tier"], "A")
             self.assertEqual(detail["bible"]["decision"], "research_only")
@@ -191,7 +199,8 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertEqual(health.status_code, 200)
         self.assertEqual(health.get_json()["objects"], 24)
         self.assertEqual(
-            health.get_json()["write_scope"], "phase1_review_decisions_only"
+            health.get_json()["write_scope"],
+            "phase1_review_decisions_and_corrected_silhouettes_only",
         )
         summary = self.client.get("/api/summary")
         self.assertEqual(summary.status_code, 200)
@@ -218,6 +227,13 @@ class DatasetStudioApiTest(unittest.TestCase):
             'id="phase1-deep-summary"',
             'id="dataset-depth-summary"',
             'id="dataset-complete-summary"',
+            'id="stl1-review-summary"',
+            'id="panel-phase1-review"',
+            'id="stl1-reviewer"',
+            'id="stl1-review-evidence-image"',
+            'id="stl1-corrected-mask"',
+            'id="stl1-approve-view"',
+            'id="stl1-has-relief"',
             'data-layer="normalized"',
             'data-layer="mask"',
             'data-layer="edges"',
@@ -244,6 +260,10 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertIn('$("#phase1-deep-summary")', javascript)
         self.assertIn('$("#dataset-depth-summary")', javascript)
         self.assertIn('$("#dataset-complete-summary")', javascript)
+        self.assertIn("loadStl1ReviewSummary()", javascript)
+        self.assertIn("/api/phase1/stl1/reviews/evidence", javascript)
+        self.assertIn("/api/phase1/stl1/reviews/view", javascript)
+        self.assertIn("/api/phase1/stl1/corrections/silhouette", javascript)
         self.assertIn('$("#phase1-complete-audit")', javascript)
         script.close()
         page.close()
@@ -276,6 +296,36 @@ class DatasetStudioApiTest(unittest.TestCase):
             },
         )
         self.assertEqual(invalid.status_code, 400)
+
+        stl1 = self.client.get("/api/phase1/stl1/review")
+        self.assertEqual(stl1.status_code, 200)
+        self.assertEqual(stl1.get_json()["gate"]["object_count"], 24)
+        self.assertEqual(len(stl1.get_json()["objects"]), 24)
+        stl1.close()
+
+        object_review = self.client.get("/api/phase1/stl1/review/ring_001")
+        self.assertEqual(object_review.status_code, 200)
+        self.assertEqual(len(object_review.get_json()["object"]["views"]), 5)
+        object_review.close()
+
+        evidence = self.client.get(
+            "/api/phase1/stl1/assets/ring_001/front/silhouette"
+        )
+        self.assertEqual(evidence.status_code, 200)
+        self.assertEqual(evidence.mimetype, "image/png")
+        evidence.close()
+
+        invalid_stl1 = self.client.post(
+            "/api/phase1/stl1/reviews/evidence",
+            json={
+                "object_id": "../../etc",
+                "view": "front",
+                "evidence_type": "silhouette",
+                "decision": "approved",
+                "reviewer": "test",
+            },
+        )
+        self.assertEqual(invalid_stl1.status_code, 400)
 
     def test_object_and_asset_routes(self) -> None:
         detail = self.client.get("/api/objects/ring_001")

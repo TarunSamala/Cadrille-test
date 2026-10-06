@@ -19,6 +19,15 @@ from pipeline.phase1_review import (
     apply_identity_review,
     apply_label_review,
 )
+from pipeline.stl1_phase1_review import (
+    EVIDENCE_TYPES as STL1_PHASE1_EVIDENCE_TYPES,
+    VIEWS as STL1_PHASE1_VIEWS,
+    apply_evidence_review as apply_stl1_evidence_review,
+    apply_object_review as apply_stl1_object_review,
+    apply_view_review as apply_stl1_view_review,
+    load_manifest as load_stl1_phase1_manifest,
+    save_corrected_silhouette,
+)
 
 
 VIEW_ORDER = ("front", "top", "iso", "lsv", "rsv")
@@ -84,6 +93,9 @@ class DatasetRepository:
         )
         self.phase1_ground_truth = self._read_json(
             self.repo_root / "data" / "ring01_ground_truth_v1" / "manifest.json"
+        )
+        self.stl1_phase1_review_path, self.stl1_phase1_review = (
+            load_stl1_phase1_manifest(self.repo_root)
         )
         self.phase1_depth_validation = self._read_json(
             self.repo_root
@@ -293,6 +305,7 @@ class DatasetRepository:
                 },
             },
             "phase1_ground_truth": self._phase1_ground_truth_summary(),
+            "stl1_phase1_review": self._stl1_phase1_review_summary(),
             "phase2": {
                 "status": "pseudo-label self-consistency benchmark; not human-ground-truth accuracy",
                 "test": deepcopy(self.phase_summary.get("test", {})),
@@ -497,6 +510,158 @@ class DatasetRepository:
             "authority_policy": manifest.get("authority_policy"),
         }
 
+    def _reload_stl1_phase1_review(self) -> dict[str, Any]:
+        _, self.stl1_phase1_review = load_stl1_phase1_manifest(self.repo_root)
+        return self.stl1_phase1_review
+
+    def _stl1_phase1_review_summary(self) -> dict[str, Any]:
+        manifest = self.stl1_phase1_review
+        objects = []
+        for object_id, record in manifest.get("objects", {}).items():
+            gate = record.get("gate", {})
+            objects.append(
+                {
+                    "object_id": object_id,
+                    "source_name": record.get("source_name", object_id),
+                    "split": record.get("split"),
+                    "status": gate.get("status"),
+                    "pending_evidence_count": gate.get(
+                        "pending_evidence_count", 0
+                    ),
+                    "object_review_pending": bool(
+                        gate.get("object_review_pending", True)
+                    ),
+                }
+            )
+        return {
+            "schema_version": manifest.get("schema_version"),
+            "status": manifest.get("status"),
+            "authority_policy": manifest.get("authority_policy"),
+            "gate": deepcopy(manifest.get("gate", {})),
+            "evidence_types": deepcopy(manifest.get("evidence_types", {})),
+            "review_contract": deepcopy(manifest.get("review_contract", {})),
+            "automated_checks": deepcopy(manifest.get("automated_checks", {})),
+            "limitations": deepcopy(manifest.get("limitations", [])),
+            "objects": objects,
+        }
+
+    def stl1_phase1_review_summary(self) -> dict[str, Any]:
+        self._reload_stl1_phase1_review()
+        return self._stl1_phase1_review_summary()
+
+    def stl1_phase1_review_object(self, object_id: str) -> dict[str, Any]:
+        self._record(object_id)
+        manifest = self._reload_stl1_phase1_review()
+        try:
+            record = manifest["objects"][object_id]
+        except KeyError as exc:
+            raise ObjectNotFoundError(
+                f"No STL-1 Phase 1 review record for {object_id}"
+            ) from exc
+        return {
+            "schema_version": manifest.get("schema_version"),
+            "authority_policy": manifest.get("authority_policy"),
+            "evidence_types": deepcopy(manifest.get("evidence_types", {})),
+            "dataset_gate": deepcopy(manifest.get("gate", {})),
+            "object": deepcopy(record),
+        }
+
+    def review_stl1_phase1_evidence(self, payload: dict[str, Any]) -> dict[str, Any]:
+        try:
+            manifest = apply_stl1_evidence_review(
+                self.repo_root,
+                str(payload.get("object_id", "")),
+                str(payload.get("view", "")),
+                str(payload.get("evidence_type", "")),
+                str(payload.get("decision", "")),
+                str(payload.get("reviewer", "")),
+                payload.get("note"),
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise DatasetError(str(exc)) from exc
+        self.stl1_phase1_review = manifest
+        return self.stl1_phase1_review_object(str(payload.get("object_id", "")))
+
+    def review_stl1_phase1_object(self, payload: dict[str, Any]) -> dict[str, Any]:
+        try:
+            manifest = apply_stl1_object_review(
+                self.repo_root,
+                str(payload.get("object_id", "")),
+                str(payload.get("decision", "")),
+                str(payload.get("reviewer", "")),
+                payload.get("component_inventory", {}),
+                payload.get("note"),
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise DatasetError(str(exc)) from exc
+        self.stl1_phase1_review = manifest
+        return self.stl1_phase1_review_object(str(payload.get("object_id", "")))
+
+    def review_stl1_phase1_view(self, payload: dict[str, Any]) -> dict[str, Any]:
+        try:
+            manifest = apply_stl1_view_review(
+                self.repo_root,
+                str(payload.get("object_id", "")),
+                str(payload.get("view", "")),
+                str(payload.get("decision", "")),
+                str(payload.get("reviewer", "")),
+                payload.get("note"),
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise DatasetError(str(exc)) from exc
+        self.stl1_phase1_review = manifest
+        return self.stl1_phase1_review_object(str(payload.get("object_id", "")))
+
+    def correct_stl1_silhouette(
+        self,
+        object_id: str,
+        view: str,
+        image_bytes: bytes,
+        reviewer: str,
+        note: str | None,
+    ) -> dict[str, Any]:
+        try:
+            manifest = save_corrected_silhouette(
+                self.repo_root,
+                object_id,
+                view,
+                image_bytes,
+                reviewer,
+                note,
+            )
+        except (KeyError, TypeError, ValueError, OSError) as exc:
+            raise DatasetError(str(exc)) from exc
+        self.stl1_phase1_review = manifest
+        return self.stl1_phase1_review_object(object_id)
+
+    def stl1_phase1_review_asset(
+        self,
+        object_id: str,
+        view: str,
+        evidence_type: str,
+        variant: str = "active",
+    ) -> Path:
+        self._record(object_id)
+        manifest = self._reload_stl1_phase1_review()
+        if view not in STL1_PHASE1_VIEWS:
+            raise AssetNotFoundError(f"Unknown STL-1 Phase 1 view: {view}")
+        if evidence_type not in STL1_PHASE1_EVIDENCE_TYPES:
+            raise AssetNotFoundError(
+                f"Unknown STL-1 Phase 1 evidence type: {evidence_type}"
+            )
+        if variant not in {"proposal", "corrected", "active"}:
+            raise AssetNotFoundError(f"Unknown review asset variant: {variant}")
+        review = manifest["objects"][object_id]["views"][view]["evidence"][
+            evidence_type
+        ]
+        key = f"{variant}_path"
+        candidate = review.get(key)
+        if not candidate:
+            raise AssetNotFoundError(
+                f"{variant} {evidence_type} is unavailable for {object_id}:{view}"
+            )
+        return self._safe_path(candidate)
+
     def list_objects(self, split: str | None = None) -> list[dict[str, Any]]:
         if split not in {None, "all", "train", "val", "test"}:
             raise DatasetError(f"Invalid split: {split}")
@@ -505,6 +670,9 @@ class DatasetRepository:
             if split not in {None, "all"} and record["split"] != split:
                 continue
             phase3 = self._phase3_objects.get(record["object_id"], {})
+            phase1_review = self.stl1_phase1_review.get("objects", {}).get(
+                record["object_id"], {}
+            )
             result.append(
                 {
                     "object_id": record["object_id"],
@@ -514,12 +682,26 @@ class DatasetRepository:
                     "view_count": len(record["views"]),
                     "phase3_mean_iou": phase3.get("reprojection", {}).get("mean_iou"),
                     "phase3_available": bool(phase3),
+                    "phase1_review_status": phase1_review.get("gate", {}).get(
+                        "status", "unavailable"
+                    ),
+                    "phase1_pending_review_count": phase1_review.get("gate", {}).get(
+                        "pending_evidence_count", 0
+                    )
+                    + int(
+                        phase1_review.get("gate", {}).get(
+                            "object_review_pending", False
+                        )
+                    ),
                 }
             )
         return result
 
     def object_detail(self, object_id: str) -> dict[str, Any]:
         record = self._record(object_id)
+        phase1_review = deepcopy(
+            self.stl1_phase1_review.get("objects", {}).get(object_id, {})
+        )
         phase1 = self._phase1_by_object.get(object_id, {})
         phase1_depth = self._phase1_depth_by_object.get(object_id, {})
         phase1_complete = self._phase1_complete_by_object.get(object_id, {})
@@ -583,6 +765,12 @@ class DatasetRepository:
                     "lsv_rsv_depth_distribution_difference"
                 ),
             },
+            "phase1_review": {
+                "gate": deepcopy(phase1_review.get("gate", {})),
+                "object_review": deepcopy(
+                    phase1_review.get("object_review", {})
+                ),
+            },
             "supervision": deepcopy(record.get("supervision", {})),
             "bible": {
                 "capture": {
@@ -638,7 +826,11 @@ class DatasetRepository:
                     },
                 ],
                 "gates": {
-                    "human_reviewed_image_truth": False,
+                    "human_reviewed_image_truth": bool(
+                        phase1_review.get("gate", {}).get(
+                            "human_review_complete", False
+                        )
+                    ),
                     "metric_scale": False,
                     "calibrated_cameras": False,
                     "reviewed_component_graph": False,

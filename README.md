@@ -8,7 +8,7 @@ The implementation combines classical vision, segmentation, multi-view geometric
 
 | Stage | Purpose | Status |
 | --- | --- | --- |
-| Phase 1 | Reference-image preparation and geometric observations | Validated |
+| Phase 1 | Complete image evidence for Ring01 and all 24 STL-1 rings | Machine extraction validated; human review pending |
 | Phase 2/2.2 | Jewellery, stone, setting, prong and shank masks | Validated machine extraction |
 | Phase 2.3 | Universal detail evidence, cross-view instances and semantic review gate | Implemented; dataset review pending |
 | Phase 3/3.2 | Coarse reconstruction and topology correction | Retained as checkpoints |
@@ -40,6 +40,7 @@ Each phase writes to its own directory. New refinement work should create or res
 See [Repository structure](docs/REPOSITORY_STRUCTURE.md) for the dataset-run layout and file-placement conventions.
 See [Jewellery Phase Auditor](docs/UPLOAD_AUDITOR.md) for the one-image and five-view upload program.
 See [Lalitha Studio](docs/DATASET_STUDIO.md) for the Bible-aligned local evidence browser, phase comparisons, hard-gate status and research artifact downloads.
+See [STL-1 Phase 1 human review](docs/PHASE1_STL1_HUMAN_REVIEW.md) for the 24-ring, 120-view review contract and correction workflow.
 See [Phase workflow](docs/images/image2cad-phase-flowchart-v1.png) for the complete visual pipeline.
 
 Phase 2.3 adds category-independent internal-edge, ridge, valley, relief, negative-space and reflection evidence. Every local detail proposal receives an addressable observation ID and an editable review decision. Cross-view IDs remain hypotheses until reviewed or confirmed by calibrated geometry; the stage does not automatically label bright regions as gemstones.
@@ -53,7 +54,7 @@ docker exec cadrille-gpu sh -lc \
   'cd /workspace && PYTHONPATH=pipeline python -m unittest discover -s tests -v'
 ```
 
-The current suite contains 98 tests.
+The current suite contains 140 tests.
 
 ## Jewellery dataset
 
@@ -156,7 +157,7 @@ The reconstruction first aligns shared X, Y, and Z silhouette extents across ind
 
 ## Browse STL-1 in Lalitha Studio
 
-The Bible-aligned Flask interface reads existing versioned evidence and records only explicit Phase 1 human-review decisions. It never starts training or reconstruction from a browser request:
+The Bible-aligned Flask interface reads existing versioned evidence and records explicit Phase 1 human-review decisions for Ring01 and all 24 STL-1 rings. Corrected silhouettes are stored separately from immutable proposals. It never starts training or reconstruction from a browser request:
 
 ```bash
 python -m pip install -r requirements-studio.txt
