@@ -190,6 +190,9 @@ class DatasetStudioApiTest(unittest.TestCase):
         health = self.client.get("/api/health")
         self.assertEqual(health.status_code, 200)
         self.assertEqual(health.get_json()["objects"], 24)
+        self.assertEqual(
+            health.get_json()["write_scope"], "phase1_review_decisions_only"
+        )
         summary = self.client.get("/api/summary")
         self.assertEqual(summary.status_code, 200)
         self.assertEqual(summary.get_json()["dataset"]["image_count"], 120)
@@ -208,6 +211,9 @@ class DatasetStudioApiTest(unittest.TestCase):
             'id="phase0-summary"',
             'id="phase0-limits"',
             'id="phase1-summary"',
+            'id="phase1-review-console"',
+            'id="phase1-reviewer"',
+            'id="phase1-proposal-preview"',
             'id="phase1-depth-status"',
             'id="phase1-deep-summary"',
             'id="dataset-depth-summary"',
@@ -233,12 +239,43 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertIn('$("#phase0-summary")', javascript)
         self.assertIn('$("#feature-rows")', javascript)
         self.assertIn('$("#phase1-summary")', javascript)
+        self.assertIn("loadPhase1Review()", javascript)
+        self.assertIn("/api/phase1/reviews/label", javascript)
         self.assertIn('$("#phase1-deep-summary")', javascript)
         self.assertIn('$("#dataset-depth-summary")', javascript)
         self.assertIn('$("#dataset-complete-summary")', javascript)
         self.assertIn('$("#phase1-complete-audit")', javascript)
         script.close()
         page.close()
+
+    def test_phase1_review_routes_are_scoped_and_fail_closed(self) -> None:
+        manifest = self.client.get("/api/phase1/review")
+        self.assertEqual(manifest.status_code, 200)
+        self.assertEqual(len(manifest.get_json()["views"]), 5)
+        manifest.close()
+
+        source = self.client.get("/api/phase1/assets/front/source")
+        self.assertEqual(source.status_code, 200)
+        self.assertEqual(source.mimetype, "image/png")
+        source.close()
+
+        proposal = self.client.get(
+            "/api/phase1/assets/front/proposal?label=prongs"
+        )
+        self.assertEqual(proposal.status_code, 200)
+        self.assertEqual(proposal.mimetype, "image/png")
+        proposal.close()
+
+        invalid = self.client.post(
+            "/api/phase1/reviews/label",
+            json={
+                "view": "../../etc",
+                "label": "prongs",
+                "decision": "approved",
+                "reviewer": "test",
+            },
+        )
+        self.assertEqual(invalid.status_code, 400)
 
     def test_object_and_asset_routes(self) -> None:
         detail = self.client.get("/api/objects/ring_001")

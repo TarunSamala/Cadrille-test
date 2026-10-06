@@ -11,7 +11,6 @@ import argparse
 import hashlib
 import json
 import subprocess
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
@@ -19,30 +18,19 @@ import cv2
 import numpy as np
 
 
-VIEWS = ("front", "side", "top", "angled", "back")
-LABELS = (
-    "jewelry",
-    "metal",
-    "shank",
-    "stone_visible",
-    "setting",
-    "prongs",
-    "negative_space",
+from pipeline.phase1_review import (
+    COMPONENT_CATALOG,
+    DECISIONS,
+    LABELS,
+    VIEWS,
+    apply_camera_review,
+    apply_identity_review,
+    apply_label_review,
+    load_manifest,
+    refresh_gate,
+    save_manifest,
+    utc_now,
 )
-COMPONENT_CATALOG = (
-    ("shank_001", "shank"),
-    ("setting_001", "setting"),
-    ("stone_001", "round_gemstone"),
-    ("prong_001", "prong"),
-    ("prong_002", "prong"),
-    ("prong_003", "prong"),
-    ("prong_004", "prong"),
-)
-DECISIONS = ("pending", "approved", "needs_correction", "rejected")
-
-
-def utc_now() -> str:
-    return datetime.now(timezone.utc).isoformat()
 
 
 def sha256(path: Path) -> str:
@@ -152,40 +140,6 @@ def horizontal_stack(items: list[np.ndarray]) -> np.ndarray:
             )
         normalized.append(item)
     return cv2.hconcat(normalized)
-
-
-def refresh_gate(manifest: dict[str, Any]) -> None:
-    pending_labels = []
-    for view, record in manifest["views"].items():
-        for label, review in record["reviews"].items():
-            if review["decision"] != "approved":
-                pending_labels.append(f"{view}:{label}")
-    pending_identities = [
-        item["component_id"]
-        for item in manifest["component_catalog"]
-        if item["review"]["decision"] != "approved"
-    ]
-    camera_missing = [
-        view
-        for view, record in manifest["camera_records"].items()
-        if record["review"]["decision"] != "approved"
-    ]
-    scale_missing = not manifest["physical_scale"]["measurements"]
-    conflicts = list(manifest.get("review_conflicts", []))
-    manifest["exit_gate"] = {
-        "status": "pass"
-        if not (pending_labels or pending_identities or camera_missing or scale_missing or conflicts)
-        else "blocked",
-        "pending_label_reviews": pending_labels,
-        "pending_component_identities": pending_identities,
-        "pending_camera_records": camera_missing,
-        "physical_scale_missing": scale_missing,
-        "unresolved_conflicts": conflicts,
-        "human_ground_truth_complete": not (
-            pending_labels or pending_identities or camera_missing or scale_missing or conflicts
-        ),
-    }
-    manifest["updated_at_utc"] = utc_now()
 
 
 def initialize(root: Path, output: Path, force: bool = False) -> dict[str, Any]:
@@ -316,7 +270,14 @@ def initialize(root: Path, output: Path, force: bool = False) -> dict[str, Any]:
             for component_id, class_name in COMPONENT_CATALOG
         ],
         "physical_scale": {
-            "status": "missing",
+            "status": "image_only_relative",
+            "mode": "relative_image_coordinates",
+            "metric_available": False,
+            "required_for_phase1_exit": False,
+            "limitation": (
+                "No known physical dimension is present in the supplied images; "
+                "millimetre scale cannot be inferred honestly."
+            ),
             "measurements": [],
             "required_examples": [
                 "inner ring diameter in mm",
@@ -353,55 +314,16 @@ def initialize(root: Path, output: Path, force: bool = False) -> dict[str, Any]:
     return manifest
 
 
-def load_manifest(root: Path) -> tuple[Path, dict[str, Any]]:
-    path = root / "data" / "ring01_ground_truth_v1" / "manifest.json"
-    if not path.is_file():
-        raise FileNotFoundError(f"Initialize Phase 1 first: {path}")
-    return path, json.loads(path.read_text(encoding="utf-8"))
-
-
-def save_manifest(path: Path, manifest: dict[str, Any]) -> None:
-    refresh_gate(manifest)
-    path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-
-
 def review_label(args: argparse.Namespace) -> None:
-    path, manifest = load_manifest(args.repo_root)
-    record = manifest["views"][args.view]["reviews"][args.label]
-    record.update(
-        {
-            "decision": args.decision,
-            "reviewer": args.reviewer,
-            "reviewed_at_utc": utc_now(),
-            "note": args.note,
-        }
+    apply_label_review(
+        args.repo_root, args.view, args.label, args.decision, args.reviewer, args.note
     )
-    save_manifest(path, manifest)
 
 
 def review_identity(args: argparse.Namespace) -> None:
-    path, manifest = load_manifest(args.repo_root)
-    item = next(
-        (
-            item
-            for item in manifest["component_catalog"]
-            if item["component_id"] == args.component_id
-        ),
-        None,
+    apply_identity_review(
+        args.repo_root, args.component_id, args.decision, args.reviewer, args.note
     )
-    if item is None:
-        raise ValueError(f"Unknown component ID: {args.component_id}")
-    item["review"].update(
-        {
-            "decision": args.decision,
-            "reviewer": args.reviewer,
-            "reviewed_at_utc": utc_now(),
-            "note": args.note,
-        }
-    )
-    if args.decision == "approved":
-        item["cross_view_identity"] = "human_approved"
-    save_manifest(path, manifest)
 
 
 def set_dimension(args: argparse.Namespace) -> None:
@@ -423,29 +345,17 @@ def set_dimension(args: argparse.Namespace) -> None:
 
 
 def set_camera(args: argparse.Namespace) -> None:
-    path, manifest = load_manifest(args.repo_root)
-    record = manifest["camera_records"][args.view]
-    record.update(
-        {
-            "intrinsics": json.loads(args.intrinsics_json)
-            if args.intrinsics_json
-            else None,
-            "extrinsics": json.loads(args.extrinsics_json)
-            if args.extrinsics_json
-            else None,
-            "projection_model": args.projection_model,
-            "uncertainty": args.uncertainty,
-        }
+    apply_camera_review(
+        args.repo_root,
+        args.view,
+        args.projection_model,
+        args.uncertainty,
+        args.decision,
+        args.reviewer,
+        args.note,
+        json.loads(args.intrinsics_json) if args.intrinsics_json else None,
+        json.loads(args.extrinsics_json) if args.extrinsics_json else None,
     )
-    record["review"].update(
-        {
-            "decision": args.decision,
-            "reviewer": args.reviewer,
-            "reviewed_at_utc": utc_now(),
-            "note": args.note,
-        }
-    )
-    save_manifest(path, manifest)
 
 
 def parser() -> argparse.ArgumentParser:

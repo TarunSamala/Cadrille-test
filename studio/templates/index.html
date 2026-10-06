@@ -103,6 +103,58 @@
               <p id="phase1-authority">Loading authority policy…</p>
             </div>
           </article>
+          <article class="evidence-card review-console" id="phase1-review-console">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">IDENTIFIED HUMAN REVIEW</p>
+                <h3>Approve only what you have inspected</h3>
+              </div>
+              <span id="phase1-review-status" class="pill warning">Loading</span>
+            </div>
+            <div class="review-fields reviewer-fields">
+              <label>Reviewer<input id="phase1-reviewer" type="text" maxlength="120" placeholder="Your name" autocomplete="name"></label>
+              <label>Review note<input id="phase1-review-note" type="text" maxlength="500" placeholder="Optional evidence or correction note"></label>
+            </div>
+            <div class="review-layout">
+              <section class="review-block">
+                <h4>Mask / feature label</h4>
+                <div class="review-fields">
+                  <label>View<select id="phase1-review-view"></select></label>
+                  <label>Label<select id="phase1-review-label"></select></label>
+                </div>
+                <div class="review-preview">
+                  <figure><img id="phase1-source-preview" alt="Selected source view"><figcaption>Source</figcaption></figure>
+                  <figure><img id="phase1-proposal-preview" alt="Selected mask proposal"><figcaption>Proposal</figcaption></figure>
+                </div>
+                <p id="phase1-label-current" class="review-current"></p>
+                <div class="review-actions">
+                  <button type="button" class="button primary phase1-label-decision" data-decision="approved">Approve inspected mask</button>
+                  <button type="button" class="button secondary phase1-label-decision" data-decision="needs_correction">Needs correction</button>
+                  <button type="button" class="button secondary phase1-label-decision" data-decision="rejected">Reject</button>
+                </div>
+              </section>
+              <section class="review-block">
+                <h4>Cross-view component identity</h4>
+                <label>Component<select id="phase1-component"></select></label>
+                <p id="phase1-component-current" class="review-current"></p>
+                <div class="review-actions">
+                  <button type="button" class="button primary phase1-identity-decision" data-decision="approved">Approve identity</button>
+                  <button type="button" class="button secondary phase1-identity-decision" data-decision="needs_correction">Needs correction</button>
+                </div>
+                <h4>View / camera semantics</h4>
+                <div class="review-fields">
+                  <label>View<select id="phase1-camera-view"></select></label>
+                  <label>Projection<select id="phase1-projection"><option value="unknown">Unknown</option><option value="perspective">Perspective</option><option value="weak_perspective">Weak perspective</option><option value="orthographic">Orthographic</option></select></label>
+                </div>
+                <label>Uncertainty<input id="phase1-camera-uncertainty" type="text" value="Camera calibration unavailable; view label reviewed from image only"></label>
+                <p id="phase1-camera-current" class="review-current"></p>
+                <div class="review-actions">
+                  <button type="button" class="button primary phase1-camera-decision" data-decision="approved">Approve semantics</button>
+                  <button type="button" class="button secondary phase1-camera-decision" data-decision="needs_correction">Needs correction</button>
+                </div>
+              </section>
+            </div>
+          </article>
           <div class="two-column phase1-evidence-grid">
             <article class="evidence-card">
               <div class="card-heading">

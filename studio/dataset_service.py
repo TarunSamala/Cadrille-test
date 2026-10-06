@@ -1,8 +1,7 @@
-"""Read-only service layer for the versioned jewellery dataset artifacts.
+"""Service layer for retained dataset evidence and scoped Phase 1 reviews.
 
-The web interface deliberately depends on this module instead of reading files
-directly.  That keeps path validation, schema checks and phase-status language
-consistent if a different UI or API is added later.
+Artifact browsing is read-only. The only mutations accepted here are explicit,
+identified Phase 1 human-review decisions written to the versioned manifest.
 """
 
 from __future__ import annotations
@@ -12,6 +11,14 @@ import re
 from copy import deepcopy
 from pathlib import Path
 from typing import Any
+
+from pipeline.phase1_review import (
+    LABELS as PHASE1_LABELS,
+    VIEWS as PHASE1_VIEWS,
+    apply_camera_review,
+    apply_identity_review,
+    apply_label_review,
+)
 
 
 VIEW_ORDER = ("front", "top", "iso", "lsv", "rsv")
@@ -228,7 +235,7 @@ class DatasetRepository:
                 "decision": "research_only",
             },
             "phase0": {
-                "status": "in_progress",
+                "status": "complete",
                 "source": deepcopy(self.phase0_environment.get("source", {})),
                 "container": deepcopy(self.phase0_environment.get("container", {})),
                 "runtime": deepcopy(self.phase0_environment.get("runtime", {})),
@@ -332,6 +339,81 @@ class DatasetRepository:
             "limitations": deepcopy(self.dataset_report.get("limitations", [])),
         }
 
+    def _reload_phase1_ground_truth(self) -> dict[str, Any]:
+        self.phase1_ground_truth = self._read_json(
+            self.repo_root / "data" / "ring01_ground_truth_v1" / "manifest.json"
+        )
+        return self.phase1_ground_truth
+
+    def phase1_review_manifest(self) -> dict[str, Any]:
+        return deepcopy(self._reload_phase1_ground_truth())
+
+    def review_phase1_label(self, payload: dict[str, Any]) -> dict[str, Any]:
+        try:
+            manifest = apply_label_review(
+                self.repo_root,
+                str(payload.get("view", "")),
+                str(payload.get("label", "")),
+                str(payload.get("decision", "")),
+                str(payload.get("reviewer", "")),
+                payload.get("note"),
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise DatasetError(str(exc)) from exc
+        self.phase1_ground_truth = manifest
+        return self._phase1_ground_truth_summary()
+
+    def review_phase1_identity(self, payload: dict[str, Any]) -> dict[str, Any]:
+        try:
+            manifest = apply_identity_review(
+                self.repo_root,
+                str(payload.get("component_id", "")),
+                str(payload.get("decision", "")),
+                str(payload.get("reviewer", "")),
+                payload.get("note"),
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise DatasetError(str(exc)) from exc
+        self.phase1_ground_truth = manifest
+        return self._phase1_ground_truth_summary()
+
+    def review_phase1_camera(self, payload: dict[str, Any]) -> dict[str, Any]:
+        try:
+            manifest = apply_camera_review(
+                self.repo_root,
+                str(payload.get("view", "")),
+                str(payload.get("projection_model", "unknown")),
+                str(payload.get("uncertainty", "")),
+                str(payload.get("decision", "")),
+                str(payload.get("reviewer", "")),
+                payload.get("note"),
+                payload.get("intrinsics"),
+                payload.get("extrinsics"),
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise DatasetError(str(exc)) from exc
+        self.phase1_ground_truth = manifest
+        return self._phase1_ground_truth_summary()
+
+    def phase1_review_asset(
+        self, view: str, kind: str, label: str | None = None
+    ) -> Path:
+        manifest = self._reload_phase1_ground_truth()
+        if view not in PHASE1_VIEWS:
+            raise AssetNotFoundError(f"Unknown Phase 1 view: {view}")
+        record = manifest["views"][view]
+        if kind == "source":
+            candidate = record["source"]["path"]
+        elif kind == "proposal":
+            if label not in PHASE1_LABELS:
+                raise AssetNotFoundError(f"Unknown Phase 1 label: {label}")
+            candidate = record["proposals"][label]["path"]
+        elif kind == "review_sheet":
+            candidate = record["review_sheet"]
+        else:
+            raise AssetNotFoundError(f"Unknown Phase 1 review asset: {kind}")
+        return self._safe_path(self.repo_root / candidate)
+
     def _phase1_ground_truth_summary(self) -> dict[str, Any]:
         manifest = self.phase1_ground_truth
         gate = manifest.get("exit_gate", {})
@@ -352,6 +434,15 @@ class DatasetRepository:
                 ),
                 "physical_scale_missing": bool(
                     gate.get("physical_scale_missing", True)
+                ),
+                "physical_scale_required": bool(
+                    gate.get("physical_scale_required", True)
+                ),
+                "metric_scale_available": bool(
+                    gate.get("metric_scale_available", False)
+                ),
+                "image_ground_truth_complete": bool(
+                    gate.get("image_ground_truth_complete", False)
                 ),
                 "human_ground_truth_complete": bool(
                     gate.get("human_ground_truth_complete", False)

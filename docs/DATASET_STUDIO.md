@@ -1,6 +1,6 @@
 # Lalitha Studio — STL-1 Evidence Console
 
-Lalitha Studio is a lightweight, read-only Flask backend and browser interface for `dataset/STL-1`. It exposes retained evidence instead of recomputing the GPU pipeline during a web request.
+Lalitha Studio is a lightweight Flask evidence console for `dataset/STL-1` and the Ring01 Phase 1 review workspace. Artifact browsing is read-only; the only accepted write is an identified human review decision in the Phase 1 manifest. GPU inference is never run inside a web request.
 
 ## What it shows
 
@@ -12,6 +12,7 @@ Lalitha Studio is a lightweight, read-only Flask backend and browser interface f
 - Experimental Phase 3 visual-hull previews and validation metadata.
 - Direct downloads of each non-metric STL and 3MF artifact.
 - A portable per-object JSON evidence report.
+- Side-by-side Ring01 source/mask review with named decisions for labels, component identities and view semantics.
 
 The interface labels Phase 3 correctly: these are watertight research meshes at nominal display scale. The dataset has no calibrated cameras, physical dimensions, component ground truth or CAD targets, so the outputs are not manufacturing-validated CAD.
 
@@ -28,30 +29,24 @@ This interface follows `BASELINE ARCHITECTURE V1.0`:
 - Metric, camera, reviewed-component, exact-B-rep and manufacturing gates are shown as blocked when their required evidence is absent.
 - Every exported Studio report uses the final decision `research_only` and records which benchmark provenance fields are still missing.
 
-The Studio belongs to the Bible's local/deterministic deployment boundary. It reads evidence, reports provenance and exposes review state. It does not let a browser request run a GPU model, mutate accepted evidence or silently write inferred geometry into STEP.
+The Studio belongs to the Bible's local/deterministic deployment boundary. It reads evidence, reports provenance and exposes review state. It does not let a browser request run a GPU model, alter source images or silently write inferred geometry into STEP. It can update only the explicit review fields in the Ring01 Phase 1 manifest.
 
 The frozen development order remains:
 
 ```text
-source-control reproducibility → human and metric ground truth → camera/depth/normal benchmark → reviewed component and constraint graph → exact CAD generalization
+source-control reproducibility → human image-space ground truth → camera/depth/normal evidence → reviewed component and constraint graph → exact CAD generalization
 ```
 
 ## Run locally
 
-Arch's system Python currently includes Flask. From the repository root:
-
-```bash
-/usr/bin/python3 -m studio.app
-```
-
-Open <http://127.0.0.1:8501>.
-
-For another Python environment, install the small UI requirement first:
+From the repository root, use a Python environment with the small Studio requirement:
 
 ```bash
 python -m pip install -r requirements-studio.txt
 python -m studio.app
 ```
+
+Open <http://127.0.0.1:8501>.
 
 Optional settings:
 
@@ -65,14 +60,19 @@ Only bind to `0.0.0.0` on a trusted network. The current service has no authenti
 
 | Route | Purpose |
 | --- | --- |
-| `GET /api/health` | Dataset availability and read-only status |
+| `GET /api/health` | Dataset availability and the narrow write scope |
 | `GET /api/summary` | Dataset and phase-level metrics |
+| `GET /api/phase1/review` | Current Ring01 review manifest |
+| `GET /api/phase1/assets/<view>/<kind>` | Whitelisted source, proposal or review image |
+| `POST /api/phase1/reviews/label` | Record one named mask-label decision |
+| `POST /api/phase1/reviews/identity` | Record one named component-identity decision |
+| `POST /api/phase1/reviews/camera` | Record view semantics and camera uncertainty |
 | `GET /api/objects?split=test` | Object index with optional split filter |
 | `GET /api/objects/<object_id>` | Five-view metadata and phase evidence |
 | `GET /api/objects/<object_id>/assets/<kind>` | Whitelisted image or 3D artifact |
 | `GET /api/objects/<object_id>/report` | Downloadable evidence JSON |
 
-Asset paths are resolved against the repository root and only named artifact kinds are accepted. The service does not expose arbitrary filesystem paths and does not write to the dataset.
+Asset paths are resolved against the repository root and only named artifact kinds are accepted. The service does not expose arbitrary filesystem paths. Review writes are restricted to `data/ring01_ground_truth_v1/manifest.json` and require a reviewer name.
 
 ## Validate
 

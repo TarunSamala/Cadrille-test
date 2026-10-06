@@ -156,10 +156,11 @@ The reconstruction first aligns shared X, Y, and Z silhouette extents across ind
 
 ## Browse STL-1 in Lalitha Studio
 
-The Bible-aligned Flask interface reads the existing versioned evidence without starting a training or reconstruction job:
+The Bible-aligned Flask interface reads existing versioned evidence and records only explicit Phase 1 human-review decisions. It never starts training or reconstruction from a browser request:
 
 ```bash
-/usr/bin/python3 -m studio.app
+python -m pip install -r requirements-studio.txt
+python -m studio.app
 ```
 
 Then open `http://127.0.0.1:8501`. The UI includes all 24 five-view objects, Phase 1/2 evidence, experimental Phase 3 previews, Bible hard gates, non-metric STL/3MF downloads and per-object provenance reports. It classifies this dataset as Tier A and keeps the final decision at `research_only`.

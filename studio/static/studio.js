@@ -1,4 +1,4 @@
-const state = { summary: null, objects: [], selected: null, layer: "source" };
+const state = { summary: null, objects: [], selected: null, layer: "source", phase1Review: null };
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -20,8 +20,8 @@ function percent(value) {
   return typeof value === "number" ? `${(value * 100).toFixed(1)}%` : "—";
 }
 
-async function api(path) {
-  const response = await fetch(path);
+async function api(path, options = {}) {
+  const response = await fetch(path, options);
   const payload = await response.json().catch(() => ({}));
   if (!response.ok) throw new Error(payload.error || `Request failed (${response.status})`);
   return payload;
@@ -67,7 +67,7 @@ function renderSummary(summary) {
     <article class="metric"><span>Phase 1 gate</span><strong class="compact-value">${escapeHtml(humanize(gate.status))}</strong><small>Human GT complete: ${gate.human_ground_truth_complete ? "yes" : "no"}</small></article>
     <article class="metric"><span>Mask reviews pending</span><strong>${gate.pending_label_review_count}</strong><small>Five views · seven labels per view</small></article>
     <article class="metric"><span>Component IDs pending</span><strong>${gate.pending_component_identity_count}</strong><small>${groundTruth.component_count} stable identities proposed</small></article>
-    <article class="metric"><span>Scale and cameras</span><strong class="compact-value">${gate.physical_scale_missing ? "Scale missing" : "Scale recorded"}</strong><small>${gate.pending_camera_record_count} camera records pending</small></article>`;
+    <article class="metric"><span>Scale and cameras</span><strong class="compact-value">${gate.metric_scale_available ? "Metric scale recorded" : "Relative image scale"}</strong><small>${gate.pending_camera_record_count} view semantics pending · metric scale ${gate.physical_scale_required ? "required" : "optional"}</small></article>`;
   $("#phase1-authority").textContent = groundTruth.authority_policy;
   $("#phase1-depth-status").innerHTML = `
     <div class="key-value"><span>Model</span><strong>Depth Anything V2 Small</strong></div>
@@ -105,6 +105,73 @@ function renderSummary(summary) {
     <article class="metric"><span>Repeated depth runs</span><strong>${completeRuntime.repeat_count ?? "—"}</strong><small>All identical: ${completeChecks.all_three_repeats_identical ? "yes" : "no"}</small></article>
     <article class="metric"><span>Source reconstruction</span><strong class="compact-value">${reconstruction.source_pixel_roundtrip_exact ? "Pixel exact" : "Failed"}</strong><small>Normalized pixels retained: ${reconstruction.normalized_pixels_retained_exactly ? "yes" : "no"}</small></article>
     <article class="metric"><span>Front vertical depth delta</span><strong>${score(bias.raw?.mean, 4)}</strong><small>Flip ensemble: ${score(bias.regularized?.mean, 4)} · diagnostic, not correction</small></article>`;
+}
+
+const PHASE1_VIEWS = ["front", "side", "top", "angled", "back"];
+const PHASE1_LABELS = ["jewelry", "metal", "shank", "stone_visible", "setting", "prongs", "negative_space"];
+
+function phase1AssetUrl(view, kind, label = null) {
+  const query = label ? `?label=${encodeURIComponent(label)}` : "";
+  return `/api/phase1/assets/${encodeURIComponent(view)}/${encodeURIComponent(kind)}${query}`;
+}
+
+function selectedPhase1Review() {
+  const manifest = state.phase1Review;
+  if (!manifest) return;
+  const view = $("#phase1-review-view").value;
+  const label = $("#phase1-review-label").value;
+  const componentId = $("#phase1-component").value;
+  const cameraView = $("#phase1-camera-view").value;
+  $("#phase1-source-preview").src = phase1AssetUrl(view, "source");
+  $("#phase1-proposal-preview").src = phase1AssetUrl(view, "proposal", label);
+  const labelReview = manifest.views[view].reviews[label];
+  $("#phase1-label-current").textContent = `Current: ${humanize(labelReview.decision)}${labelReview.reviewer ? ` · ${labelReview.reviewer}` : ""}`;
+  const component = manifest.component_catalog.find((item) => item.component_id === componentId);
+  $("#phase1-component-current").textContent = `Current: ${humanize(component.review.decision)} · ${humanize(component.class)}`;
+  const camera = manifest.camera_records[cameraView];
+  $("#phase1-camera-current").textContent = `Current: ${humanize(camera.review.decision)} · ${humanize(camera.projection_model)}`;
+}
+
+function renderPhase1Review(manifest) {
+  state.phase1Review = manifest;
+  const populate = (selector, values, labeler = humanize) => {
+    const select = $(selector);
+    const previous = select.value;
+    select.innerHTML = values.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(labeler(value))}</option>`).join("");
+    if (values.includes(previous)) select.value = previous;
+  };
+  populate("#phase1-review-view", PHASE1_VIEWS);
+  populate("#phase1-camera-view", PHASE1_VIEWS);
+  populate("#phase1-review-label", PHASE1_LABELS);
+  populate("#phase1-component", manifest.component_catalog.map((item) => item.component_id), (value) => value);
+  const gate = manifest.exit_gate;
+  const pending = gate.pending_label_reviews.length + gate.pending_component_identities.length + gate.pending_camera_records.length;
+  const status = $("#phase1-review-status");
+  status.textContent = gate.status === "pass" ? "Image GT complete" : `${pending} reviews pending`;
+  status.className = `pill ${gate.status === "pass" ? "pass" : "warning"}`;
+  selectedPhase1Review();
+}
+
+async function loadPhase1Review() {
+  renderPhase1Review(await api("/api/phase1/review"));
+}
+
+function phase1ReviewerPayload() {
+  const reviewer = $("#phase1-reviewer").value.trim();
+  if (!reviewer) throw new Error("Enter the reviewer name before recording a decision.");
+  return { reviewer, note: $("#phase1-review-note").value.trim() || null };
+}
+
+async function submitPhase1(path, payload) {
+  clearError();
+  await api(path, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  state.summary = await api("/api/summary");
+  renderSummary(state.summary);
+  await loadPhase1Review();
 }
 
 function renderObjectList() {
@@ -282,6 +349,36 @@ async function loadObjects(split = "all", preferredId = null) {
 }
 
 function bindControls() {
+  ["#phase1-review-view", "#phase1-review-label", "#phase1-component", "#phase1-camera-view"].forEach((selector) => {
+    $(selector).addEventListener("change", selectedPhase1Review);
+  });
+  $$(".phase1-label-decision").forEach((button) => button.addEventListener("click", () => {
+    const common = phase1ReviewerPayload();
+    submitPhase1("/api/phase1/reviews/label", {
+      ...common,
+      view: $("#phase1-review-view").value,
+      label: $("#phase1-review-label").value,
+      decision: button.dataset.decision,
+    }).catch(showError);
+  }));
+  $$(".phase1-identity-decision").forEach((button) => button.addEventListener("click", () => {
+    const common = phase1ReviewerPayload();
+    submitPhase1("/api/phase1/reviews/identity", {
+      ...common,
+      component_id: $("#phase1-component").value,
+      decision: button.dataset.decision,
+    }).catch(showError);
+  }));
+  $$(".phase1-camera-decision").forEach((button) => button.addEventListener("click", () => {
+    const common = phase1ReviewerPayload();
+    submitPhase1("/api/phase1/reviews/camera", {
+      ...common,
+      view: $("#phase1-camera-view").value,
+      projection_model: $("#phase1-projection").value,
+      uncertainty: $("#phase1-camera-uncertainty").value.trim(),
+      decision: button.dataset.decision,
+    }).catch(showError);
+  }));
   $("#split-filter").addEventListener("change", (event) => loadObjects(event.target.value).catch(showError));
   $$("#layer-switcher button").forEach((button) => button.addEventListener("click", () => {
     state.layer = button.dataset.layer;
@@ -299,6 +396,7 @@ async function start() {
   try {
     state.summary = await api("/api/summary");
     renderSummary(state.summary);
+    await loadPhase1Review();
     await loadObjects("all", "ring_001");
   } catch (error) { showError(error); }
 }

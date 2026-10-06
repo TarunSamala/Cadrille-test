@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import hashlib
+from copy import deepcopy
 import json
 import re
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -37,9 +39,65 @@ class Phase1GroundTruthBibleTest(unittest.TestCase):
         self.assertEqual(gate["status"], "blocked")
         self.assertFalse(gate["human_ground_truth_complete"])
         self.assertTrue(gate["physical_scale_missing"])
+        self.assertFalse(gate["physical_scale_required"])
+        self.assertFalse(gate["metric_scale_available"])
+        self.assertEqual(
+            self.manifest["physical_scale"]["mode"], "relative_image_coordinates"
+        )
         self.assertEqual(len(gate["pending_label_reviews"]), 35)
         self.assertEqual(len(gate["pending_component_identities"]), 7)
         self.assertEqual(len(gate["pending_camera_records"]), 5)
+
+    def test_image_only_scale_does_not_block_reviewed_image_ground_truth(self) -> None:
+        from pipeline.phase1_review import refresh_gate
+
+        manifest = deepcopy(self.manifest)
+        for record in manifest["views"].values():
+            for review in record["reviews"].values():
+                review["decision"] = "approved"
+        for item in manifest["component_catalog"]:
+            item["review"]["decision"] = "approved"
+        for record in manifest["camera_records"].values():
+            record["review"]["decision"] = "approved"
+        refresh_gate(manifest)
+        self.assertEqual(manifest["exit_gate"]["status"], "pass")
+        self.assertTrue(manifest["exit_gate"]["image_ground_truth_complete"])
+        self.assertFalse(manifest["exit_gate"]["metric_scale_available"])
+        self.assertTrue(manifest["exit_gate"]["physical_scale_missing"])
+
+    def test_review_operation_requires_identity_and_persists_decision(self) -> None:
+        from pipeline.phase1_review import apply_label_review
+
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            workspace = root / "data" / "ring01_ground_truth_v1"
+            workspace.mkdir(parents=True)
+            (workspace / "manifest.json").write_text(
+                json.dumps(deepcopy(self.manifest)), encoding="utf-8"
+            )
+            with self.assertRaises(ValueError):
+                apply_label_review(
+                    root, "front", "prongs", "approved", "   ", None
+                )
+            updated = apply_label_review(
+                root,
+                "front",
+                "prongs",
+                "needs_correction",
+                "Phase 1 test reviewer",
+                "Fourth prong boundary needs correction",
+            )
+            review = updated["views"]["front"]["reviews"]["prongs"]
+            self.assertEqual(review["decision"], "needs_correction")
+            self.assertEqual(review["reviewer"], "Phase 1 test reviewer")
+            self.assertIsNotNone(review["reviewed_at_utc"])
+            persisted = json.loads(
+                (workspace / "manifest.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(
+                persisted["views"]["front"]["reviews"]["prongs"]["decision"],
+                "needs_correction",
+            )
 
     def test_all_five_views_have_binary_review_proposals(self) -> None:
         self.assertEqual(

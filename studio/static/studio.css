@@ -76,6 +76,23 @@ h3 { margin-bottom: 16px; font-size: 16px; }
 .phase1-authority-banner { margin-bottom: 13px; }
 .phase1-evidence-grid { grid-template-columns: 1fr 1fr; }
 .depth-status { margin-top: 14px; }
+.review-console { margin-bottom: 13px; }
+.review-layout { display: grid; grid-template-columns: 1.25fr .75fr; gap: 18px; margin-top: 18px; }
+.review-block { padding: 15px; border: 1px solid var(--line); border-radius: 10px; background: #091319; }
+.review-block h4 { margin: 0 0 12px; font-size: 12px; }
+.review-block h4:not(:first-child) { margin-top: 22px; }
+.review-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.reviewer-fields { margin-top: 14px; }
+.review-console label { display: grid; gap: 6px; color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.review-console input, .review-console select { width: 100%; min-height: 38px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 7px; color: var(--text); background: var(--panel-2); font: 12px inherit; text-transform: none; }
+.review-preview { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.review-preview figure { margin: 0; }
+.review-preview img { width: 100%; aspect-ratio: 1 / 1; object-fit: contain; border-radius: 7px; background: #eef0f1; }
+.review-preview figcaption { padding-top: 5px; color: var(--muted); font-size: 9px; text-align: center; text-transform: uppercase; }
+.review-current { min-height: 18px; margin: 10px 0; color: var(--accent-2); font-size: 10px; }
+.review-actions { display: flex; flex-wrap: wrap; gap: 7px; }
+.review-actions button { cursor: pointer; }
+
 .limit-list { margin: 0; padding-left: 18px; color: var(--muted); font-size: 11px; line-height: 1.65; }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
 .authority-card { margin-top: 13px; border-color: #65502b; }
@@ -156,11 +173,11 @@ footer { max-width: 1480px; margin: 40px auto 0; padding-top: 20px; border-top: 
   .topbar { align-items: start; flex-direction: column; }
   .baseline-actions { justify-content: flex-start; }
   .metric-grid { grid-template-columns: repeat(2, 1fr); }
-  .two-column, .metadata-layout { grid-template-columns: 1fr; }
+  .two-column, .metadata-layout, .review-layout { grid-template-columns: 1fr; }
   .toolbar { align-items: flex-start; flex-direction: column; }
 }
 @media (max-width: 560px) {
   .view-grid { grid-template-columns: 1fr; }
   .metric-grid { grid-template-columns: 1fr; }
-  .download-stack { grid-template-columns: 1fr; }
+  .download-stack, .review-fields, .review-preview { grid-template-columns: 1fr; }
 }

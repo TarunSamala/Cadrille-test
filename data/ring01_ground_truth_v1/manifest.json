@@ -1,10 +1,10 @@
 {
-  "schema_version": "lalitha_phase1_ground_truth_v1",
+  "schema_version": "lalitha_phase1_image_ground_truth_v1_1",
   "phase": "Phase 1 - Ground-Truth Ring01",
   "object_id": "ring01",
   "status": "human_review_required",
   "created_at_utc": "2026-10-05T02:46:52.155670+00:00",
-  "updated_at_utc": "2026-10-05T02:55:59.211963+00:00",
+  "updated_at_utc": "2026-10-06T10:24:15.384010+00:00",
   "source_commit": null,
   "proposal_source": "data/ring01_phase2_refined/phase2_refined.json",
   "authority_policy": "All masks, negative spaces and depth maps remain machine proposals until an identified human reviewer approves them.",
@@ -660,13 +660,17 @@
     }
   ],
   "physical_scale": {
-    "status": "missing",
+    "status": "image_only_relative",
     "measurements": [],
     "required_examples": [
       "inner ring diameter in mm",
       "known gemstone diameter in mm",
       "calibration target visible in the capture"
-    ]
+    ],
+    "mode": "relative_image_coordinates",
+    "metric_available": false,
+    "required_for_phase1_exit": false,
+    "limitation": "No known physical dimension is present in the supplied images; millimetre scale cannot be inferred honestly."
   },
   "camera_records": {
     "front": {
@@ -794,7 +798,10 @@
       "back"
     ],
     "physical_scale_missing": true,
+    "physical_scale_required": false,
+    "metric_scale_available": false,
     "unresolved_conflicts": [],
+    "image_ground_truth_complete": false,
     "human_ground_truth_complete": false
   },
   "depth_anything_v2": {

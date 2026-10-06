@@ -32,13 +32,41 @@ def create_app(repo_root: str | Path | None = None) -> Flask:
                 "status": "ok",
                 "dataset": "STL-1",
                 "objects": len(repository.records),
-                "read_only": True,
+                "read_only": False,
+                "write_scope": "phase1_review_decisions_only",
             }
         )
 
     @app.get("/api/summary")
     def summary():
         return jsonify(repository.summary())
+
+    @app.get("/api/phase1/review")
+    def phase1_review():
+        return jsonify(repository.phase1_review_manifest())
+
+    @app.get("/api/phase1/assets/<view>/<kind>")
+    def phase1_asset(view: str, kind: str):
+        return send_file(
+            repository.phase1_review_asset(view, kind, request.args.get("label")),
+            conditional=True,
+        )
+
+    @app.post("/api/phase1/reviews/label")
+    def phase1_label_review():
+        return jsonify(repository.review_phase1_label(request.get_json(silent=True) or {}))
+
+    @app.post("/api/phase1/reviews/identity")
+    def phase1_identity_review():
+        return jsonify(
+            repository.review_phase1_identity(request.get_json(silent=True) or {})
+        )
+
+    @app.post("/api/phase1/reviews/camera")
+    def phase1_camera_review():
+        return jsonify(
+            repository.review_phase1_camera(request.get_json(silent=True) or {})
+        )
 
     @app.get("/api/objects")
     def objects():
