@@ -12,43 +12,79 @@
     "Dockerfile.cadrille": "f0096ab41ae5f9f939ace346a01f26d3a271218cff9d00678ecc064ba902f829",
     "Dockerfile.validation": "d3e3d1e681d779ffd73532fcd96dea72fdb201331c6e0377821b4550afb165dd",
     "constraints-validation.txt": "3c51e5dd3648fd68591df6ca6856b327e7fadc7c837cdc67b7bc6ee5c8db527c",
+    "docker/geometry-benchmark/Dockerfile.colmap": "365ddbec668f8513af69939d91de23660329e088b09e3ca8b66a51e285b6f117",
+    "docker/geometry-benchmark/Dockerfile.vggt": "62e459a83bd79b59cc71e9d28e6ac41de645b6834c94ef8a1a8e43dfb6312cc0",
+    "docker/geometry-benchmark/constraints.vggt.txt": "265e696da4503d5889756714a2b3e3426f02fd42d932ff2dfcf2df5843c97059",
     "requirements-app.txt": "d7d8134a229abb267a28a59f632404423cb737a4f55f1fabc4af4fd02168541c",
     "requirements-phase1.txt": "2b1391cb97242585c56a6db1d0eeba8458ba3c35f6a2520c72585251c963354b",
     "requirements-phase2.txt": "b78b606b366c87db0f13bb350f1c41b3e0d11907181675796b621c4cb52d74e4",
     "requirements-studio.txt": "e9eae9074f097c101b125118dcd281694b2df5425064ab983bb2ca54cf50bea3",
     "requirements-validation.txt": "6af10d158f7f15572e41b4855e56c90becda43248fc21bcc79f287c2d5992403"
   },
-  "generated_at_utc": "2026-10-05T02:29:01.189467+00:00",
+  "generated_at_utc": "2026-10-06T09:54:51.155903+00:00",
+  "gpu_validation": {
+    "command": "docker run --rm --gpus all image2cad-validation:phase0 python CUDA_SMOKE_TEST",
+    "cuda_visible_in_validation_container": true,
+    "device_count": 1,
+    "result": "passed"
+  },
   "known_limits": [
-    "The freeze validates software on CPU because the host NVIDIA driver was unavailable.",
-    "GPU execution and peak VRAM remain a separate pending reproducibility gate.",
+    "CUDA availability is validated; model-specific peak VRAM and numerical accuracy remain separate benchmark concerns.",
+    "The 4 GiB GPU does not satisfy the conservative 8 GiB VGGT execution gate.",
+    "No VGGT checkpoint is bundled or downloaded automatically.",
     "Package license fields are metadata-derived and require legal review.",
     "STL-1 has no human masks, calibrated cameras, physical scale, component truth, or CAD targets."
   ],
   "regression": {
     "command": "PYTHONPATH=pipeline python -m unittest discover -s tests -v",
     "result": "passed",
-    "test_count": 104
+    "test_count": 130
+  },
+  "research_runtime_images": {
+    "colmap": {
+      "image_id": "sha256:773aa38134c9a51b76eeb4295a0f4d11e25365b9b7b39e2d2e124871c19358e7",
+      "image_name": "image2cad-geometry-colmap:4.2.1",
+      "pycolmap_version": "4.2.1"
+    },
+    "vggt": {
+      "checkpoint_bundled": false,
+      "code_commit": "a288dd0f14786c93483e45524328726ab7b1b4ce",
+      "image_id": "sha256:4465c251b49ef47c07f220413e13737a75dc8c1a037936676aa9c21e9a8ba424",
+      "image_name": "image2cad-geometry-vggt:a288dd0"
+    }
   },
   "runtime": {
     "architecture": "x86_64",
     "cpu_count": 16,
     "installed_python_distribution_count": 147,
-    "memory_total_bytes": 16446271488,
+    "memory_total_bytes": 16446267392,
+    "nvidia": {
+      "available": true,
+      "devices": [
+        {
+          "driver_version": "615.71.09",
+          "memory_total_mib": 4096,
+          "name": "NVIDIA GeForce RTX 3050 Laptop GPU"
+        }
+      ]
+    },
     "platform": "Linux-7.2.8-arch1-2-x86_64-with-glibc2.35",
     "python": "3.11.10 | packaged by conda-forge | (main, Oct 16 2024, 01:27:36) [GCC 13.3.0]",
     "torch": {
       "compiled_cuda": "12.4",
-      "cuda_available": false,
-      "gpu_names": [],
+      "cuda_available": true,
+      "gpu_count": 1,
+      "gpu_names": [
+        "NVIDIA GeForce RTX 3050 Laptop GPU"
+      ],
       "version": "2.5.1+cu124"
     }
   },
   "schema_version": "lalitha_phase0_environment_v1",
   "source": {
-    "baseline_tag": "baseline-v1.0",
+    "baseline_tag": "baseline-v1.1",
     "canonical_branch": "main",
-    "commit": "1102257276e3460cce61c8dc1594b8e86f739282",
+    "commit": "9cd88c81c92824792a4cf2996885eeb1b3b426dd",
     "remote": "https://github.com/TarunSamala/Image2CAD.git",
     "working_tree_clean_at_generation": true
   }
