@@ -1,0 +1,23 @@
+FROM pytorch/pytorch:2.3.1-cuda12.1-cudnn8-runtime@sha256:fc47f8018254e6df30f48c48f2db1c758d44de21a8c553de1a1c451a65baa70a
+
+ARG VGGT_COMMIT=a288dd0f14786c93483e45524328726ab7b1b4ce
+ARG PYCOLMAP_VERSION=4.2.1
+
+COPY docker/geometry-benchmark/constraints.vggt.txt /tmp/constraints.vggt.txt
+
+RUN apt-get update \
+    && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends git ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://github.com/facebookresearch/vggt.git /opt/vggt \
+    && git -C /opt/vggt checkout "${VGGT_COMMIT}" \
+    && python -m pip install --no-cache-dir \
+        -c /tmp/constraints.vggt.txt -r /opt/vggt/requirements.txt \
+    && python -m pip install --no-cache-dir \
+        -c /tmp/constraints.vggt.txt "pycolmap==${PYCOLMAP_VERSION}"
+
+ENV PYTHONPATH=/opt/vggt:/workspace
+WORKDIR /workspace
+
+LABEL org.opencontainers.image.title="Image2CAD VGGT geometry benchmark"
+LABEL org.opencontainers.image.description="Pinned VGGT code environment; model checkpoints are supplied separately"

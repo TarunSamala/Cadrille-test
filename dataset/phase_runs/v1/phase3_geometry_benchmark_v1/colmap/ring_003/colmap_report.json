@@ -1,0 +1,64 @@
+{
+  "object_id": "ring_003",
+  "split": "train",
+  "backend": "colmap_pycolmap",
+  "backend_version": "4.2.1",
+  "status": "completed_without_verified_matches",
+  "authority": "machine_hypothesis",
+  "metric": false,
+  "cross_view_validated": false,
+  "camera_calibrated_against_truth": false,
+  "image_count": 5,
+  "input_images": [
+    {
+      "view": "front",
+      "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/front.png",
+      "sha256": "b458e11bddf23f799656d138080a3b458b339137db3de5ba432555335e7272af"
+    },
+    {
+      "view": "top",
+      "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/top.png",
+      "sha256": "4253b9d67c2a28db8355167945f0906b3880b4dfeda9a5ed74c72e8482192e74"
+    },
+    {
+      "view": "iso",
+      "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/iso.png",
+      "sha256": "f41802defd47204c4f5c79ac53cc87df2daae9eb0838b5e1ae68fb2ea5f2f276"
+    },
+    {
+      "view": "lsv",
+      "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/lsv.png",
+      "sha256": "a68acdf43070bd481feaf691e7cdc36dce646466a7695658dbfbdd4c6608d846"
+    },
+    {
+      "view": "rsv",
+      "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/rsv.png",
+      "sha256": "115d336e8cf2ef1e5bcb075f8d9dee22a8aa4059d32fa2bbb75e3be3dad7b2a8"
+    }
+  ],
+  "database": {
+    "images_records": 5,
+    "keypoints_records": 5,
+    "keypoints_rows": 4982,
+    "keypoints_nonempty_records": 5,
+    "descriptors_records": 5,
+    "descriptors_rows": 4982,
+    "descriptors_nonempty_records": 5,
+    "matches_records": 10,
+    "matches_rows": 0,
+    "matches_nonempty_records": 0,
+    "two_view_geometries_records": 10,
+    "two_view_geometries_rows": 0,
+    "two_view_geometries_nonempty_records": 0
+  },
+  "elapsed_seconds": 1.6223,
+  "prerequisite_blockers": [
+    "human_reviewed_image_truth_missing",
+    "known_physical_dimension_missing",
+    "calibrated_camera_truth_missing",
+    "paired_cad_or_scan_truth_missing"
+  ],
+  "decision": "research_only",
+  "sparse_model": null,
+  "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/colmap_report.json"
+}

@@ -1,0 +1,9 @@
+FROM image2cad-validation:phase0
+
+ARG PYCOLMAP_VERSION=4.2.1
+
+RUN python -m pip install --no-cache-dir "pycolmap==${PYCOLMAP_VERSION}"
+
+LABEL org.opencontainers.image.title="Image2CAD COLMAP geometry benchmark"
+LABEL org.opencontainers.image.description="Pinned PyCOLMAP environment for Phase 3/B2 camera and sparse geometry evidence"
+

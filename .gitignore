@@ -32,6 +32,15 @@ models/*.pt
 dataset/phase_runs/v1/phase1_complete_features_v1/bundles/
 dataset/phase_runs/v1/phase1_complete_features_v1/source_roundtrip/
 
+# Reproducible Phase 3/B2 backend workspaces. Compact JSON evidence remains versioned.
+dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/*/images/
+dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/*/database.db
+dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/*/sparse/
+dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/*/*_sparse_points.ply
+dataset/phase_runs/v1/phase3_geometry_benchmark_v1/vggt/*/*.npz
+models/vggt/
+third_party/vggt/
+
 # Local environment and secrets
 .env
 .env.*

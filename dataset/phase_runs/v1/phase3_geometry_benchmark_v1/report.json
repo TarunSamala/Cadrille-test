@@ -1,0 +1,1616 @@
+{
+  "schema_version": "phase3_geometry_benchmark_v1",
+  "stage": "phase3_b2_camera_and_geometry_evidence",
+  "created_at": "2026-10-05T23:14:15.571477+00:00",
+  "code_commit": "e2fd7e72a71cb34aa53e8b61cb576aa23aa766fc",
+  "dataset": "STL-1",
+  "selected_object_count": 24,
+  "selected_view_count": 120,
+  "backends": {
+    "colmap": {
+      "status": "available",
+      "version": "4.2.1",
+      "device": "cpu"
+    },
+    "vggt": {
+      "backend": "vggt",
+      "status": "blocked",
+      "authority": "machine_hypothesis",
+      "metric": false,
+      "cross_view_validated": false,
+      "pinned_code_commit": "a288dd0f14786c93483e45524328726ab7b1b4ce",
+      "checkpoint": null,
+      "checkpoint_license_id": null,
+      "noncommercial_research_override": false,
+      "code_available": true,
+      "runtime": {
+        "torch_version": "2.3.1",
+        "cuda_available": true,
+        "gpu_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+        "gpu_free_bytes": 3662151680,
+        "gpu_total_bytes": 4007591936
+      },
+      "blockers": [
+        "checkpoint_licence_not_approved_for_requested_use",
+        "gpu_memory_below_conservative_8_gib_probe_gate",
+        "local_checkpoint_not_supplied"
+      ]
+    }
+  },
+  "colmap": {
+    "objects": [
+      {
+        "object_id": "ring_001",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_001/images/front.png",
+            "sha256": "958e32f547d19aa55756153690927306c1c60562fb8fdf72a24dfa4ae0bcb51b"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_001/images/top.png",
+            "sha256": "70a65e7a2dff0f0306f5d7ae764e24015508c114903b94d769db3356f3679d98"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_001/images/iso.png",
+            "sha256": "779a812333c1832eac0d6b2cfce23bd695c151f0b9be3dd4a4e1ff7725309863"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_001/images/lsv.png",
+            "sha256": "07bc65ac68158ca9bf03bede6faa5459950fc6713b8bf3edfaa885726e389741"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_001/images/rsv.png",
+            "sha256": "8708130bfb6710ce44d565aba6a28f366a7bd448da3ccf0dcdfa6e14934c3cd2"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 7830,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 7830,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 2.0863,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_001/colmap_report.json"
+      },
+      {
+        "object_id": "ring_002",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_002/images/front.png",
+            "sha256": "5dd7cda09f2635217cbe4aea6174953622e795408b6814b8601134f0ec4c6606"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_002/images/top.png",
+            "sha256": "9481e10ad60b82fe965170fb0d2a391c0309fbe2c20f93fad948e680d5a62ddc"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_002/images/iso.png",
+            "sha256": "0027d2733e90bf0aaae4d1199273c456194b57a340f5c9a6e4b12d5e2bba96b4"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_002/images/lsv.png",
+            "sha256": "58620d50df90d7aa519d2270c81ebf9a0c5fd1c69c7701154027f12c4d810e9b"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_002/images/rsv.png",
+            "sha256": "05b2931e52bf33fe4810306733d4b2a1920e8ded51591e2ae9ff05d969873431"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 5408,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 5408,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7198,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_002/colmap_report.json"
+      },
+      {
+        "object_id": "ring_003",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/front.png",
+            "sha256": "b458e11bddf23f799656d138080a3b458b339137db3de5ba432555335e7272af"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/top.png",
+            "sha256": "4253b9d67c2a28db8355167945f0906b3880b4dfeda9a5ed74c72e8482192e74"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/iso.png",
+            "sha256": "f41802defd47204c4f5c79ac53cc87df2daae9eb0838b5e1ae68fb2ea5f2f276"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/lsv.png",
+            "sha256": "a68acdf43070bd481feaf691e7cdc36dce646466a7695658dbfbdd4c6608d846"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/images/rsv.png",
+            "sha256": "115d336e8cf2ef1e5bcb075f8d9dee22a8aa4059d32fa2bbb75e3be3dad7b2a8"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 4982,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 4982,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.6223,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_003/colmap_report.json"
+      },
+      {
+        "object_id": "ring_004",
+        "split": "val",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_004/images/front.png",
+            "sha256": "028fc8d1e7eea4a4d3ed507a4fb9a9dc78b5a94a7c863a91639d5e6dc95c3e30"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_004/images/top.png",
+            "sha256": "ddf4c248bf394d310d51de018d8b71d20f8d62f68f3aeb85842ebcd32ff18612"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_004/images/iso.png",
+            "sha256": "30753c14902b55caaf5216bd42c4e3fbc2213b93ac104627c39facb50d03dd4f"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_004/images/lsv.png",
+            "sha256": "1316e5e81c1747778ada5691c9b5a30ed84e6855f2adfd089f41ecae5338bad7"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_004/images/rsv.png",
+            "sha256": "cb663aee7952a44d9435a18ffb15b7aaff74d83a252e6c820c36ccc6edaa3c0b"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6701,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6701,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.826,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_004/colmap_report.json"
+      },
+      {
+        "object_id": "ring_005",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_005/images/front.png",
+            "sha256": "152c537f2fcdd1040cb1e0a9da4f9910c78d8c9c243b4c5cea20c64750cdacc5"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_005/images/top.png",
+            "sha256": "ce94eaf047d6d314a077263bb06827e17d449df10b9a53378a122a72ebff3e0f"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_005/images/iso.png",
+            "sha256": "bc40926663acf1a326557f13913b9e4972d2b21c48d7bbe6246225fe402785df"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_005/images/lsv.png",
+            "sha256": "1a39c4de508699a360e2ecad3cebcb991053a649931e41db6a865ea99b88ba2f"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_005/images/rsv.png",
+            "sha256": "ddf423a2989b2282c9d1ced53c490b426bf2115835e6276ad850677f9043de52"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 5236,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 5236,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7611,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_005/colmap_report.json"
+      },
+      {
+        "object_id": "ring_006",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_006/images/front.png",
+            "sha256": "87013c0216b4106192ca6277d4e02247f9701ab6c8e8bd7c495b393c8f6bac59"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_006/images/top.png",
+            "sha256": "fbec01b8d6aaff28e4a612f75dbed6c9868ffd157e0a9e93d3271ef3ccf8aded"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_006/images/iso.png",
+            "sha256": "f52218818739e8e6682794dcf38599e50403b7a40cab22f5e85535e0c5a2ddad"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_006/images/lsv.png",
+            "sha256": "ad6f750c0128d8f42693d60ef0a9e1307f4fd7614ef52a219aace90c2ef28766"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_006/images/rsv.png",
+            "sha256": "3ea5d8ba70b3b7e61e652e2df2e421c7b38ae188199210ba558bd0d6a0834f3b"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6188,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6188,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 16,
+          "matches_nonempty_records": 1,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.8268,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_006/colmap_report.json"
+      },
+      {
+        "object_id": "ring_007",
+        "split": "test",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_007/images/front.png",
+            "sha256": "7edef361ed397f71181811a750d380806be98229d1f61bf5c59c99df23a55aa5"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_007/images/top.png",
+            "sha256": "f1f548faf56deda463975344713d6901c98f596bbe72dabc8882cb51c2b17460"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_007/images/iso.png",
+            "sha256": "238f6793bdefeeeff3e6f42e34bba308c5346f2369a162ac90db6e818acca210"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_007/images/lsv.png",
+            "sha256": "5054e1ad301c88eaa1d9750d150f31a1d8d81b7978b487c910d6da93149ca7e3"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_007/images/rsv.png",
+            "sha256": "41f705eab9ee7042510f14ec5991861fed2ae0ded2778e440715c5b928bb143d"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6696,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6696,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7762,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_007/colmap_report.json"
+      },
+      {
+        "object_id": "ring_008",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_008/images/front.png",
+            "sha256": "3750d312b2860fb99d588ac4b5cfd22dabefb12714dc828d75915716248697eb"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_008/images/top.png",
+            "sha256": "909d737ce4281c330589d5ee885e10113dab9e75d3c4cebee8a605fd97ba88e1"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_008/images/iso.png",
+            "sha256": "0e62fb5e945698fd6385ff6bba3e8b3c49b417c74094cddec24357114ffba80b"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_008/images/lsv.png",
+            "sha256": "7c6ec1a18420f8ebe652bda2634d746d53fcdb6eebb47618c74f8398a6e084e6"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_008/images/rsv.png",
+            "sha256": "150bf01ab8ee887d6e2b48fc7c1c1e4bf489e77355a6d60593a9e34d18b3dce6"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6770,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6770,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.8715,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_008/colmap_report.json"
+      },
+      {
+        "object_id": "ring_009",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_009/images/front.png",
+            "sha256": "8b6d1d847080297c91baaad4399f2fa32331546ffd4c8493bf29c040a6b9a301"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_009/images/top.png",
+            "sha256": "5e285180280068881346b2a40e4cb412b6abfe813355f0e070d3391c46a48010"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_009/images/iso.png",
+            "sha256": "3314e05d22dc3c735df381e1e6d595790fc4cf2c0590d8697224ec9c0c7ed6b3"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_009/images/lsv.png",
+            "sha256": "3774dff4803b8f3e500e401f1c7e1e3e28bd1b4c5de250bc966251665d52e520"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_009/images/rsv.png",
+            "sha256": "efb5e3f44194b92607d7d7ae860fccc8c1d48fcbee4ee46918687c8c0c7a6ccd"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 5560,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 5560,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7211,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_009/colmap_report.json"
+      },
+      {
+        "object_id": "ring_010",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_010/images/front.png",
+            "sha256": "85fef708df474464e5094eb7e47aa2b3a28476b0d489f81e6b509ead2e795127"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_010/images/top.png",
+            "sha256": "3bfb90713ed7a1bef17115ddbd98a9e83a1e0a31bd470dc4650ee56504499c2a"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_010/images/iso.png",
+            "sha256": "d35d70a4d94ea38fb806da3416e02e47214f39270f4785fe3d3bd71557b6dda9"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_010/images/lsv.png",
+            "sha256": "8243ab1e234c5b52dd574a8a76847f15a9295dda40e48a3415df6fddf79e210c"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_010/images/rsv.png",
+            "sha256": "a2c3c6aa4a132b7f6ad1d200a00e32ba076226b2cb5bd6bf6dededd1d4049758"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 5549,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 5549,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7203,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_010/colmap_report.json"
+      },
+      {
+        "object_id": "ring_011",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_011/images/front.png",
+            "sha256": "04d1a7687ec9e1f2dacb00d38930767fb879b4898bc924543ca240d360ad2d98"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_011/images/top.png",
+            "sha256": "919f6372f5ac3e6f64c0186c47dc4f5bc7e7cca0c1f331088ce0c2fe6c76b030"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_011/images/iso.png",
+            "sha256": "e0275cff3acdd5a494278623af8b8c930cc5885bf50c33038b31c91a9227140d"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_011/images/lsv.png",
+            "sha256": "400ecbb3a0e9cbaa1a296ac71e84ec56325e5d378618c4caff9b1ebe2586d41f"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_011/images/rsv.png",
+            "sha256": "7258f1107961c83304d628e5b2690ba347698a88b8ca09bfb1a670f7a340b2d2"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6050,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6050,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.8764,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_011/colmap_report.json"
+      },
+      {
+        "object_id": "ring_012",
+        "split": "val",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_012/images/front.png",
+            "sha256": "82377caca685fa1911c2bcf714272470def597a3a12ebafd61466804297e4e1f"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_012/images/top.png",
+            "sha256": "f4b5e524aaf776884facee27fb9abb298d5aa8aa3a78f870dd9b3753104b28de"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_012/images/iso.png",
+            "sha256": "638ffd4ea458eb4838a27036951e72c95fa900add1a2e8504d478429257e9ad6"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_012/images/lsv.png",
+            "sha256": "d9d743f1aefdebfc652a4e29c457f28fea6befe343d90c5428f1d75941e5f594"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_012/images/rsv.png",
+            "sha256": "4f77a49c13789c84e7cd1dc06845037002c4355f087990181e607bc48f9226d0"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6155,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6155,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7729,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_012/colmap_report.json"
+      },
+      {
+        "object_id": "ring_013",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_013/images/front.png",
+            "sha256": "f2e88d57a15addf26f56ef98ba033a770f19acc8ff45384603da1615b59b417f"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_013/images/top.png",
+            "sha256": "2ab6708d6bf53e07f3a3a37c0ed9b57fe212961a3a617b99621684b5e2d5bd37"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_013/images/iso.png",
+            "sha256": "0a7e14aacab0f145f0d65a35f2f7b42b16dcd2c1749257d5ba66b60365869222"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_013/images/lsv.png",
+            "sha256": "75fb018e28c06f56f243072811292f9a4aca6f3037221c527852b99c793b4922"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_013/images/rsv.png",
+            "sha256": "46ae24ebb05848971d3e1f8b345bb6c5059e9d15778b65ee3caa49f50fb15dfa"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 4819,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 4819,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7289,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_013/colmap_report.json"
+      },
+      {
+        "object_id": "ring_014",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_014/images/front.png",
+            "sha256": "6a4b8fb5812ca1230366700927e0f67a5cdf4205f39fdceaf3e46ff28f85d5aa"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_014/images/top.png",
+            "sha256": "60759f4ffafc2a9f47a91b024b912962d7216c313a95628ba7d5ce865e29409b"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_014/images/iso.png",
+            "sha256": "d6bc0bd96fe51801ec0efb6357c5a6cccea644d46094765383d52b2e1b230342"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_014/images/lsv.png",
+            "sha256": "c8ed08ded5ac453e9d4e79a62ef871e77c2697a97bb18e2a8547976f3329bff0"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_014/images/rsv.png",
+            "sha256": "42207168a95febbe666aef152259102d70eaa1fa128c7febda34f2b94c91f1d2"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 5528,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 5528,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7738,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_014/colmap_report.json"
+      },
+      {
+        "object_id": "ring_015",
+        "split": "test",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_015/images/front.png",
+            "sha256": "f2acce4d5a08117c6f5d47ff84220a229f712c911920da7e710dd3c1a873e4dd"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_015/images/top.png",
+            "sha256": "08a8a3f9460b76f9437e5061e832c848d35d0e35f4802f7cb880cf69c1160e08"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_015/images/iso.png",
+            "sha256": "d651171f32907c8e5463df100f565f0e0da08bdfcbfc14210db930353b608d7b"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_015/images/lsv.png",
+            "sha256": "1a2f63187681c35a9403712cca3ea28300121702e91bf0261130b769a4daae9c"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_015/images/rsv.png",
+            "sha256": "2425004168f3e1885902bd76cfe2814cb6f1c2adfd897607a09185016745c681"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 5749,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 5749,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.677,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_015/colmap_report.json"
+      },
+      {
+        "object_id": "ring_016",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_016/images/front.png",
+            "sha256": "b4380447633886bef4407eee86f6794e3f7d4ef0588eacbba1e6ea8a893a3c1b"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_016/images/top.png",
+            "sha256": "60fde6798fdd1611fdc9cc212b42593f31bbd5e956eb3df94e6db1ade3a45454"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_016/images/iso.png",
+            "sha256": "07cb27bea2091c65ddd04756845ba62d9457153b28358d9ee537e016678aff64"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_016/images/lsv.png",
+            "sha256": "f02330c4bfc13049ff6754176ba286e2d5c02d4dc696f2bf33f5656597fd8221"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_016/images/rsv.png",
+            "sha256": "94edcad83fb4239cf5fdbe2b78c3adb4a855d3a829f9e8df87ae4b45495d9968"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 5571,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 5571,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7264,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_016/colmap_report.json"
+      },
+      {
+        "object_id": "ring_017",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_017/images/front.png",
+            "sha256": "2232e135cf691bca264072da453df1da2775d318f3ef19cdc65e16d902e69f1c"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_017/images/top.png",
+            "sha256": "2a78afe091488ce2bd97a1cc5eb7a5c59dc3a5ab3ce42bac579afe5a8afea6f9"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_017/images/iso.png",
+            "sha256": "9b0b65574b5791dd1f33b9adf7f3c827bd0d25db4f49b93936dd02f8ceb031c7"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_017/images/lsv.png",
+            "sha256": "87c3c6e1df0fbf94b55cc05709ced983d08af8fab0c53ceb2c2766a6fc04e1bf"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_017/images/rsv.png",
+            "sha256": "7ab51d764246699937f6cf33803670653a0efd99e31a5922fc3d13c8dbcd1c3f"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6548,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6548,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7722,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_017/colmap_report.json"
+      },
+      {
+        "object_id": "ring_018",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_018/images/front.png",
+            "sha256": "71fcbd25523dfa78386daf61ba26d851ce60fceebeba24707a2eab1f0d50e90f"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_018/images/top.png",
+            "sha256": "50c9a9e2224e6078c45055fab20ad7760ee7c1436b546762d8767313f05ab6ab"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_018/images/iso.png",
+            "sha256": "8c82132f754a01127a7badec743d7b78be0c5966dba8963e889c265ec955c630"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_018/images/lsv.png",
+            "sha256": "4819497e317deb79e1e8a766424389ac97b671fecea08a725287924d8244fc6e"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_018/images/rsv.png",
+            "sha256": "5f547518d168ba879ee2fa0cada1135a0cda3063ba5bf7ab45b0bc9e6ae69b7b"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6645,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6645,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.8257,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_018/colmap_report.json"
+      },
+      {
+        "object_id": "ring_019",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_019/images/front.png",
+            "sha256": "544a2102b22da44c4ed4b981704cc304b7ef1d6e8263beda4795d103de4f8b39"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_019/images/top.png",
+            "sha256": "0c035c8a9e7aa59fdef1f6772335d39b9314704ce0d7ffc7e1afbbc0b95bdc8a"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_019/images/iso.png",
+            "sha256": "409a5e23d0c923a849fe5c4bcdb7790c4e5a6059b17e1bb889441814e19138ee"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_019/images/lsv.png",
+            "sha256": "5414b86fab5cf475d2aa71f690b14910516aff7cfc50a4540584072f7b76d7d1"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_019/images/rsv.png",
+            "sha256": "4883c0a4d85c98e7b658fff3b592ea87c366c68c334de4783467b49b88701fd1"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 3966,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 3966,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7217,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_019/colmap_report.json"
+      },
+      {
+        "object_id": "ring_020",
+        "split": "val",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_020/images/front.png",
+            "sha256": "a52aa4043b16b2077c31baba17396b85342c4518a2dafb919f51e8c3d7bafc3c"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_020/images/top.png",
+            "sha256": "f8cb2a537fe9dbcafa47a3d0c596979ed65e8e32ba2e4a2d4de8a0d61fad4113"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_020/images/iso.png",
+            "sha256": "fd7b907853bd5ed2af74e4491b759b5eb281778b9adb40a71083efc18aa1a508"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_020/images/lsv.png",
+            "sha256": "db4524303a1188ef0ed7f08eeacbf05b84a9b3674fd1719b44b7e985f39da057"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_020/images/rsv.png",
+            "sha256": "7abe0b0492e33b90aaa5d97e62e6ed1013d56f6ea356843b969c8dd59d503a99"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 4986,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 4986,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 15,
+          "matches_nonempty_records": 1,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7245,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_020/colmap_report.json"
+      },
+      {
+        "object_id": "ring_021",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_021/images/front.png",
+            "sha256": "826d1d9db9af599cadc96b5a5aab0615869050dff075403681f4ee917b5226b1"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_021/images/top.png",
+            "sha256": "28e76a5e74ca820bec512da45d8e6dff4b8be10cf7be61bc76110da3fc75fcfb"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_021/images/iso.png",
+            "sha256": "6d5ecf3a2aa70debc6db7093d5143ea0ca34bd15b972467b6ca9fdb69ce6a70c"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_021/images/lsv.png",
+            "sha256": "fde0eb40e6a43e2d12d31c3ed11f8f302ff9585055457c6159405be03344d6b3"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_021/images/rsv.png",
+            "sha256": "4d8d5ef12271c7128933b74fa99b737fe0c5d689ff26326b12e125fae8b2a8ff"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 4998,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 4998,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.6701,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_021/colmap_report.json"
+      },
+      {
+        "object_id": "ring_022",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_022/images/front.png",
+            "sha256": "60ce3f059d5c687c5154a0cd071f390e9208037be55c02a3a4649de87a47903c"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_022/images/top.png",
+            "sha256": "bd16e6a90f52a42c9826f88f3b864e93fd0b9922679094fb3409daa57db9b79e"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_022/images/iso.png",
+            "sha256": "a2a28f926bbe48f093f76e1cc2f07a8de2c06c1cacb9154d2f86b0c494376bfe"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_022/images/lsv.png",
+            "sha256": "ab6513dce3f85be19744933e1ca066103e417a72bf222121cd712d739895ba5a"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_022/images/rsv.png",
+            "sha256": "79b360d29af0ef73b7b042710411cb3871a1114ce9281be922c0eb81acb7964e"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 6013,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 6013,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7223,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_022/colmap_report.json"
+      },
+      {
+        "object_id": "ring_023",
+        "split": "test",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_023/images/front.png",
+            "sha256": "722c144d93c12bf4c74ddc59ce0e1bc938247be8661e2f0ffd6e03630dfd0153"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_023/images/top.png",
+            "sha256": "920413b16187ee73d045ab2d069f975e5981afafa95113ae8a3fd573098eb9af"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_023/images/iso.png",
+            "sha256": "a901b45e66235dc8c9cc9501c4b4a5417059e0bde0ab2edf8d133f82481fcd7b"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_023/images/lsv.png",
+            "sha256": "d03343a0aeea62fb0457555591fd69fe76ea698e8bcc58385925bcfcd06c6f13"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_023/images/rsv.png",
+            "sha256": "cf40b0d9533cb073cfdd2888d6717d58f9598cf81b77195c6cfe28013610c3e5"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 5431,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 5431,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.7199,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_023/colmap_report.json"
+      },
+      {
+        "object_id": "ring_024",
+        "split": "train",
+        "backend": "colmap_pycolmap",
+        "backend_version": "4.2.1",
+        "status": "completed_without_verified_matches",
+        "authority": "machine_hypothesis",
+        "metric": false,
+        "cross_view_validated": false,
+        "camera_calibrated_against_truth": false,
+        "image_count": 5,
+        "input_images": [
+          {
+            "view": "front",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_024/images/front.png",
+            "sha256": "8ceabe5494876db84d92e10c892e831aea05b5e205cf10380d8912db095c7e11"
+          },
+          {
+            "view": "top",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_024/images/top.png",
+            "sha256": "1682aa18f58a5f1df624b2e944b48e640da5b3fc308a28cdb1d6aea335390d33"
+          },
+          {
+            "view": "iso",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_024/images/iso.png",
+            "sha256": "c101c412d85e30de3bf41c9f2b2b70a251174cfd001109e76da68bf81f7637fe"
+          },
+          {
+            "view": "lsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_024/images/lsv.png",
+            "sha256": "610b8c4a36be2d388819e06cb132584be506ac1881cf85c91b9cd5f8c99c8e67"
+          },
+          {
+            "view": "rsv",
+            "path": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_024/images/rsv.png",
+            "sha256": "c5215c22a973fee6e4a331c1694c0212dc9ab921e18bb9c0d04b8e4ec83497a9"
+          }
+        ],
+        "database": {
+          "images_records": 5,
+          "keypoints_records": 5,
+          "keypoints_rows": 3093,
+          "keypoints_nonempty_records": 5,
+          "descriptors_records": 5,
+          "descriptors_rows": 3093,
+          "descriptors_nonempty_records": 5,
+          "matches_records": 10,
+          "matches_rows": 0,
+          "matches_nonempty_records": 0,
+          "two_view_geometries_records": 10,
+          "two_view_geometries_rows": 0,
+          "two_view_geometries_nonempty_records": 0
+        },
+        "elapsed_seconds": 1.5742,
+        "prerequisite_blockers": [
+          "human_reviewed_image_truth_missing",
+          "known_physical_dimension_missing",
+          "calibrated_camera_truth_missing",
+          "paired_cad_or_scan_truth_missing"
+        ],
+        "decision": "research_only",
+        "sparse_model": null,
+        "report": "dataset/phase_runs/v1/phase3_geometry_benchmark_v1/colmap/ring_024/colmap_report.json"
+      }
+    ],
+    "completed_sparse_model_count": 0,
+    "database_totals": {
+      "images_records": 120,
+      "keypoints_records": 120,
+      "keypoints_rows": 136472,
+      "matches_records": 240,
+      "matches_rows": 31,
+      "two_view_geometries_records": 240,
+      "matches_nonempty_records": 2,
+      "two_view_geometries_rows": 0,
+      "two_view_geometries_nonempty_records": 0
+    },
+    "registered_all_five_views_count": 0
+  },
+  "vggt": {
+    "objects": []
+  },
+  "bible_gate": {
+    "phase": "Phase 3 - camera and geometry evidence benchmark",
+    "benchmark": "B2",
+    "status": "research_only_blocked_from_promotion",
+    "blockers": [
+      "human_reviewed_image_truth_missing",
+      "known_physical_dimension_missing",
+      "calibrated_camera_truth_missing",
+      "paired_cad_or_scan_truth_missing"
+    ],
+    "next_after_reviewed_b2": "Phase 4 - universal component and constraint graph"
+  },
+  "claims": {
+    "camera_pose_accuracy_validated": false,
+    "metric_depth_validated": false,
+    "geometry_accuracy_validated": false,
+    "manufacturing_accuracy_validated": false
+  },
+  "elapsed_seconds": 47.3267,
+  "decision": "research_only"
+}

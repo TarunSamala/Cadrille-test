@@ -19,6 +19,7 @@ pinned.
 
 ```bash
 docker run --rm \
+  --gpus all \
   -v "$PWD:/workspace:ro" \
   -w /workspace \
   image2cad-validation:phase0
@@ -31,6 +32,7 @@ canonical source or checked-in artifacts.
 
 ```bash
 docker run --rm \
+  --gpus all \
   -v "$PWD:/workspace:ro" \
   -v "$PWD/docs/reproducibility:/output" \
   -w /workspace \
@@ -39,8 +41,10 @@ docker run --rm \
     --repo-root /workspace \
     --output-dir /output \
     --image-id IMAGE_ID \
+    --colmap-image-id COLMAP_IMAGE_ID \
+    --vggt-image-id VGGT_IMAGE_ID \
     --source-commit SOURCE_COMMIT \
-    --working-tree-clean false \
+    --working-tree-clean true \
     --test-result passed \
     --test-count TEST_COUNT
 ```
@@ -49,6 +53,10 @@ The source commit and working-tree state are passed explicitly because the
 minimal validation image does not install Git. The dependency/license file is
 an engineering inventory generated from installed package metadata. It is not
 legal approval.
+
+The GPU gate proves that the host driver and CUDA are visible inside the pinned
+validation image. It does not imply that every research model fits in VRAM or
+that a model checkpoint has been approved for commercial use.
 
 ## Evidence files
 

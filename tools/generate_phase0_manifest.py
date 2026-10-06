@@ -34,6 +34,9 @@ ENVIRONMENT_FILES = (
     "Dockerfile.cadrille",
     "Dockerfile.validation",
     "constraints-validation.txt",
+    "docker/geometry-benchmark/Dockerfile.colmap",
+    "docker/geometry-benchmark/Dockerfile.vggt",
+    "docker/geometry-benchmark/constraints.vggt.txt",
     *REQUIREMENT_FILES,
 )
 
@@ -151,9 +154,32 @@ def torch_state() -> dict[str, Any]:
             "gpu_names": [
                 torch.cuda.get_device_name(index) for index in range(torch.cuda.device_count())
             ],
+            "gpu_count": torch.cuda.device_count(),
         }
     except ImportError:
         return {"available": False}
+
+
+def nvidia_state() -> dict[str, Any]:
+    output = command(
+        "nvidia-smi",
+        "--query-gpu=name,driver_version,memory.total",
+        "--format=csv,noheader,nounits",
+    )
+    if not output:
+        return {"available": False, "devices": []}
+    devices = []
+    for line in output.splitlines():
+        values = [value.strip() for value in line.split(",")]
+        if len(values) == 3:
+            devices.append(
+                {
+                    "name": values[0],
+                    "driver_version": values[1],
+                    "memory_total_mib": int(values[2]),
+                }
+            )
+    return {"available": bool(devices), "devices": devices}
 
 
 def environment_manifest(root: Path, arguments: argparse.Namespace, package_count: int) -> dict[str, Any]:
@@ -170,6 +196,9 @@ def environment_manifest(root: Path, arguments: argparse.Namespace, package_coun
         for name in ENVIRONMENT_FILES
         if (root / name).is_file()
     }
+    torch = torch_state()
+    nvidia = nvidia_state()
+    gpu_passed = bool(torch.get("cuda_available")) and nvidia["available"]
     return {
         "schema_version": "lalitha_phase0_environment_v1",
         "generated_at_utc": datetime.now(timezone.utc).isoformat(),
@@ -187,14 +216,34 @@ def environment_manifest(root: Path, arguments: argparse.Namespace, package_coun
             "base_image": "pytorch/pytorch:2.5.1-cuda12.4-cudnn9-runtime",
             "base_digest": "sha256:c8268a92a69bd500f8be0e665b2630ee006dadaf7bfbc24249141b15ff622755",
         },
+        "research_runtime_images": {
+            "colmap": {
+                "image_name": "image2cad-geometry-colmap:4.2.1",
+                "image_id": arguments.colmap_image_id,
+                "pycolmap_version": "4.2.1",
+            },
+            "vggt": {
+                "image_name": "image2cad-geometry-vggt:a288dd0",
+                "image_id": arguments.vggt_image_id,
+                "code_commit": "a288dd0f14786c93483e45524328726ab7b1b4ce",
+                "checkpoint_bundled": False,
+            },
+        },
         "runtime": {
             "python": sys.version,
             "platform": platform.platform(),
             "architecture": platform.machine(),
             "cpu_count": os.cpu_count(),
             "memory_total_bytes": memory_total_bytes(),
-            "torch": torch_state(),
+            "torch": torch,
+            "nvidia": nvidia,
             "installed_python_distribution_count": package_count,
+        },
+        "gpu_validation": {
+            "result": "passed" if gpu_passed else "failed",
+            "command": "docker run --rm --gpus all image2cad-validation:phase0 python CUDA_SMOKE_TEST",
+            "cuda_visible_in_validation_container": bool(torch.get("cuda_available")),
+            "device_count": int(torch.get("gpu_count", 0)),
         },
         "regression": {
             "command": arguments.test_command,
@@ -203,8 +252,9 @@ def environment_manifest(root: Path, arguments: argparse.Namespace, package_coun
         },
         "environment_file_sha256": tracked_hashes,
         "known_limits": [
-            "The freeze validates software on CPU because the host NVIDIA driver was unavailable.",
-            "GPU execution and peak VRAM remain a separate pending reproducibility gate.",
+            "CUDA availability is validated; model-specific peak VRAM and numerical accuracy remain separate benchmark concerns.",
+            "The 4 GiB GPU does not satisfy the conservative 8 GiB VGGT execution gate.",
+            "No VGGT checkpoint is bundled or downloaded automatically.",
             "Package license fields are metadata-derived and require legal review.",
             "STL-1 has no human masks, calibrated cameras, physical scale, component truth, or CAD targets.",
         ],
@@ -217,6 +267,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--image-name", default="image2cad-validation:phase0")
     parser.add_argument("--image-id", default="unknown")
+    parser.add_argument("--colmap-image-id", default="unknown")
+    parser.add_argument("--vggt-image-id", default="unknown")
     parser.add_argument("--baseline-tag", default="baseline-v1.0")
     parser.add_argument(
         "--source-commit",

@@ -52,12 +52,23 @@ class Phase0ReproducibilityTest(unittest.TestCase):
         self.assertEqual(environment["source"]["canonical_branch"], "main")
         self.assertEqual(environment["regression"]["result"], "passed")
         self.assertGreaterEqual(environment["regression"]["test_count"], 98)
+        self.assertEqual(environment["gpu_validation"]["result"], "passed")
+        self.assertTrue(environment["runtime"]["torch"]["cuda_available"])
+        self.assertGreaterEqual(environment["gpu_validation"]["device_count"], 1)
+        self.assertRegex(
+            environment["research_runtime_images"]["colmap"]["image_id"],
+            r"^sha256:[0-9a-f]{64}$",
+        )
+        self.assertRegex(
+            environment["research_runtime_images"]["vggt"]["image_id"],
+            r"^sha256:[0-9a-f]{64}$",
+        )
         self.assertGreater(licenses["package_count"], 20)
         self.assertIn("legal review", licenses["legal_status"])
 
     def test_phase0_report_does_not_overclaim_completion(self) -> None:
         report = (self.root / "docs" / "reproducibility" / "PHASE0_STATUS.md").read_text()
-        self.assertIn("GPU reproducibility | PENDING", report)
+        self.assertIn("GPU reproducibility | PASS", report)
         self.assertIn("LFS migration | DEFERRED", report)
         self.assertNotIn("manufacturing-ready", report.lower())
 

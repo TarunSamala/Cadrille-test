@@ -80,6 +80,10 @@ class DatasetStudioServiceTest(unittest.TestCase):
                 "metric_depth_available"
             ]
         )
+        geometry = summary["phase3"]["geometry_benchmark"]
+        self.assertEqual(geometry["selected_object_count"], 24)
+        self.assertEqual(geometry["backends"]["colmap"]["version"], "4.2.1")
+        self.assertEqual(geometry["backends"]["vggt"]["status"], "blocked")
 
     def test_object_filters_preserve_object_level_splits(self) -> None:
         self.assertEqual(len(self.repository.list_objects("train")), 18)
@@ -100,6 +104,10 @@ class DatasetStudioServiceTest(unittest.TestCase):
             self.assertTrue(detail["artifacts"]["phase3_preview"])
             self.assertTrue(detail["artifacts"]["phase3_stl"])
             self.assertTrue(detail["artifacts"]["phase3_3mf"])
+            self.assertTrue(detail["artifacts"]["colmap_report"])
+            self.assertEqual(
+                detail["geometry_evidence"]["authority"], "machine_hypothesis"
+            )
             for view in VIEW_ORDER:
                 self.assertTrue(all(detail["artifacts"]["views"][view].values()))
                 self.assertEqual(
@@ -213,6 +221,8 @@ class DatasetStudioApiTest(unittest.TestCase):
             'data-layer="depth_transform_uncertainty"',
             'data-layer="depth_overlay"',
             'id="phase1-complete-audit"',
+            'id="phase3-geometry"',
+            'id="phase3-geometry-report"',
             'id="feature-rows"',
             'id="depth-rows"',
         ):

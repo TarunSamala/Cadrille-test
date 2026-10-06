@@ -56,6 +56,9 @@ class DatasetRepository:
         self.phase3_report = self._read_json(
             self.phase_root / "phase3" / "visual_hull" / "phase3_batch_report.json"
         )
+        self.phase3_geometry = self._read_json(
+            self.phase_root / "phase3_geometry_benchmark_v1" / "report.json"
+        )
         self.phase1_features = self._read_json(self.phase_root / "phase1_features.json")
         self.phase1_depth = self._read_json(
             self.phase_root / "phase1_depth_anything_v2" / "report.json"
@@ -101,6 +104,10 @@ class DatasetRepository:
         self._phase2_metrics = self._index_phase2_metrics()
         self._phase3_objects = {
             item["object_id"]: item for item in self.phase3_report.get("objects", [])
+        }
+        self._phase3_geometry_objects = {
+            item["object_id"]: item
+            for item in self.phase3_geometry.get("colmap", {}).get("objects", [])
         }
         self._validate_index()
 
@@ -299,6 +306,28 @@ class DatasetRepository:
                 ),
                 "artifact_authority": "derived research mesh; no authoritative STEP",
                 "decision": "research_only",
+                "geometry_benchmark": {
+                    "stage": self.phase3_geometry.get("stage"),
+                    "selected_object_count": self.phase3_geometry.get(
+                        "selected_object_count", 0
+                    ),
+                    "colmap": {
+                        "completed_sparse_model_count": self.phase3_geometry
+                        .get("colmap", {})
+                        .get("completed_sparse_model_count", 0),
+                        "registered_all_five_views_count": self.phase3_geometry
+                        .get("colmap", {})
+                        .get("registered_all_five_views_count", 0),
+                        "database_totals": deepcopy(
+                            self.phase3_geometry
+                            .get("colmap", {})
+                            .get("database_totals", {})
+                        ),
+                    },
+                    "backends": deepcopy(self.phase3_geometry.get("backends", {})),
+                    "bible_gate": deepcopy(self.phase3_geometry.get("bible_gate", {})),
+                    "claims": deepcopy(self.phase3_geometry.get("claims", {})),
+                },
             },
             "limitations": deepcopy(self.dataset_report.get("limitations", [])),
         }
@@ -405,6 +434,7 @@ class DatasetRepository:
         phase1_complete = self._phase1_complete_by_object.get(object_id, {})
         phase2 = self._phase2_metrics.get(object_id, {})
         phase3 = deepcopy(self._phase3_objects.get(object_id))
+        geometry_evidence = deepcopy(self._phase3_geometry_objects.get(object_id))
         views: dict[str, Any] = {}
         for view in VIEW_ORDER:
             metadata = record["views"][view]
@@ -454,6 +484,7 @@ class DatasetRepository:
             "views": views,
             "view_order": list(VIEW_ORDER),
             "phase3": phase3,
+            "geometry_evidence": geometry_evidence,
             "complete_phase1": {
                 "status": phase1_complete.get("status"),
                 "audit_sheet": phase1_complete.get("audit_sheet"),
@@ -504,6 +535,16 @@ class DatasetRepository:
                         "evidence_class": "PROVEN-IN-PROJECT",
                         "state": "inferred",
                     },
+                    {
+                        "stage": "COLMAP camera and sparse-geometry baseline",
+                        "evidence_class": "PROVEN-IN-PROJECT",
+                        "state": "measured_no_verified_cross_view_matches",
+                    },
+                    {
+                        "stage": "VGGT camera and dense-geometry adapter",
+                        "evidence_class": "PROVEN-IN-PROJECT",
+                        "state": "blocked_missing_approved_checkpoint_and_hardware_gate",
+                    },
                 ],
                 "gates": {
                     "human_reviewed_image_truth": False,
@@ -551,6 +592,7 @@ class DatasetRepository:
             "phase3_preview": self._asset_exists(object_id, "phase3_preview"),
             "phase3_stl": self._asset_exists(object_id, "phase3_stl"),
             "phase3_3mf": self._asset_exists(object_id, "phase3_3mf"),
+            "colmap_report": self._asset_exists(object_id, "colmap_report"),
             "held_out_review": self._asset_exists(object_id, "held_out_review"),
         }
 
@@ -635,6 +677,14 @@ class DatasetRepository:
                     f"Complete Phase 1 audit is unavailable for {object_id}"
                 )
             return self._safe_path(path)
+        if kind == "colmap_report":
+            geometry = self._phase3_geometry_objects.get(object_id, {})
+            path = geometry.get("report")
+            if not path:
+                raise AssetNotFoundError(
+                    f"COLMAP evidence is unavailable for {object_id}"
+                )
+            return self._safe_path(path)
 
         phase3 = self._phase3_objects.get(object_id)
         if not phase3:
@@ -690,6 +740,9 @@ class DatasetRepository:
             "dataset_complete_phase1_report": self.phase_root
             / "phase1_complete_features_v1"
             / "report.json",
+            "phase3_geometry_report": self.phase_root
+            / "phase3_geometry_benchmark_v1"
+            / "report.json",
             "ring01_depth_validation_report": self.repo_root
             / "data"
             / "ring01_ground_truth_v1"
@@ -728,6 +781,13 @@ class DatasetRepository:
             "phase2_pseudo_label_self_consistency_measured": True,
             "phase2_human_ground_truth_accuracy_validated": False,
             "phase3_experimental_non_metric": True,
+            "phase3_colmap_baseline_executed": bool(
+                detail.get("geometry_evidence")
+            ),
+            "phase3_camera_pose_accuracy_validated": False,
+            "phase3_vggt_executed": bool(
+                self.phase3_geometry.get("vggt", {}).get("objects")
+            ),
             "metric_reconstruction_validated": False,
             "manufacturing_accuracy_validated": False,
         }

@@ -208,6 +208,17 @@ function renderPhase3(detail) {
   const phase3 = detail.phase3;
   const preview = $("#phase3-preview");
   const metrics = $("#phase3-metrics");
+  const geometry = detail.geometry_evidence || {};
+  const database = geometry.database || {};
+  const globalGeometry = state.summary?.phase3?.geometry_benchmark || {};
+  const vggt = globalGeometry.backends?.vggt || {};
+  $("#phase3-geometry").innerHTML = `
+    <div class="key-value"><span>COLMAP object status</span><strong class="${geometry.status === "completed_with_sparse_model" ? "good" : "bad"}">${escapeHtml(humanize(geometry.status || "not run"))}</strong></div>
+    <div class="key-value"><span>SIFT keypoints</span><strong>${database.keypoints_rows?.toLocaleString() ?? "—"}</strong></div>
+    <div class="key-value"><span>Verified cross-view pairs</span><strong class="${database.two_view_geometries_nonempty_records ? "good" : "bad"}">${database.two_view_geometries_nonempty_records ?? "—"}</strong></div>
+    <div class="key-value"><span>Sparse reconstruction</span><strong class="${geometry.sparse_model ? "good" : "bad"}">${geometry.sparse_model ? `${geometry.sparse_model.registered_images} / 5 views` : "Not formed"}</strong></div>
+    <div class="key-value"><span>VGGT</span><strong class="${vggt.status === "ready" ? "good" : "bad"}">${escapeHtml(humanize(vggt.status || "not run"))}</strong></div>
+    <div class="key-value"><span>Bible gate</span><strong class="bad">Research only</strong></div>`;
   if (!phase3) {
     preview.removeAttribute("src");
     metrics.innerHTML = "<p>No experimental Phase 3 artifact is available.</p>";
