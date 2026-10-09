@@ -44,7 +44,12 @@ class Phase0ReproducibilityTest(unittest.TestCase):
         )
 
     def test_generated_manifests_are_present_and_scoped(self) -> None:
-        output = self.root / "docs" / "reproducibility"
+        output = (
+            self.root
+            / "docs"
+            / "bible_implementation"
+            / "phase_0_reproducibility"
+        )
         environment = json.loads((output / "environment_manifest.json").read_text())
         licenses = json.loads((output / "dependency_license_manifest.json").read_text())
         self.assertEqual(environment["bible_phase"], "Phase 0 - Reproducibility Freeze")
@@ -67,7 +72,13 @@ class Phase0ReproducibilityTest(unittest.TestCase):
         self.assertIn("legal review", licenses["legal_status"])
 
     def test_phase0_report_does_not_overclaim_completion(self) -> None:
-        report = (self.root / "docs" / "reproducibility" / "PHASE0_STATUS.md").read_text()
+        report = (
+            self.root
+            / "docs"
+            / "bible_implementation"
+            / "phase_0_reproducibility"
+            / "PHASE0_STATUS.md"
+        ).read_text()
         self.assertIn("GPU reproducibility | PASS", report)
         self.assertIn("LFS migration | DEFERRED", report)
         self.assertNotIn("manufacturing-ready", report.lower())

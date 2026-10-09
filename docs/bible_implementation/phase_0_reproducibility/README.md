@@ -34,7 +34,7 @@ canonical source or checked-in artifacts.
 docker run --rm \
   --gpus all \
   -v "$PWD:/workspace:ro" \
-  -v "$PWD/docs/reproducibility:/output" \
+  -v "$PWD/docs/bible_implementation/phase_0_reproducibility:/output" \
   -w /workspace \
   image2cad-validation:phase0 \
   python tools/generate_phase0_manifest.py \

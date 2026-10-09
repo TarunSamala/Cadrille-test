@@ -18,7 +18,7 @@ The authoritative state is
 `data/ring01_ground_truth_v1/manifest.json`.
 
 The pixel-level feature contract and repeated depth validation are documented
-in `docs/phase1_ring01/FULL_FEATURE_EXTRACTION.md`.
+in `docs/bible_implementation/phase_1_ground_truth/ring01/FULL_FEATURE_EXTRACTION.md`.
 
 ## Why Depth Anything V2 is included
 

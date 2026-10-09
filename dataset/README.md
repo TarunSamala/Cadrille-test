@@ -40,15 +40,35 @@ The source contains no STL/STEP/3DM mesh, CadQuery program, physical dimensions,
 
 The loader rejects `require_cad_target=True` so this image-only set cannot accidentally be presented as supervised image-to-CAD training data. It is suitable for multi-view representation learning, vision preprocessing, pseudo-label experiments, and qualitative reconstruction tests.
 
-## Dataset phase experiment
+## Canonical Bible Phase 2 dataset
 
-The versioned `phase_runs/v1` experiment uses a 66,229-parameter U-Net that fits within the 4 GB laptop GPU:
+`paired_cad_v1/` is a separate, currently empty registry for the real paired
+benchmark. Objects are accepted there only when they contain 8–12 guided
+images, production STEP, physical measurements, a component graph and legal
+provenance. STL-1 is not automatically promoted into that registry.
 
-- Phase 1 extracts deterministic silhouette, edge, contour, hole, occupancy, and symmetry measurements for all 120 views.
-- Phase 2 trains whole-jewellery foreground segmentation on 18 rings.
-- Phase 2.2 selects the threshold on 3 validation rings and tests it once on 3 unseen rings.
+Validate it with:
+
+```bash
+PYTHONPATH=pipeline python pipeline/bible_phase_2_paired_benchmark.py
+```
+
+## Legacy-numbered dataset experiment
+
+The versioned `phase_runs/v1` experiment predates the Project Bible phase
+definitions. Its directory names are preserved for provenance. It uses a
+66,229-parameter U-Net that fits within the 4 GB laptop GPU:
+
+- Legacy Phase 1 extracts deterministic silhouette, edge, contour, hole, occupancy, and symmetry measurements for all 120 views.
+- Legacy Phase 2 trains whole-jewellery foreground segmentation on 18 rings.
+- Legacy Phase 2.2 selects the threshold on 3 validation rings and tests it once on 3 unseen rings.
 - The held-out pseudo-silhouette result is IoU `0.977586`, Dice `0.988646`, and boundary F1 `0.999753`.
-- Phase 3 and later dataset training are blocked because this source has no paired CAD, cameras, scale, or component-instance truth.
+- Legacy Phase 3 and later dataset training are blocked because this source has no paired CAD, cameras, scale, or component-instance truth.
+
+The evidence under `phase_runs/v1/phase1_human_review_v1/` is the current
+Bible Phase 1 review manifest. The machine proposals above feed that review,
+but do not become human ground truth automatically. STL-1 cannot satisfy Bible
+Phase 2 because it has no paired production CAD or metric dimensions.
 
 Green areas in the test review sheets are target/prediction agreement. Blue and grey fringes show disagreement. These metrics measure reproduction of the prepared pseudo-masks, not manufacturing accuracy or performance on real jewellery photographs.
 
@@ -76,8 +96,8 @@ docker run --rm --gpus all --user "$(id -u):$(id -g)" \
   'PYTHONPATH=pipeline python pipeline/build_dataset_phase_audits.py --device cuda'
 ```
 
-The output contains one all-phase sheet and five detailed view audits per ring. Reference, Phase 1, Phase 2, and Phase 2.2 columns contain real dataset artifacts. Phase 3 through Phase 3.3.2 are visibly marked as not generated because this dataset contains no paired CAD, calibrated scale, cameras, or component-instance ground truth.
+The output contains one all-phase sheet and five detailed view audits per ring. Reference, legacy Phase 1, legacy Phase 2, and legacy Phase 2.2 columns contain real dataset artifacts. Legacy Phase 3 through Phase 3.3.2 are visibly marked as not generated because this dataset contains no paired CAD, calibrated scale, cameras, or component-instance ground truth.
 
-## Experimental Phase 3 exports
+## Experimental legacy Phase 3 exports
 
 `phase_runs/v1/phase3/visual_hull/` contains one STL, one 3MF, one comparison image, and one validation report for each of the 24 rings. Shared-axis scale alignment improves cross-view consistency, but the files remain non-metric visual hulls. Do not use their nominal 3MF display size for jewellery manufacturing.

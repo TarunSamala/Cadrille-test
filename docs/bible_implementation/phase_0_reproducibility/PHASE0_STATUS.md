@@ -3,7 +3,7 @@
 Status: **COMPLETE — CPU/SOFTWARE/GPU REPRODUCIBILITY VALIDATED**
 
 This freeze follows
-`docs/lalitha_project_bible_v1_0/19_DEVELOPMENT_ROADMAP.md` and benchmark
+`docs/bible_v1_0/19_DEVELOPMENT_ROADMAP.md` and benchmark
 gate B0. It establishes a repeatable CPU/software baseline. It does not change
 the accuracy status of any reconstruction result.
 

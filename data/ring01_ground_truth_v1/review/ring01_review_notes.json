@@ -1,0 +1,29 @@
+{
+  "schema_version": "lalitha_ring01_visual_review_notes_v1",
+  "object_id": "ring01",
+  "recorded_on": "2026-10-09",
+  "authority": "user_reported_visual_observation",
+  "review_scope": "General visual inspection; not a label-by-label Phase 1 ground-truth sign-off.",
+  "overall_observation": "Everything appears visually acceptable except the inner reflections of Ring01.",
+  "open_issues": [
+    {
+      "issue_id": "ring01-inner-reflection-001",
+      "region": "inner_shank_surface",
+      "phenomenon": "specular_reflection",
+      "affected_views": "not_specified",
+      "status": "correction_proposed_pending_human_review",
+      "risk": [
+        "metal boundary contamination",
+        "negative-space contamination",
+        "relative-depth bias"
+      ],
+      "correction": {
+        "report": "data/ring01_image_only/reflection_correction_v1/report.json",
+        "audit": "data/ring01_image_only/reflection_correction_v1/ring01_angled_reflection_audit.png",
+        "authority": "topology_informed_machine_proposal"
+      },
+      "required_action": "Inspect the corrected angled-view proposal before accepting or rejecting the reflection-sensitive evidence."
+    }
+  ],
+  "gate_effect": "Phase 1 remains blocked; the proposed correction does not approve pending masks, identities or cameras."
+}

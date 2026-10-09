@@ -23,7 +23,7 @@ The initial registry contains these relevant model families:
 
 “All models” means all relevant, reproducible models admitted to the versioned registry. It cannot mean every repository using the phrase image-to-3D. A candidate is excluded until its official source, checkpoint, input contract and license can be identified.
 
-The registry is [models.json](../benchmarks/2d_to_3d/models.json). It contains no executable shell commands. This prevents a downloaded or edited registry from becoming an arbitrary command-execution mechanism.
+The registry is [models.json](../../benchmarks/2d_to_3d/models.json). It contains no executable shell commands. This prevents a downloaded or edited registry from becoming an arbitrary command-execution mechanism.
 
 ## Why the models are isolated
 

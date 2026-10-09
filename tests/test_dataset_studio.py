@@ -86,6 +86,21 @@ class DatasetStudioServiceTest(unittest.TestCase):
         self.assertEqual(stl1_review["gate"]["evidence_review_count"], 840)
         self.assertEqual(stl1_review["gate"]["pending_evidence_count"], 840)
         self.assertEqual(stl1_review["gate"]["pending_object_review_count"], 24)
+        phase2 = summary["phase2"]
+        self.assertEqual(
+            phase2["status"], "correction_proposed_pending_human_review"
+        )
+        self.assertEqual(phase2["input_contract"], "images_only")
+        self.assertTrue(phase2["checkpoint_valid"])
+        self.assertEqual(
+            phase2["ring01_carryover"]["open_issues"][0]["status"],
+            "correction_proposed_pending_human_review",
+        )
+        self.assertEqual(
+            summary["phase2_paired"]["applicability"],
+            "not_applicable_under_image_only_constraint",
+        )
+        self.assertIn("test", summary["legacy_phase2"])
         geometry = summary["phase3"]["geometry_benchmark"]
         self.assertEqual(geometry["selected_object_count"], 24)
         self.assertEqual(geometry["backends"]["colmap"]["version"], "4.2.1")
@@ -243,6 +258,9 @@ class DatasetStudioApiTest(unittest.TestCase):
             'data-layer="depth_transform_uncertainty"',
             'data-layer="depth_overlay"',
             'id="phase1-complete-audit"',
+            'id="phase2-paired-summary"',
+            'id="phase2-blockers"',
+            'id="ring01-carryover-note"',
             'id="phase3-geometry"',
             'id="phase3-geometry-report"',
             'id="feature-rows"',
@@ -265,6 +283,12 @@ class DatasetStudioApiTest(unittest.TestCase):
         self.assertIn("/api/phase1/stl1/reviews/view", javascript)
         self.assertIn("/api/phase1/stl1/corrections/silhouette", javascript)
         self.assertIn('$("#phase1-complete-audit")', javascript)
+        self.assertIn('$("#phase2-paired-summary")', javascript)
+        self.assertIn("summary.legacy_phase2.test", javascript)
+        audit = self.client.get("/api/artifacts/phase2_reflection_audit")
+        self.assertEqual(audit.status_code, 200)
+        self.assertEqual(audit.mimetype, "image/png")
+        audit.close()
         script.close()
         page.close()
 

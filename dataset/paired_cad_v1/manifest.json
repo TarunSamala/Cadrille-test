@@ -1,0 +1,32 @@
+{
+  "schema_version": "lalitha_bible_phase2_paired_benchmark_v1",
+  "bible_phase": "Phase 2 - Real Paired Benchmark",
+  "status": "collection_required",
+  "target_objects": {
+    "pilot_minimum": 20,
+    "benchmark_minimum": 50,
+    "benchmark_target": 100
+  },
+  "capture_contract": {
+    "tier": "B",
+    "guided_view_count_min": 8,
+    "guided_view_count_max": 12,
+    "known_dimension_required": true,
+    "production_step_required": true,
+    "component_graph_required": true,
+    "scan_required_for_subset": true
+  },
+  "splits": {
+    "locked": false,
+    "assignments": {
+      "train": [],
+      "validation": [],
+      "test": []
+    }
+  },
+  "objects": [],
+  "notes": [
+    "STL-1 is not inserted here because it has no paired production CAD, physical dimensions, camera calibration, or legal provenance record.",
+    "An object enters this manifest only after its retained files satisfy the Phase 2 validator."
+  ]
+}

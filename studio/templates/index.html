@@ -60,7 +60,7 @@
           <div class="truth-icon">!</div>
           <div>
             <strong>Evidence first. Exact CAD is authoritative.</strong>
-            <p>Phase 2 scores measure agreement with machine pseudo-labels, not human-ground-truth accuracy. Phase 3 meshes are inferred, non-metric visual hulls—not editable B-rep, metric reconstruction or manufacturing validation.</p>
+            <p>Legacy Phase 2 scores measure agreement with machine pseudo-labels, not human-ground-truth accuracy. Legacy Phase 3 meshes are inferred, non-metric visual hulls—not editable B-rep, metric reconstruction or manufacturing validation.</p>
           </div>
         </section>
         <section id="governance-summary" class="metric-grid governance-grid" aria-label="Project Bible status"></section>
@@ -211,6 +211,44 @@
             </div>
             <img class="wide-evidence" src="/api/artifacts/ring01_all_views_depth_validation" alt="Ring01 all-view depth validation" loading="lazy">
           </article>
+        </section>
+
+        <section class="baseline-section" aria-labelledby="phase2-paired-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">IMAGE-ONLY PHASE 2 / REFLECTION RESILIENCE</p>
+              <h2 id="phase2-paired-title">Ring01 inner-shank correction</h2>
+            </div>
+            <div class="baseline-actions">
+              <a class="button secondary" href="/api/artifacts/phase2_image_only_report">Correction report</a>
+              <a class="button secondary" href="/api/artifacts/phase2_paired_report">Unavailable paired gate</a>
+              <a class="button secondary" href="/api/artifacts/phase1_ring01_review_notes">Ring01 review note</a>
+            </div>
+          </div>
+          <div id="phase2-paired-summary" class="metric-grid baseline-grid"></div>
+          <article class="evidence-card">
+            <div class="card-heading">
+              <div>
+                <p class="eyebrow">SOURCE / LEGACY / CORRECTED / UNCERTAINTY</p>
+                <h3>Angled-view reflection audit</h3>
+              </div>
+              <span class="pill warning">Human review required</span>
+            </div>
+            <img class="wide-evidence" src="/api/artifacts/phase2_reflection_audit" alt="Ring01 image-only inner-shank reflection correction audit" loading="lazy">
+          </article>
+          <div class="two-column phase1-evidence-grid">
+            <article class="evidence-card">
+              <p class="eyebrow">CLAIM LIMITS</p>
+              <h3>What this correction cannot establish</h3>
+              <ul id="phase2-blockers" class="limit-list"></ul>
+            </article>
+            <article class="evidence-card">
+              <p class="eyebrow">RING01 CARRY-OVER</p>
+              <h3>Reflection-sensitive evidence</h3>
+              <p id="ring01-carryover-note">Loading review note…</p>
+              <p class="subtle">This observation does not auto-approve the remaining Phase 1 review records.</p>
+            </article>
+          </div>
         </section>
 
         <section class="baseline-section" aria-labelledby="dataset-depth-title">

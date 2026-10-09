@@ -44,12 +44,12 @@ function showError(error) {
 function clearError() { $("#error-banner").classList.add("hidden"); }
 
 function renderSummary(summary) {
-  const test = summary.phase2.test || {};
+  const test = summary.legacy_phase2.test || {};
   const phase3Test = summary.phase3.mean_reprojection_iou_by_split?.test;
   $("#dataset-metrics").innerHTML = `
     <article class="metric"><span>Dataset objects</span><strong>${summary.dataset.object_count}</strong><small>${summary.dataset.image_count} source images · five views each</small></article>
-    <article class="metric"><span>Phase 2 self-consistency IoU</span><strong>${score(test.iou)}</strong><small>Machine pseudo-label target · not human GT</small></article>
-    <article class="metric"><span>Held-out Phase 3 IoU</span><strong>${score(phase3Test)}</strong><small>Non-metric reprojection score</small></article>
+    <article class="metric"><span>Legacy Phase 2 IoU</span><strong>${score(test.iou)}</strong><small>Machine pseudo-label target · not human GT</small></article>
+    <article class="metric"><span>Legacy Phase 3 IoU</span><strong>${score(phase3Test)}</strong><small>Non-metric reprojection score</small></article>
     <article class="metric"><span>Manufacturing validated</span><strong>${summary.phase3.manufacturing_accuracy_validated ? "Yes" : "No"}</strong><small>Scale and cameras are uncalibrated</small></article>`;
   const governance = summary.governance;
   $("#governance-summary").innerHTML = `
@@ -121,6 +121,19 @@ function renderSummary(summary) {
     <article class="metric"><span>Evidence approved</span><strong>${reviewGate.approved_evidence_count ?? 0}</strong><small>of ${reviewGate.evidence_review_count ?? "—"} human decisions</small></article>
     <article class="metric"><span>Evidence pending</span><strong>${reviewGate.pending_evidence_count ?? "—"}</strong><small>Seven review categories per view</small></article>
     <article class="metric"><span>Object inventories pending</span><strong>${reviewGate.pending_object_review_count ?? "—"}</strong><small>Cross-view stones, prongs and relief</small></article>`;
+
+  const phase2 = summary.phase2 || {};
+  const phase2Method = phase2.method || {};
+  const carryover = phase2.ring01_carryover || {};
+  const openIssues = carryover.open_issues || [];
+  $("#phase2-paired-summary").innerHTML = `
+    <article class="metric"><span>Image-only Phase 2</span><strong class="compact-value">${escapeHtml(humanize(phase2.status || "not started"))}</strong><small>No CAD, scans, dimensions or calibration used</small></article>
+    <article class="metric"><span>Corrected pixels</span><strong>${phase2Method.correction_pixel_count ?? 0}</strong><small>Topology-inferred · pending human review</small></article>
+    <article class="metric"><span>Inner-boundary consistency</span><strong>${score(phase2Method.corrected_opening_ellipse_iou, 4)}</strong><small>Before: ${score(phase2Method.baseline_opening_ellipse_iou, 4)}</small></article>
+    <article class="metric"><span>Ring01 carry-over</span><strong>${openIssues.length}</strong><small>${openIssues.length ? "Correction proposed" : "No recorded issue"}</small></article>`;
+  $("#phase2-blockers").innerHTML = (phase2.limitations || [])
+    .map((item) => `<li>${escapeHtml(item)}</li>`).join("");
+  $("#ring01-carryover-note").textContent = carryover.overall_observation || "No carry-over note recorded.";
 }
 
 const PHASE1_VIEWS = ["front", "side", "top", "angled", "back"];

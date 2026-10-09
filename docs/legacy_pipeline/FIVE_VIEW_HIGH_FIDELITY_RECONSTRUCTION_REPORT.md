@@ -293,7 +293,7 @@ The dataset visual-hull experiment created 24 watertight coarse meshes at 128-vo
 
 These are non-metric visual-hull reprojection scores. They validate the batch workflow, not hidden shape or manufacturing geometry.
 
-![Dataset phase comparison](../dataset/phase_runs/v1/comparisons/dataset_processing_comparison.png)
+![Dataset phase comparison](../../dataset/phase_runs/v1/comparisons/dataset_processing_comparison.png)
 
 ### 6.3 Ring01 exact reconstruction checkpoint
 
@@ -312,7 +312,7 @@ Ring01 Phase 3.3.1 produced one valid metal B-rep, one separate gemstone, a two-
 
 The exact checkpoint is structurally useful, but it has not reached the 0.90 research target, the complete Phase 3 exit gate, or manufacturing validation. Human-reviewed masks and metric scale remain missing.
 
-![Ring01 Phase 3.3.2 inspection preview](../data/ring01_phase3_3_2/ring01_phase3_3_2_visibility_preview.png)
+![Ring01 Phase 3.3.2 inspection preview](../../data/ring01_phase3_3_2/ring01_phase3_3_2_visibility_preview.png)
 
 ### 6.4 External image-to-3D benchmark findings
 
@@ -325,7 +325,7 @@ The benchmark validates exported geometry using independent renders before metri
 - **TRELLIS:** the official hosted environment failed at configuration level.
 - **TRELLIS.2:** reached a running service, but the free hosted quota blocked inference; no result and no paid transaction were accepted.
 
-![Independent InstantMesh export preview](../runs/benchmarks/2d_to_3d/elephant/instantmesh/run-002/previews/instantmesh_elephant_actual_glb_preview.png)
+![Independent InstantMesh export preview](../../runs/benchmarks/2d_to_3d/elephant/instantmesh/run-002/previews/instantmesh_elephant_actual_glb_preview.png)
 
 The lesson is that generative models are useful candidate generators, not geometric authorities. A visually attractive website preview is not sufficient; the actual OBJ/GLB must be independently rendered, inspected and validated.
 

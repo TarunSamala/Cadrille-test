@@ -6,8 +6,10 @@ Lalitha Studio is a lightweight Flask evidence console for `dataset/STL-1`, its 
 
 - All 24 rings and their five source views.
 - The normalized 768 px images, pseudo-silhouettes and OpenCV edge maps.
-- Per-view Phase 2 IoU, Dice and boundary-F1 measurements.
-- The retained Phase 1 to Phase 2.2 audit sheet for every object.
+- Per-view legacy Phase 2 IoU, Dice and boundary-F1 measurements.
+- The retained legacy Phase 1 to Phase 2.2 audit sheet for every object.
+- Active image-only Phase 2 Ring01 reflection correction, uncertainty and audit.
+- The original paired-CAD gate marked unavailable under the image-only input constraint.
 - Held-out prediction sheets for the three test objects.
 - Experimental Phase 3 visual-hull previews and validation metadata.
 - Direct downloads of each non-metric STL and 3MF artifact.
@@ -26,7 +28,10 @@ This interface follows `BASELINE ARCHITECTURE V1.0`:
 - The current five-view dataset is classified as **Tier A — exploratory**.
 - Source images remain immutable observed evidence.
 - Normalization, pseudo-masks, edges and visual hulls are derived/inferred evidence.
-- Phase 2 IoU is labelled pseudo-label self-consistency, not human-ground-truth accuracy.
+- Legacy Phase 2 IoU is labelled pseudo-label self-consistency, not human-ground-truth accuracy.
+- Image-only Phase 2 is displayed separately from legacy pseudo-mask metrics.
+- The original Bible paired-data gate is retained as unavailable and does not
+  request STEP, measurements, scans or calibration from the user.
 - Phase 3 STL/3MF files are research-only derived meshes, not authoritative CAD.
 - STEP/exact B-rep remains the required authoritative functional-geometry output.
 - Metric, camera, reviewed-component, exact-B-rep and manufacturing gates are shown as blocked when their required evidence is absent.

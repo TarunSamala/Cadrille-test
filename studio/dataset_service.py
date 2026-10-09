@@ -83,16 +83,38 @@ class DatasetRepository:
             self.phase_root / "phase1_complete_features_v1" / "report.json"
         )
         self.phase0_environment = self._read_json(
-            self.repo_root / "docs" / "reproducibility" / "environment_manifest.json"
+            self.repo_root
+            / "docs"
+            / "bible_implementation"
+            / "phase_0_reproducibility"
+            / "environment_manifest.json"
         )
         self.phase0_licenses = self._read_json(
             self.repo_root
             / "docs"
-            / "reproducibility"
+            / "bible_implementation"
+            / "phase_0_reproducibility"
             / "dependency_license_manifest.json"
         )
         self.phase1_ground_truth = self._read_json(
             self.repo_root / "data" / "ring01_ground_truth_v1" / "manifest.json"
+        )
+        self.ring01_review_notes = self._read_json(
+            self.repo_root
+            / "data"
+            / "ring01_ground_truth_v1"
+            / "review"
+            / "ring01_review_notes.json"
+        )
+        self.phase2_paired = self._read_json(
+            self.repo_root / "dataset" / "paired_cad_v1" / "report.json"
+        )
+        self.phase2_image_only = self._read_json(
+            self.repo_root
+            / "data"
+            / "ring01_image_only"
+            / "reflection_correction_v1"
+            / "report.json"
         )
         self.stl1_phase1_review_path, self.stl1_phase1_review = (
             load_stl1_phase1_manifest(self.repo_root)
@@ -307,6 +329,14 @@ class DatasetRepository:
             "phase1_ground_truth": self._phase1_ground_truth_summary(),
             "stl1_phase1_review": self._stl1_phase1_review_summary(),
             "phase2": {
+                **deepcopy(self.phase2_image_only),
+                "ring01_carryover": deepcopy(self.ring01_review_notes),
+            },
+            "phase2_paired": {
+                **deepcopy(self.phase2_paired),
+                "applicability": "not_applicable_under_image_only_constraint",
+            },
+            "legacy_phase2": {
                 "status": "pseudo-label self-consistency benchmark; not human-ground-truth accuracy",
                 "test": deepcopy(self.phase_summary.get("test", {})),
                 "metrics_by_split": deepcopy(self.audit_report.get("metrics_by_split", {})),
@@ -993,15 +1023,18 @@ class DatasetRepository:
         reproducibility = {
             "phase0_environment": self.repo_root
             / "docs"
-            / "reproducibility"
+            / "bible_implementation"
+            / "phase_0_reproducibility"
             / "environment_manifest.json",
             "phase0_licenses": self.repo_root
             / "docs"
-            / "reproducibility"
+            / "bible_implementation"
+            / "phase_0_reproducibility"
             / "dependency_license_manifest.json",
             "phase0_status": self.repo_root
             / "docs"
-            / "reproducibility"
+            / "bible_implementation"
+            / "phase_0_reproducibility"
             / "PHASE0_STATUS.md",
             "phase1_manifest": self.repo_root
             / "data"
@@ -1044,6 +1077,29 @@ class DatasetRepository:
             / "report.json",
             "ring01_pixel_feature_audit": self.repo_root
             / self.phase1_pixel_features["audit_sheet"],
+            "phase1_ring01_review_notes": self.repo_root
+            / "data"
+            / "ring01_ground_truth_v1"
+            / "review"
+            / "ring01_review_notes.json",
+            "phase2_paired_manifest": self.repo_root
+            / "dataset"
+            / "paired_cad_v1"
+            / "manifest.json",
+            "phase2_paired_report": self.repo_root
+            / "dataset"
+            / "paired_cad_v1"
+            / "report.json",
+            "phase2_image_only_report": self.repo_root
+            / "data"
+            / "ring01_image_only"
+            / "reflection_correction_v1"
+            / "report.json",
+            "phase2_reflection_audit": self.repo_root
+            / "data"
+            / "ring01_image_only"
+            / "reflection_correction_v1"
+            / "ring01_angled_reflection_audit.png",
         }
         if name in reproducibility:
             return self._safe_path(reproducibility[name])

@@ -1,0 +1,48 @@
+{
+  "schema_version": "lalitha_bible_phase2_paired_benchmark_v1",
+  "bible_phase": "Phase 2 - Real Paired Benchmark",
+  "status": "collection_required",
+  "decision": "phase2_infrastructure_ready_data_blocked",
+  "object_count": 0,
+  "valid_object_count": 0,
+  "invalid_object_count": 0,
+  "design_family_count": 0,
+  "scan_truth_object_count": 0,
+  "legal_provenance_object_count": 0,
+  "capture_contract": {
+    "tier": "B",
+    "guided_view_count_min": 8,
+    "guided_view_count_max": 12,
+    "production_step_required": true,
+    "physical_measurement_required": true,
+    "component_graph_required": true
+  },
+  "split": {
+    "locked": false,
+    "complete": true,
+    "disjoint": true,
+    "entry_assignments_match": true,
+    "counts": {
+      "train": 0,
+      "validation": 0,
+      "test": 0
+    }
+  },
+  "requirements": {
+    "pilot_object_count_at_least_20": false,
+    "several_design_families_at_least_3": false,
+    "all_objects_have_legal_provenance": false,
+    "scan_subset_present": false,
+    "object_level_split_complete_and_disjoint": true,
+    "test_split_locked": false
+  },
+  "blockers": [
+    "pilot_object_count_at_least_20",
+    "several_design_families_at_least_3",
+    "all_objects_have_legal_provenance",
+    "scan_subset_present",
+    "test_split_locked"
+  ],
+  "objects": [],
+  "accuracy_claim": "none_until_paired_truth_is_collected_and_benchmarked"
+}

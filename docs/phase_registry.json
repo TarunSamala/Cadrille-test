@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "canonical_system": "bible_v1_0",
+  "active_execution_profile": "image_only_reconstruction_v1",
+  "execution_profiles": {
+    "image_only_reconstruction_v1": {
+      "input_contract": "images_only",
+      "active_stage": "image_only_phase2_reflection_resilient_evidence",
+      "allowed_inputs": ["one_to_many_reference_images"],
+      "unavailable_inputs": [
+        "production_cad",
+        "physical_measurements",
+        "3d_scans",
+        "camera_calibration"
+      ],
+      "claim_limit": "visual_and_structural_hypotheses_with_explicit_uncertainty",
+      "bible_phase_2_status": "not_applicable_under_image_only_constraint"
+    }
+  },
+  "systems": {
+    "bible_v1_0": {
+      "canonical": true,
+      "roadmap": "docs/bible_v1_0/19_DEVELOPMENT_ROADMAP.md",
+      "implementation_root": "docs/bible_implementation",
+      "phases": [
+        {"id": "0", "name": "Reproducibility Freeze"},
+        {"id": "1", "name": "Ground-Truth Ring01"},
+        {"id": "2", "name": "Real Paired Benchmark"},
+        {"id": "3", "name": "Camera / Geometry Evidence Benchmark"},
+        {"id": "4", "name": "Universal Component & Constraint Graph"},
+        {"id": "5", "name": "Exact CAD V2"},
+        {"id": "6", "name": "Intrinsic Detail Capture Lab"},
+        {"id": "7", "name": "Hybrid Detail Geometry"},
+        {"id": "8", "name": "Manufacturing Engine"},
+        {"id": "9", "name": "B2B Pilot"}
+      ]
+    },
+    "legacy_pipeline": {
+      "canonical": false,
+      "documentation_root": "docs/legacy_pipeline",
+      "artifact_roots": ["data/ring01_phase*", "dataset/phase_runs/v1"],
+      "phases": [
+        {"id": "1", "name": "Image preprocessing and feature proposals"},
+        {"id": "2", "name": "Segmentation and mask refinement"},
+        {"id": "2.2", "name": "Refined segmentation"},
+        {"id": "2.3", "name": "Detail and semantic proposals"},
+        {"id": "3", "name": "Coarse or non-metric reconstruction"},
+        {"id": "3.2", "name": "Topology correction"},
+        {"id": "3.3", "name": "Ring01 exact-solid refinement"},
+        {"id": "3.3.1", "name": "Curved four-claw refinement"},
+        {"id": "3.3.2", "name": "Four-claw visibility correction"}
+      ]
+    }
+  },
+  "naming_rule": "New phase work uses Bible numbering and must include bible in ambiguous phase-specific module or artifact names. Existing legacy paths remain unchanged for provenance."
+}

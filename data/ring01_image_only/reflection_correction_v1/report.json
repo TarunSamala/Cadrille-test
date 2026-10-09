@@ -1,0 +1,80 @@
+{
+  "schema_version": "lalitha_image_only_reflection_correction_v1",
+  "execution_profile": "image_only_reconstruction_v1",
+  "object_id": "ring01",
+  "view": "angled",
+  "status": "correction_proposed_pending_human_review",
+  "input_contract": "images_only",
+  "authority": "topology_informed_machine_proposal",
+  "method": {
+    "name": "inner_opening_ellipse_residual_fill",
+    "description": "Fill only inward opening notches outside a robust ellipse, below the head region, and within six pixels of observed shank metal.",
+    "ellipse": {
+      "center_xy": [
+        132.40243530273438,
+        130.19094848632812
+      ],
+      "axes_wh": [
+        57.21458435058594,
+        144.1873016357422
+      ],
+      "angle_degrees": 117.20465087890625
+    },
+    "correction_y_min": 119,
+    "max_shank_distance_px": 6.0,
+    "baseline_opening_ellipse_iou": 0.7944390648775764,
+    "corrected_opening_ellipse_iou": 0.8380271413979279,
+    "correction_pixel_count": 376,
+    "opening_pixel_count_before": 6330,
+    "opening_pixel_count_after": 5954,
+    "max_observed_correction_distance_px": 5.196899890899658
+  },
+  "checks": {
+    "source_unchanged": true,
+    "exterior_silhouette_unchanged": true,
+    "no_foreground_removed": true,
+    "central_opening_preserved": true,
+    "inner_boundary_consistency_improved": true,
+    "correction_local_to_observed_shank": true
+  },
+  "inputs": {
+    "source": "data/ring01_reference_images/ring01_angled.png",
+    "source_sha256": "4df18b5051d962f5fe4c5d9eab3e2818fd5d2dc3047df866b7207ab1b3aaa9c6",
+    "baseline_masks": {
+      "jewelry": {
+        "path": "data/ring01_phase2_refined/masks/jewelry/ring01_angled_jewelry.png",
+        "sha256": "b385452cee8ac92ab5fb07a21f4f06eed23421ee6715b35a3ca1dcd507f02332"
+      },
+      "metal": {
+        "path": "data/ring01_phase2_refined/masks/metal/ring01_angled_metal.png",
+        "sha256": "e051a825701f8aee2a7c1565f42663cc1f463c5cba8ff0722f08dabd30e913aa"
+      },
+      "shank": {
+        "path": "data/ring01_phase2_refined/masks/shank/ring01_angled_shank.png",
+        "sha256": "3047154b79f72c933965f0b9d805fa2dfb0821e50e81343a5b7c450b6db3200b"
+      }
+    },
+    "negative_space": {
+      "path": "data/ring01_ground_truth_v1/proposals/negative_space/ring01_angled_negative_space_proposal.png",
+      "sha256": "e0840c769c692808d3ec59b1d13575916f4a35c00b59c5373e9d202d27a870d6"
+    }
+  },
+  "outputs": {
+    "masks": {
+      "jewelry": "data/ring01_image_only/reflection_correction_v1/masks/jewelry/ring01_angled_jewelry.png",
+      "metal": "data/ring01_image_only/reflection_correction_v1/masks/metal/ring01_angled_metal.png",
+      "shank": "data/ring01_image_only/reflection_correction_v1/masks/shank/ring01_angled_shank.png",
+      "negative_space": "data/ring01_image_only/reflection_correction_v1/masks/negative_space/ring01_angled_negative_space.png"
+    },
+    "correction_mask": "data/ring01_image_only/reflection_correction_v1/uncertainty/ring01_angled_correction.png",
+    "uncertainty_mask": "data/ring01_image_only/reflection_correction_v1/uncertainty/ring01_angled_correction_uncertainty.png",
+    "audit": "data/ring01_image_only/reflection_correction_v1/ring01_angled_reflection_audit.png"
+  },
+  "limitations": [
+    "The filled pixels are inferred from image topology, not measured geometry.",
+    "The correction does not establish metric depth, hidden geometry or CAD truth.",
+    "The proposal remains pending identified human review.",
+    "Only the visually defective angled view is modified; side and back remain unchanged."
+  ],
+  "checkpoint_valid": true
+}
